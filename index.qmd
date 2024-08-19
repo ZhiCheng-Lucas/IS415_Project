@@ -21,7 +21,27 @@ In this website, you will find my relevant coursework for IS415 Geospatial Analy
 
 [In-Class Exercise 2](/In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html)
 
+Personal Notes below:
+
+To manually change the epsg code without transforming
+
+```         
+# To manually change the epsg code without transforming
+mpsz3414 <- st_set_crs(mpsz, 3414)
+# To transform; WGS84 -> SVY21
+preschool3414 <- st_transform(preschool, 
+                              crs = 3414)
+                              
+# CSV files ; 4326 is WGS84, 3414 is SCY21
+listings_sf <- st_as_sf(listings, 
+                       coords = c("longitude", "latitude"),
+                       crs=4326) %>%
+  st_transform(crs = 3414)
+```
+
 ### Interesting Website
+
+<https://epsg.io/> - provides a list of country coordinates system such as svy21
 
 <https://colorbrewer2.org/>
 
@@ -53,7 +73,23 @@ Based on a map projection such as transverse Mercator, Albers equal area, or Rob
 
 PCS provides consistent length and area measurement across space. Hence, it is important to transform a geospatial data from GCS to PCS before performing geospatial analysis.
 
-### Placeholder - Please Ignore for now.
+Sample ESRI shapefile code chunk:
+
+```         
+sf_mpsz = st_read(dsn = "data/geospatial", layer = "MP14_SUBZONE")
+```
+
+```         
+st_write(st_poly, "data/my_poly.shp")
+```
+
+Sample code chunk to import kml file:
+
+```         
+sf_preschool = st_read("data/geospatial/pre-schools-location-kml.kml")
+```
+
+Placeholder - Please Ignore for now.
 
 [Hands-on Exercise 3](/Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html)
 

@@ -229,7 +229,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#interesting-website" id="toc-interesting-website" class="nav-link active" data-scroll-target="#interesting-website">Interesting Website</a></li>
   <li><a href="#geographical-coordinate-systems" id="toc-geographical-coordinate-systems" class="nav-link" data-scroll-target="#geographical-coordinate-systems">Geographical Coordinate Systems</a></li>
   <li><a href="#projected-coordinate-systems-pcs" id="toc-projected-coordinate-systems-pcs" class="nav-link" data-scroll-target="#projected-coordinate-systems-pcs">Projected Coordinate Systems (PCS)</a></li>
-  <li><a href="#placeholder---please-ignore-for-now." id="toc-placeholder---please-ignore-for-now." class="nav-link" data-scroll-target="#placeholder---please-ignore-for-now.">Placeholder - Please Ignore for now.</a></li>
   </ul>
 </nav>
     </div>
@@ -281,8 +280,22 @@ ul.task-list li input[type="checkbox"] {
 <p><a href=".\In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html">In-Class Exercise 1</a></p>
 <p><a href=".\Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">Hands-on Exercise 2</a></p>
 <p><a href=".\In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html">In-Class Exercise 2</a></p>
+<p>Personal Notes below:</p>
+<p>To manually change the epsg code without transforming</p>
+<pre><code># To manually change the epsg code without transforming
+mpsz3414 &lt;- st_set_crs(mpsz, 3414)
+# To transform; WGS84 -&gt; SVY21
+preschool3414 &lt;- st_transform(preschool, 
+                              crs = 3414)
+                              
+# CSV files ; 4326 is WGS84, 3414 is SCY21
+listings_sf &lt;- st_as_sf(listings, 
+                       coords = c("longitude", "latitude"),
+                       crs=4326) %&gt;%
+  st_transform(crs = 3414)</code></pre>
 <section id="interesting-website" class="level3">
 <h3 class="anchored" data-anchor-id="interesting-website">Interesting Website</h3>
+<p><a href="https://epsg.io/" class="uri">https://epsg.io/</a> - provides a list of country coordinates system such as svy21</p>
 <p><a href="https://colorbrewer2.org/" class="uri">https://colorbrewer2.org/</a></p>
 <section id="data-sources" class="level4">
 <h4 class="anchored" data-anchor-id="data-sources">Data Sources:</h4>
@@ -304,9 +317,12 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="projected-coordinate-systems-pcs">Projected Coordinate Systems (PCS)</h3>
 <p>Based on a map projection such as transverse Mercator, Albers equal area, or Robinson.</p>
 <p>PCS provides consistent length and area measurement across space. Hence, it is important to transform a geospatial data from GCS to PCS before performing geospatial analysis.</p>
-</section>
-<section id="placeholder---please-ignore-for-now." class="level3">
-<h3 class="anchored" data-anchor-id="placeholder---please-ignore-for-now.">Placeholder - Please Ignore for now.</h3>
+<p>Sample ESRI shapefile code chunk:</p>
+<pre><code>sf_mpsz = st_read(dsn = "data/geospatial", layer = "MP14_SUBZONE")</code></pre>
+<pre><code>st_write(st_poly, "data/my_poly.shp")</code></pre>
+<p>Sample code chunk to import kml file:</p>
+<pre><code>sf_preschool = st_read("data/geospatial/pre-schools-location-kml.kml")</code></pre>
+<p>Placeholder - Please Ignore for now.</p>
 <p><a href=".\Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html">Hands-on Exercise 3</a></p>
 <p><a href=".\In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html">In-Class Exercise 3</a></p>
 <p><a href=".\Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html">Hands-on Exercise 4</a> <a href=".\In-Class_Ex/In-Class_Ex04/In-Class_Ex04.html">In-Class Exercise 4</a> <a href=".\Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html">Hands-on Exercise 5</a> <a href=".\In-Class_Ex/In-Class_Ex05/In-Class_Ex05.html">In-Class Exercise 5</a> <a href=".\Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html">Hands-on Exercise 6</a> <a href=".\In-Class_Ex/In-Class_Ex06/In-Class_Ex06.html">In-Class Exercise 6</a></p>
