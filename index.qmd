@@ -1,5 +1,8 @@
 ---
-title: "IS415"
+title: "Home Page"
+author: "Chong Zhi Cheng"
+date: "August 19, 2024"
+date-modified: "last-modified"
 ---
 
 In this website, you will find my relevant coursework for IS415 Geospatial Analytics and Applications.
@@ -13,6 +16,24 @@ In this website, you will find my relevant coursework for IS415 Geospatial Analy
 [Hands-on Exercise 1](/Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html)
 
 [In-Class Exercise 1](/In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html)
+
+[Hands-on Exercise 2](/Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html)
+
+[In-Class Exercise 2](/In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html)
+
+### Interesting Website
+
+<https://colorbrewer2.org/>
+
+#### Data Sources:
+
+<https://data.gov.sg/>
+
+<https://www.singstat.gov.sg/>
+
+<https://datamall.lta.gov.sg/content/datamall/en.html>
+
+<https://insideairbnb.com/get-the-data/>
 
 General Notes. Placeholder for now.
 
@@ -31,3 +52,17 @@ GCS, however, are not appropriate for distance and area measurements. In this fi
 Based on a map projection such as transverse Mercator, Albers equal area, or Robinson.
 
 PCS provides consistent length and area measurement across space. Hence, it is important to transform a geospatial data from GCS to PCS before performing geospatial analysis.
+
+Placeholder
+
+[Hands-on Exercise 3](/Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html)
+
+[In-Class Exercise 3](/In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html)
+
+[Hands-on Exercise 4](/Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html) [In-Class Exercise 4](/In-Class_Ex/In-Class_Ex04/In-Class_Ex04.html) [Hands-on Exercise 5](/Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html) [In-Class Exercise 5](/In-Class_Ex/In-Class_Ex05/In-Class_Ex05.html) [Hands-on Exercise 6](/Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html) [In-Class Exercise 6](/In-Class_Ex/In-Class_Ex06/In-Class_Ex06.html)
+
+[Hands-on Exercise 7](/Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html)
+
+[In-Class Exercise 7](/In-Class_Ex/In-Class_Ex07/In-Class_Ex07.html) [Hands-on Exercise 8](/Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.html) [In-Class Exercise 8](/In-Class_Ex/In-Class_Ex08/In-Class_Ex08.html)
+
+[Hands-on Exercise 9](/Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html) [In-Class Exercise 9](/In-Class_Ex/In-Class_Ex09/In-Class_Ex09.html) [Hands-on Exercise 10](/Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html) [In-Class Exercise 10](/In-Class_Ex/In-Class_Ex10/In-Class_Ex10.html) [Hands-on Exercise 11](/Hands-on_Ex/Hands-on_Ex11/Hands-on_Ex11.html) [In-Class Exercise 11](/In-Class_Ex/In-Class_Ex11/In-Class_Ex11.html) [Hands-on Exercise 12](/Hands-on_Ex/Hands-on_Ex12/Hands-on_Ex12.html) [In-Class Exercise 12](/In-Class_Ex/In-Class_Ex12/In-Class_Ex12.html)
