@@ -33,29 +33,29 @@ website:
           href: "Hands-on_Ex/Hands-on_Ex12/Hands-on_Ex12.html"
     - text: "In-Class Exercise"
       menu:
-        - text: "In-Class Exercise 1"
+        - text: "In-Class Exercise 1: Introduction to Geospatial Analytics"
           href: "In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html"
-        - text: "In-Class Exercise 2"
+        - text: "In-Class Exercise 2: GeoVisualisation and Analytical Mapping"
           href: "In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html"
-        - text: "In-Class Exercise 3"
+        - text: "In-Class Exercise 3: Spatial Point Patterns Analysis"
           href: "In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html"
-        - text: "In-Class Exercise 4"
+        - text: "In-Class Exercise 4: Advanced Spatial Point Patterns Analysis"
           href: "In-Class_Ex/In-Class_Ex04/In-Class_Ex04.html"
-        - text: "In-Class Exercise 5"
+        - text: "In-Class Exercise 5: Spatial Weights and Applications"
           href: "In-Class_Ex/In-Class_Ex05/In-Class_Ex05.html"
-        - text: "In-Class Exercise 6"
+        - text: "In-Class Exercise 6: Measures of Global and Local Spatial Association"
           href: "In-Class_Ex/In-Class_Ex06/In-Class_Ex06.html"
-        - text: "In-Class Exercise 7"
+        - text: "In-Class Exercise 7: Shiny for Building Web-enabled Geospatial Analytics Application"
           href: "In-Class_Ex/In-Class_Ex07/In-Class_Ex07.html"
-        - text: "In-Class Exercise 8"
+        - text: "In-Class Exercise 8: Geographic Segmentation"
           href: "In-Class_Ex/In-Class_Ex08/In-Class_Ex08.html"
-        - text: "In-Class Exercise 9"
+        - text: "In-Class Exercise 9: Geographically Weighted Regression"
           href: "In-Class_Ex/In-Class_Ex09/In-Class_Ex09.html"
-        - text: "In-Class Exercise 10"
+        - text: "In-Class Exercise 10: Geographically Weighted Predictive Modelling"
           href: "In-Class_Ex/In-Class_Ex10/In-Class_Ex10.html"
-        - text: "In-Class Exercise 11"
+        - text: "In-Class Exercise 11: Modelling Geographic of Accessibility"
           href: "In-Class_Ex/In-Class_Ex11/In-Class_Ex11.html"
-        - text: "In-Class Exercise 12"
+        - text: "In-Class Exercise 12: Spatial Interaction Models"
           href: "In-Class_Ex/In-Class_Ex12/In-Class_Ex12.html"
     right:
       - href: index.qmd
@@ -69,4 +69,3 @@ format:
     toc: true
 
 editor: visual
-
