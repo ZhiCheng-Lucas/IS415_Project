@@ -7,3 +7,21 @@ In this website, you will find my relevant coursework for IS415 Geospatial Analy
 <!-- [Hands-on Exercise 1](/Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html) -->
 
 [Hands-on Exercise 1](/Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html)
+
+General Notes. Placeholder for now.
+
+GCS is the base. Convert to PCS to project since GCS is not appropriate for distance and area measurements.
+
+### Geographical Coordinate Systems
+
+GCS define locations on the earth using a three-dimensional spherical surface. For example, WGS84.
+
+They provides accuracy position information. Unit of measurement will be in either decimal degree or degree-minute-second format.
+
+GCS, however, are not appropriate for distance and area measurements. In this figure, it is clear that 1 degree distance at the north pole is relatively shorter than 1 degree at the equator.
+
+### Projected Coordinate Systems (PCS)
+
+Based on a map projection such as transverse Mercator, Albers equal area, or Robinson.
+
+PCS provides consistent length and area measurement across space. Hence, it is important to transform a geospatial data from GCS to PCS before performing geospatial analysis.

@@ -95,7 +95,51 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
         <li>
     <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
- <span class="dropdown-text">Hands-on Exercise</span></a>
+ <span class="dropdown-text">Hands-on Exercise 1: Introduction to Geospatial Analytics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
+ <span class="dropdown-text">Hands-on Exercise 2: GeoVisualisation and Analytical Mapping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html">
+ <span class="dropdown-text">Hands-on Exercise 3: Spatial Point Patterns Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
+ <span class="dropdown-text">Hands-on Exercise 4: Advanced Spatial Point Patterns Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html">
+ <span class="dropdown-text">Hands-on Exercise 5: Spatial Weights and Applications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html">
+ <span class="dropdown-text">Hands-on Exercise 6: Measures of Global and Local Spatial Association</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html">
+ <span class="dropdown-text">Hands-on Exercise 7: Shiny for Building Web-enabled Geospatial Analytics Application</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.html">
+ <span class="dropdown-text">Hands-on Exercise 8: Geographic Segmentation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html">
+ <span class="dropdown-text">Hands-on Exercise 9: Geographically Weighted Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html">
+ <span class="dropdown-text">Hands-on Exercise 10: Geographically Weighted Predictive Modelling</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex11/Hands-on_Ex11.html">
+ <span class="dropdown-text">Hands-on Exercise 11: Modelling Geographic of Accessibility</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex12/Hands-on_Ex12.html">
+ <span class="dropdown-text">Hands-on Exercise 12: Spatial Interaction Models</span></a>
   </li>  
     </ul>
   </li>
@@ -121,7 +165,14 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#geographical-coordinate-systems" id="toc-geographical-coordinate-systems" class="nav-link active" data-scroll-target="#geographical-coordinate-systems">Geographical Coordinate Systems</a></li>
+  <li><a href="#projected-coordinate-systems-pcs" id="toc-projected-coordinate-systems-pcs" class="nav-link" data-scroll-target="#projected-coordinate-systems-pcs">Projected Coordinate Systems (PCS)</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -148,8 +199,21 @@ ul.task-list li input[type="checkbox"] {
 <p>In this website, you will find my relevant coursework for IS415 Geospatial Analytics and Applications.</p>
 <!-- [Hands-on Exercise 1](/Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html) -->
 <p><a href=".\Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">Hands-on Exercise 1</a></p>
+<p>General Notes. Placeholder for now.</p>
+<p>GCS is the base. Convert to PCS to project since GCS is not appropriate for distance and area measurements.</p>
+<section id="geographical-coordinate-systems" class="level3">
+<h3 class="anchored" data-anchor-id="geographical-coordinate-systems">Geographical Coordinate Systems</h3>
+<p>GCS define locations on the earth using a three-dimensional spherical surface. For example, WGS84.</p>
+<p>They provides accuracy position information. Unit of measurement will be in either decimal degree or degree-minute-second format.</p>
+<p>GCS, however, are not appropriate for distance and area measurements. In this figure, it is clear that 1 degree distance at the north pole is relatively shorter than 1 degree at the equator.</p>
+</section>
+<section id="projected-coordinate-systems-pcs" class="level3">
+<h3 class="anchored" data-anchor-id="projected-coordinate-systems-pcs">Projected Coordinate Systems (PCS)</h3>
+<p>Based on a map projection such as transverse Mercator, Albers equal area, or Robinson.</p>
+<p>PCS provides consistent length and area measurement across space. Hence, it is important to transform a geospatial data from GCS to PCS before performing geospatial analysis.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
