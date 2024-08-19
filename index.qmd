@@ -6,7 +6,13 @@ In this website, you will find my relevant coursework for IS415 Geospatial Analy
 
 <!-- [Hands-on Exercise 1](/Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html) -->
 
+<!-- [In-Class Exercise 1](/In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html)-->
+
+<!-- Use create link. ctrl k or insert. -->
+
 [Hands-on Exercise 1](/Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html)
+
+[In-Class Exercise 1](/In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html)
 
 General Notes. Placeholder for now.
 

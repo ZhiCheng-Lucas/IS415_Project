@@ -31,7 +31,32 @@ website:
           href: "Hands-on_Ex/Hands-on_Ex11/Hands-on_Ex11.html"
         - text: "Hands-on Exercise 12: Spatial Interaction Models"
           href: "Hands-on_Ex/Hands-on_Ex12/Hands-on_Ex12.html"
-
+    - text: "In-Class Exercise"
+      menu:
+        - text: "In-Class Exercise 1"
+          href: "In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html"
+        - text: "In-Class Exercise 2"
+          href: "In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html"
+        - text: "In-Class Exercise 3"
+          href: "In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html"
+        - text: "In-Class Exercise 4"
+          href: "In-Class_Ex/In-Class_Ex04/In-Class_Ex04.html"
+        - text: "In-Class Exercise 5"
+          href: "In-Class_Ex/In-Class_Ex05/In-Class_Ex05.html"
+        - text: "In-Class Exercise 6"
+          href: "In-Class_Ex/In-Class_Ex06/In-Class_Ex06.html"
+        - text: "In-Class Exercise 7"
+          href: "In-Class_Ex/In-Class_Ex07/In-Class_Ex07.html"
+        - text: "In-Class Exercise 8"
+          href: "In-Class_Ex/In-Class_Ex08/In-Class_Ex08.html"
+        - text: "In-Class Exercise 9"
+          href: "In-Class_Ex/In-Class_Ex09/In-Class_Ex09.html"
+        - text: "In-Class Exercise 10"
+          href: "In-Class_Ex/In-Class_Ex10/In-Class_Ex10.html"
+        - text: "In-Class Exercise 11"
+          href: "In-Class_Ex/In-Class_Ex11/In-Class_Ex11.html"
+        - text: "In-Class Exercise 12"
+          href: "In-Class_Ex/In-Class_Ex12/In-Class_Ex12.html"
     right:
       - href: index.qmd
         text: Home
