@@ -1,0 +1,24 @@
+---
+title: "In-Class Exercise 01: Geospatial Data Science"
+author: "Chong Zhi Cheng"
+date: "August 19, 2024"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  freeze: true
+---
+
+### Getting Started
+
+#### Install and Launch R Packages
+
+```{r}
+pacman::p_load(sf, tidyverse)
+```
+
+### **Importing polygon feature data in shapefile format**
+
+```{r}
+mpsz = st_read(dsn = "./data/", layer = "MPSZ-2019")
+```

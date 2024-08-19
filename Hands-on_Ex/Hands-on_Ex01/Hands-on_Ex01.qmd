@@ -1,5 +1,5 @@
 ---
-title: "In-Class Exercise 01: Geospatial Data Science"
+title: "Hands-On Exercise 01: Geospatial Data Science"
 author: "Chong Zhi Cheng"
 date: "August 17, 2024"
 date-modified: "last-modified"
