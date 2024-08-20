@@ -7,4 +7,5 @@
 .httr-oauth
 .DS_Store
 data/
-cheatsheets-main/
+cheatsheets-all/
+cheatsheets_main/
