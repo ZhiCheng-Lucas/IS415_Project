@@ -1,5 +1,5 @@
 ---
-title: "Hands-On Exercise 01: Geospatial Data Science"
+title: "Hands-On Exercise 02: Thematic Mapping and GeoVisualisation"
 author: "Chong Zhi Cheng"
 date: "August 19, 2024"
 date-modified: "last-modified"
