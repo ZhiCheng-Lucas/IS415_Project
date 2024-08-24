@@ -11,6 +11,24 @@ execute:
 
 # **2  Thematic Mapping and GeoVisualisation with R**
 
+[Personal Exploration]{.underline}
+
+As part of this exercise, I have conducted a separate investigation into the distribution of residential types across Singapore, applying the concepts learned. A detailed analysis can be found in section 2.5, but here's a concise overview of my findings:
+
+1.  [Residential Distribution Pattern]{.underline}: A clear geographical divide emerges in the distribution of housing types. The southern half and central areas of Singapore exhibit a higher concentration of landed properties and condominiums, while HDB flats predominate in other regions.
+
+2.  [Socioeconomic Implications]{.underline}: Using housing types as proxies for income levels (associating HDB flats with lower to middle-income households and landed properties/condominiums with higher-income residents) reveals a distinct economic stratification. The southern and central regions appear to be hubs of affluence compared to surrounding areas.
+
+3.  [Demographic Correlation]{.underline}: Interestingly, areas with a higher proportion of landed properties and condominiums tend to show elevated dependency ratios, especially in central Singapore.
+
+This correlation suggests that in areas with more high-end housing:
+
+1.   There may be a higher concentration of retirees who can afford luxurious accommodations.
+
+2.   Affluent families might have more children or be more likely to have stay-at-home parents.
+
+3.   The working population in these areas might be smaller relative to dependents, possibly due to higher wealth allowing for earlier retirement or extended education.
+
 ## **2.1 Overview**
 
 In general, thematic mapping involves the use of map symbols to visualize selected properties of geographic features that are not naturally visible, such as population, temperature, crime rate, and property prices, just to mention a few of them.
@@ -46,33 +64,51 @@ mpsz <- st_read(dsn = "data/geospatial",
 mpsz
 ```
 
+Notice that only the first ten records will be displayed. Do you know why?
+
+**This is due to readability. Showing just the first few records allows users to quickly inspect the structure and content of the data.**
+
 ### **2.3.3 Importing Attribute Data into R**
 
 ```{r}
 popdata <- read_csv("data/aspatial/respopagesextod2011to2020.csv")
 ```
 
-### **2.3.4 Data Preparation**
+```{r}
+spec(popdata)
+```
+
+### **Data Preparation**
 
 Before a thematic map can be prepared, you are required to prepare a data table with year 2020 values. The data table should include the variables PA, SZ, YOUNG, ECONOMY ACTIVE, AGED, TOTAL, DEPENDENCY.
 
--   YOUNG: age group 0 to 4 until age groyup 20 to 24,
+-   YOUNG: age group 0 to 4 until age groyup 20 to 24, Row 2 : 5 +13
 
--   ECONOMY ACTIVE: age group 25-29 until age group 60-64,
+-   ECONOMY ACTIVE: age group 25-29 until age group 60-64, 6 - 12 +14
 
--   AGED: age group 65 and above,
+-   AGED: age group 65 and above, 15 - 20
 
--   TOTAL: all age group, and
+-   TOTAL: all age group, and , 2 :20
 
 -   DEPENDENCY: the ratio between young and aged against economy active group
 
-#### 2.3.4.1 Data wrangling
+```{r}
+popdata2020 <- popdata %>%
+  filter(Time == 2020) %>%
+  group_by(PA, SZ, AG) %>%
+  summarise(`POP` = sum(`Pop`)) %>%
+  ungroup()%>%
+  pivot_wider(names_from=AG, 
+              values_from=POP) 
 
-The following data wrangling and transformation functions will be used:
+# Inspect the structure of the data
+str(popdata2020)
 
--   *pivot_wider()* of **tidyr** package, and
+# View the first few rows
+print(head(popdata2020))
+```
 
--   *mutate()*, *filter()*, *group_by()* and *select()* of **dplyr** package
+-   Important fact that column indexes start from 1 and not 0 like in python!
 
 ```{r}
 popdata2020 <- popdata %>%
@@ -83,9 +119,9 @@ popdata2020 <- popdata %>%
   pivot_wider(names_from=AG, 
               values_from=POP) %>%
   mutate(YOUNG = rowSums(.[3:6])
-         +rowSums(.[12])) %>%
-mutate(`ECONOMY ACTIVE` = rowSums(.[7:11])+
-rowSums(.[13:15]))%>%
+         +rowSums(.[14])) %>%
+mutate(`ECONOMY ACTIVE` = rowSums(.[7:13])+
+rowSums(.[15]))%>%
 mutate(`AGED`=rowSums(.[16:21])) %>%
 mutate(`TOTAL`=rowSums(.[3:21])) %>%  
 mutate(`DEPENDENCY` = (`YOUNG` + `AGED`)
@@ -123,17 +159,17 @@ write_rds(mpsz_pop2020, "data/rds/mpszpop2020.rds")
 
 ## **2.4 Choropleth Mapping Geospatial Data Using *tmap***
 
-Choropleth mapping involves the symbolisation of enumeration units, such as countries, provinces, states, counties or census units, using area patterns or graduated colors. For example, a social scientist may need to use a choropleth map to portray the spatial distribution of aged population of Singapore by Master Plan 2014 Subzone Boundary.
+Choropleth mapping involves the symbolization of enumeration units, such as countries, provinces, states, counties or census units, using area patterns or graduated colors. For example, a social scientist may need to use a choropleth map to portray the spatial distribution of aged population of Singapore by Master Plan 2014 Subzone Boundary.
 
 Two approaches can be used to prepare thematic map using *tmap*, they are:
 
 -   Plotting a thematic map quickly by using *qtm()*.
 
--   Plotting highly customisable thematic map by using tmap elements.
+-   Plotting highly customization thematic map by using tmap elements.
 
 ### **2.4.1 Plotting a choropleth map quickly by using *qtm()***
 
-The easiest and quickest to draw a choropleth map using **tmap** is using *qtm()*. It is concise and provides a good default visualisation in many cases.
+The easiest and quickest to draw a choropleth map using **tmap** is using *qtm()*. It is concise and provides a good default visualization in many cases.
 
 The code chunk below will draw a cartographic standard choropleth map as shown below.
 
@@ -151,7 +187,7 @@ Things to learn from the code chunk above:
 
 ### **2.4.2 Creating a choropleth map by using *tmap*’s elements**
 
-Despite its usefulness of drawing a choropleth map quickly and easily, the disadvantge of *qtm()* is that it makes aesthetics of individual layers harder to control. To draw a high quality cartographic choropleth map as shown in the figure below, **tmap**’s drawing elements should be used.
+Despite its usefulness of drawing a choropleth map quickly and easily, the disadvantage of *qtm()* is that it makes aesthetics of individual layers harder to control. To draw a high quality cartographic choropleth map as shown in the figure below, **tmap**’s drawing elements should be used.
 
 ```{r}
 tm_shape(mpsz_pop2020)+
@@ -177,7 +213,7 @@ In the following sub-section, we will share with you tmap functions that used to
 
 #### 2.4.2.1 Drawing a base map
 
-The basic building block of **tmap** is *tm_shape()* followed by one or more layer elemments such as *tm_fill()* and *tm_polygons()*.
+The basic building block of **tmap** is *tm_shape()* followed by one or more layer elements such as *tm_fill()* and *tm_polygons()*.
 
 In the code chunk below, *tm_shape()* is used to define the input data (i.e *mpsz_pop2020*) and *tm_polygons()* is used to draw the planning subzone polygons
 
@@ -199,13 +235,13 @@ Things to learn from *tm_polygons()*:
 
 -   The default interval binning used to draw the choropleth map is called “pretty”. A detailed discussion of the data classification methods supported by **tmap** will be provided in sub-section 4.3.
 
--   The default colour scheme used is `YlOrRd` of ColorBrewer. You will learn more about the color scheme in sub-section 4.4.
+-   The default color scheme used is `YlOrRd` of ColorBrewer. You will learn more about the color scheme in sub-section 4.4.
 
 -   By default, Missing value will be shaded in grey.
 
 #### 2.4.2.3 Drawing a choropleth map using *tm_fill()* and \*tm_border()\*\*
 
-Actually, *tm_polygons()* is a wraper of *tm_fill()* and *tm_border()*. *tm_fill()* shades the polygons by using the default colour scheme and *tm_borders()* adds the borders of the shapefile onto the choropleth map.
+Actually, *tm_polygons()* is a wrapper of *tm_fill()* and *tm_border()*. *tm_fill()* shades the polygons by using the default color scheme and *tm_borders()* adds the borders of the shapefile onto the choropleth map.
 
 The code chunk below draws a choropleth map by using *tm_fill()* alone.
 
@@ -214,7 +250,7 @@ tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY")
 ```
 
-Notice that the planning subzones are shared according to the respective dependecy values
+Notice that the planning subzones are shared according to the respective dependency values
 
 To add the boundary of the planning subzones, tm_borders will be used as shown in the code chunk below.
 
@@ -274,7 +310,347 @@ Notice that the distribution of quantile data classification method are more eve
 
 > DIY: Preparing choropleth maps by using similar classification method but with different numbers of classes (i.e. 2, 6, 10, 20). Compare the output maps, what observation can you draw?
 
-#### 2.4.3.2 Plotting choropleth map with custome break
+#### DIY - Compare different classifications methods
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "sd", 
+          palette = "Blues",
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(SD)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "equal", 
+          palette = "Blues",
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(equal)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "pretty", 
+          palette = "Blues",
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(pretty)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "quantile", 
+          palette = "Blues",
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(quantile)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "kmeans", 
+          palette = "Blues",
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(kmeans)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "hclust", 
+          palette = "Blues",
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(hclust)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "bclust", 
+          palette = "Blues",
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(bclust)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "fisher", 
+          palette = "Blues",
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(fisher)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "jenks", 
+          palette = "Blues",
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(jenks)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "dpih", 
+          palette = "Blues",
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(dpih)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "headtails", 
+          palette = "Blues",
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(headtails)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+> DIY: Using what you had learned, prepare choropleth maps by using different classification methods supported by tmap and compare their differences.
+
+### Lessons Learned
+
+The choice of classification method in choropleth maps significantly influences how viewers interpret the data and understand the story the map is telling.
+
+Two common methods, equal and quantile, can produce strikingly different visual representations of the same data.
+
+The equal approach can often highlight extremes in the data, potentially showing only a small portion of the map as "high risk" or "high dependency." As a result, it may **understate the overall severity** or prevalence of the phenomenon being mapped. When using this method, viewers might assume that only one portion of the map is "at risk" or has a high dependency, while the rest appears relatively uniform.
+
+In contrast, the quantile method divides the data into classes with an equal number of observations in each. This ensures a more even distribution of colors across the map, which tends to show a more balanced distribution of risk or dependency. However, this approach might **overstate the severity** in some areas, especially if the underlying data is not evenly distributed. When using quantile classification, the map may suggest that the phenomenon is more **widespread**, giving the impression that everywhere is at similar levels of risk.
+
+> DIY: Preparing choropleth maps by using similar classification method but with different numbers of classes (i.e. 2, 6, 10, 20). Compare the output maps, what observation can you draw?
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "quantile", 
+          palette = "Blues",
+          n = 2,
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(quantile)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "quantile", 
+          palette = "Blues",
+          n = 6,
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(quantile)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "quantile", 
+          palette = "Blues",
+          n = 10,
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(quantile)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "quantile", 
+          palette = "Blues",
+          n = 20,
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(quantile)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "equal", 
+          palette = "Blues",
+          n = 2,
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(equal)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "equal", 
+          palette = "Blues",
+          n = 10,
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(equal)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+> DIY: Preparing choropleth maps by using similar classification method but with different numbers of classes (i.e. 2, 6, 10, 20). Compare the output maps, what observation can you draw?
+
+### Lessons Learned
+
+We can observe significant differences in how the data is visually represented and interpreted.
+
+Using the quantile method, changing the number of classes has a noticeable impact on the map's appearance and interpretation.
+
+With just two classes, the map becomes essentially binary, dividing the data into two equal groups. This simplification can be useful for highlighting broad patterns but may oversimplify complex spatial distributions. As we increase the number of classes to 6, 10, or 20, the map begins to show a more nuanced and even distribution of the data. The differences between 6, 10, and 20 classes become less pronounced, suggesting that beyond a certain point, adding more classes may not significantly enhance the viewer's understanding of the data distribution.
+
+In contrast, when using the equal interval method, the visual representation tends to remain relatively consistent regardless of the number of classes used. This stability is often due to the presence of outliers in the data. With outliers, most of the map area falls into the lower intervals, while only a small portion - representing the outliers - falls into the higher intervals. This results in a map that appears almost binary, with one or two areas standing out dramatically from the rest, even when using a higher number of classes like 10 or 20.
+
+#### 2.4.3.2 Plotting choropleth map with custom break
 
 For all the built-in styles, the category breaks are computed internally. In order to override these defaults, the breakpoints can be set explicitly by means of the *breaks* argument to the *tm_fill()*. It is important to note that, in **tmap** the breaks include a minimum and maximum. As a result, in order to end up with n categories, n+1 elements must be specified in the *breaks* option (the values must be in increasing order).
 
@@ -328,7 +704,7 @@ Notice that the colour scheme has been reversed.
 
 ### **2.4.5 Map Layouts**
 
-Map layout refers to the combination of all map elements into a cohensive map. Map elements include among others the objects to be mapped, the title, the scale bar, the compass, margins and aspects ratios. Colour settings and data classification methods covered in the previous section relate to the palette and break-points are used to affect how the map looks.
+Map layout refers to the combination of all map elements into a cohesive map. Map elements include among others the objects to be mapped, the title, the scale bar, the compass, margins and aspects ratios. Colour settings and data classification methods covered in the previous section relate to the palette and break-points are used to affect how the map looks.
 
 #### 2.4.5.1 Map Legend
 
@@ -475,7 +851,7 @@ agedmap <- tm_shape(mpsz_pop2020)+
 tmap_arrange(youngmap, agedmap, asp=1, ncol=2)
 ```
 
-### **2.4.7 Mappping Spatial Object Meeting a Selection Criterion**
+### **2.4.7 Mapping Spatial Object Meeting a Selection Criterion**
 
 Instead of creating small multiple choropleth map, you can also use selection funtion to map spatial objects meeting the selection criterion.
 
@@ -495,9 +871,259 @@ tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
   tm_borders(alpha = 0.5)
 ```
 
-## **2.5 Reference**
+## **2.5 Personal Learning and Explorations**
 
-### **2.5.1 All about tmap package**
+So I have gotten curious about the distribution of residential patterns across Singapore. Hence, I have decided to explore this area as part of my own learning.
+
+```{r}
+popdata_hdb <- read_csv("data/aspatial/respopagesextod2011to2020.csv")
+```
+
+```{r}
+str(popdata_hdb)
+```
+
+```{r}
+# Check Table
+popdata2020_hdb <- popdata_hdb %>%
+  filter(Time == 2020) %>%
+  group_by(PA, SZ,`TOD`) %>%
+  summarise(`POP` = sum(`Pop`))
+```
+
+```{r}
+head(popdata2020_hdb, n = 10)
+```
+
+```{r}
+# Actual code
+popdata2020_hdb <- popdata_hdb %>%
+  filter(Time == 2020) %>%
+  group_by(PA, SZ,`TOD`) %>%
+  summarise(`POP` = sum(`Pop`)) %>%
+  ungroup()%>%
+  pivot_wider(names_from=TOD, 
+              values_from=POP)%>%
+  mutate(HDB = rowSums(.[4:7]))%>%
+  mutate(Landed_And_Condo = rowSums(.[3])
+         +rowSums(.[9]))%>%
+  mutate(Total = rowSums(.[3:7]) + rowSums(.[9]))%>%
+  mutate(`HDB_Ratio` = (`HDB`)
+/`Total`)%>%
+  mutate(`Landed_Ratio` = (`Landed_And_Condo`)
+/`Total`)
+```
+
+```{r}
+head(popdata2020_hdb, n = 10)
+```
+
+```{r}
+popdata2020_hdb <- popdata2020_hdb %>%
+  mutate_at(.vars = vars(PA, SZ), 
+          .funs = list(toupper))
+```
+
+```{r}
+head(popdata2020_hdb, n = 10)
+```
+
+At this point, we have the number people living in the different types of dwelling per region.
+
+```{r}
+mpsz_HDB2020 <- left_join(mpsz, popdata2020_hdb,
+                          by = c("SUBZONE_N" = "SZ"))
+```
+
+```{r}
+tm_shape(mpsz_HDB2020)+
+  tm_fill("HDB 1- and 2-Room Flats", 
+          style = "equal", 
+          palette = "Blues",
+          title = "Total Pops") +
+  tm_layout(main.title = "Distribution of 1 Room & 2 Room Flats by planning subzone",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_HDB2020)+
+  tm_fill("HDB 3-Room Flats", 
+          style = "equal", 
+          palette = "Blues",
+          title = "Total Pops") +
+  tm_layout(main.title = "Distribution of HDB 3-Room Flats by planning subzone",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_HDB2020)+
+  tm_fill("HDB 4-Room Flats", 
+          style = "equal", 
+          palette = "Blues",
+          title = "Total Pops") +
+  tm_layout(main.title = "Distribution of HDB 4-Room Flats by planning subzone",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_HDB2020)+
+  tm_fill("HDB 5-Room and Executive Flats", 
+          style = "equal", 
+          palette = "Blues",
+          title = "Total Pops") +
+  tm_layout(main.title = "Distribution of HDB 5-Room and Executive Flats by planning subzone",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+
+```
+
+```{r}
+tm_shape(mpsz_HDB2020)+
+  tm_fill("Condominiums and Other Apartments", 
+          style = "equal", 
+          palette = "Blues",
+          title = "Total Pops") +
+  tm_layout(main.title = "Distribution of Condominiums and Other Apartments by planning subzone",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+
+```
+
+```{r}
+tm_shape(mpsz_HDB2020)+
+  tm_fill("Landed Properties", 
+          style = "equal", 
+          palette = "Blues",
+          title = "Total Pops") +
+  tm_layout(main.title = "Distribution of Landed Properties by planning subzone",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+
+```
+
+The distribution patterns of various HDB flat categories show similarities to each other, but contrast significantly with the allocation trends observed for condominiums and landed properties.
+
+Nevertheless, examining absolute numbers in isolation may not provide a comprehensive picture. Perhaps we should consider analyzing the proportional relationship between HDB flats and private residences (condominiums and landed properties)?
+
+```{r}
+tm_shape(mpsz_HDB2020)+
+  tm_fill("HDB_Ratio", 
+          style = "equal", 
+          palette = "Blues",
+          title = "HDB ratio") +
+  tm_layout(main.title = "Distribution of HDB Ratio by planning subzone",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+              frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_HDB2020)+
+  tm_fill("Landed_Ratio", 
+          style = "equal", 
+          palette = "Reds",
+          title = "Landed_Ratio") +
+  tm_layout(main.title = "Distribution of Landed_Ratio by planning subzone",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY", 
+          style = "quantile", 
+          palette = "Blues",
+          n = 20,
+          title = "Dependency ratio") +
+  tm_layout(main.title = "Distribution of Dependency Ratio by planning subzone(quantile)",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha =0.2)
+```
+
+### **Conclusion**
+
+The map reveals a distinct socioeconomic pattern when considering housing types as indicators of income levels. If we associate HDB flats with lower-income households and landed properties with higher-income residents, a clear economic divide emerges. The southern half and central regions of the map display a notably higher concentration of affluence compared to the surrounding areas.
+
+A notable correlation emerges between housing type distribution and demographic composition. Areas with a higher proportion of landed properties and condominiums tend to exhibit elevated dependency ratios, particularly in the central region. This pattern warrants further examination.
+
+To clarify, the dependency ratio represents the proportion of the population that is typically not in the labor force (the dependent part, including children and elderly) relative to the working-age population.
+
+This correlation suggests that in areas with more high-end housing:
+
+1.   There may be a higher concentration of retirees who can afford luxurious accommodations.
+
+2.   Affluent families might have more children or be more likely to have stay-at-home parents.
+
+3.   The working population in these areas might be smaller relative to dependents, possibly due to higher wealth allowing for earlier retirement or extended education.
+
+## **2.6 Reference**
+
+### **2.6.1 All about tmap package**
 
 -   [tmap: Thematic Maps in R](https://www.jstatsoft.org/article/view/v084i06)
 
@@ -511,7 +1137,7 @@ tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
 
 -   [Exploring and presenting maps with tmap (useR!2017)](http://von-tijn.nl/tijn/research/presentations/tmap_user2017.pdf)
 
-### **2.5.2 Geospatial data wrangling**
+### **2.6.2 Geospatial data wrangling**
 
 -   [sf: Simple Features for R](https://cran.r-project.org/web/packages/sf/index.html)
 
@@ -519,10 +1145,12 @@ tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
 
 -   [Reading, Writing and Converting Simple Features](https://cran.r-project.org/web/packages/sf/vignettes/sf2.html)
 
-### **2.5.3 Data wrangling**
+### **2.6.3 Data wrangling**
 
 -   [dplyr](https://dplyr.tidyverse.org/)
 
 -   [Tidy data](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
 
 -   [tidyr: Easily Tidy Data with ‘spread()’ and ‘gather()’ Functions](https://cran.r-project.org/web/packages/tidyr/tidyr.pdf)
+
+Utilized Claude AI to clarify code concepts and refining responses.
