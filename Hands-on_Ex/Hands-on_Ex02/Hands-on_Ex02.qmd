@@ -25,9 +25,7 @@ This correlation suggests that in areas with more high-end housing:
 
 1.   There may be a higher concentration of retirees who can afford luxurious accommodations.
 
-2.   Affluent families might have more children or be more likely to have stay-at-home parents.
-
-3.   The working population in these areas might be smaller relative to dependents, possibly due to higher wealth allowing for earlier retirement or extended education.
+2.   Affluent families might have more children.
 
 ## **2.1 Overview**
 
@@ -1117,9 +1115,7 @@ This correlation suggests that in areas with more high-end housing:
 
 1.   There may be a higher concentration of retirees who can afford luxurious accommodations.
 
-2.   Affluent families might have more children or be more likely to have stay-at-home parents.
-
-3.   The working population in these areas might be smaller relative to dependents, possibly due to higher wealth allowing for earlier retirement or extended education.
+2.   Affluent families might have more children.
 
 ## **2.6 Reference**
 
