@@ -11,7 +11,7 @@ execute:
 
 # **2  Thematic Mapping and GeoVisualisation with R**
 
-[Personal Exploration]{.underline}
+## [Personal Exploration]{.underline}
 
 As part of this exercise, I have conducted a separate investigation into the distribution of residential types across Singapore, applying the concepts learned. A detailed analysis can be found in section 2.5, but here's a concise overview of my findings:
 
