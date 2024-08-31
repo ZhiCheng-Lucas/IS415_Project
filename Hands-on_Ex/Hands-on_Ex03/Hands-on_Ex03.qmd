@@ -170,6 +170,8 @@ tm_shape(mpsz_sf) +
 
 Alternatively, we can also prepare a pin map by using the code chunk below.
 
+Note that i changed the tmap to plot for the sake of efficiency.
+
 ```{r}
 tmap_mode('plot')
 tm_shape(childcare_sf)+
