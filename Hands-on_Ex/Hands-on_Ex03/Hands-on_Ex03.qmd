@@ -15,10 +15,6 @@ execute:
 This is a note callout. I will use this for personal comments as well.
 :::
 
-## [Personal Exploration]{.underline}
-
-asdasdasxxx
-
 ## **Overview**
 
 Spatial Point Pattern Analysis is the evaluation of the pattern or distribution, of a set of points on a surface. The point can be location of:
@@ -65,11 +61,6 @@ Rationale for this hypothesis:
 
 ```{r}
 pacman::p_load(sf, raster, spatstat, tmap, tidyverse)
-```
-
-```{r}
-pacman::p_load(sf, raster, spatstat, tmap, tidyverse)
-
 ```
 
 ### **Importing Geospatial Data into R**
