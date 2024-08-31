@@ -17,7 +17,7 @@ This is a note callout. I will use this for personal comments as well.
 
 ## **Overview**
 
-Spatial Point Pattern Analysis is the evaluation of the pattern or distribution, of a set of points on a surface. The point can be location of:
+Spatial Point Pattern Analysis is the evaluation of the pattern or distribution, of a set of points on a surface. The point can be a location of:
 
 -   events such as crime, traffic accident and disease onset, or
 
