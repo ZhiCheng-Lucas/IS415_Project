@@ -148,7 +148,7 @@ tm_shape(sg_sf) +
 
 Notice that all the geospatial layers are within the same map extend. This shows that their referencing system and coordinate values are referred to similar spatial context. This is very important in any geospatial analysis.
 
-Note that you can also get a similiar image with just mpsz_sf and childcare_sf
+Note that you can also get a similar image with just mpsz_sf and childcare_sf
 
 ```{r}
 tm_shape(mpsz_sf) +
