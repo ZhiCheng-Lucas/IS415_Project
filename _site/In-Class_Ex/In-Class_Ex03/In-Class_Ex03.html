@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chong Zhi Cheng">
-<meta name="dcterms.date" content="2024-08-17">
+<meta name="dcterms.date" content="2024-09-02">
 
-<title>IS415 - Home Page</title>
+<title>IS415 - In-Class Exercise 03: Geospatial Data Science</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,25 +22,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -80,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">IS415</span>
     </a>
   </div>
@@ -96,51 +130,51 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
  <span class="dropdown-text">Hands-on Exercise 1: Introduction to Geospatial Analytics</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
  <span class="dropdown-text">Hands-on Exercise 2: GeoVisualisation and Analytical Mapping</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html">
  <span class="dropdown-text">Hands-on Exercise 3: Spatial Point Patterns Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
  <span class="dropdown-text">Hands-on Exercise 4: Advanced Spatial Point Patterns Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html">
  <span class="dropdown-text">Hands-on Exercise 5: Spatial Weights and Applications</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html">
  <span class="dropdown-text">Hands-on Exercise 6: Measures of Global and Local Spatial Association</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html">
  <span class="dropdown-text">Hands-on Exercise 7: Shiny for Building Web-enabled Geospatial Analytics Application</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.html">
  <span class="dropdown-text">Hands-on Exercise 8: Geographic Segmentation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html">
  <span class="dropdown-text">Hands-on Exercise 9: Geographically Weighted Regression</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html">
  <span class="dropdown-text">Hands-on Exercise 10: Geographically Weighted Predictive Modelling</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex11/Hands-on_Ex11.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex11/Hands-on_Ex11.html">
  <span class="dropdown-text">Hands-on Exercise 11: Modelling Geographic of Accessibility</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex12/Hands-on_Ex12.html">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex12/Hands-on_Ex12.html">
  <span class="dropdown-text">Hands-on Exercise 12: Spatial Interaction Models</span></a>
   </li>  
     </ul>
@@ -151,51 +185,51 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html">
  <span class="dropdown-text">In-Class Exercise 1: Introduction to Geospatial Analytics</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html">
  <span class="dropdown-text">In-Class Exercise 2: GeoVisualisation and Analytical Mapping</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html">
  <span class="dropdown-text">In-Class Exercise 3: Spatial Point Patterns Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex04/In-Class_Ex04.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex04/In-Class_Ex04.html">
  <span class="dropdown-text">In-Class Exercise 4: Advanced Spatial Point Patterns Analysis</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex05/In-Class_Ex05.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex05/In-Class_Ex05.html">
  <span class="dropdown-text">In-Class Exercise 5: Spatial Weights and Applications</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex06/In-Class_Ex06.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex06/In-Class_Ex06.html">
  <span class="dropdown-text">In-Class Exercise 6: Measures of Global and Local Spatial Association</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex07/In-Class_Ex07.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex07/In-Class_Ex07.html">
  <span class="dropdown-text">In-Class Exercise 7: Shiny for Building Web-enabled Geospatial Analytics Application</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex08/In-Class_Ex08.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex08/In-Class_Ex08.html">
  <span class="dropdown-text">In-Class Exercise 8: Geographic Segmentation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex09/In-Class_Ex09.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex09/In-Class_Ex09.html">
  <span class="dropdown-text">In-Class Exercise 9: Geographically Weighted Regression</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex10/In-Class_Ex10.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex10/In-Class_Ex10.html">
  <span class="dropdown-text">In-Class Exercise 10: Geographically Weighted Predictive Modelling</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex11/In-Class_Ex11.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex11/In-Class_Ex11.html">
  <span class="dropdown-text">In-Class Exercise 11: Modelling Geographic of Accessibility</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-Class_Ex/In-Class_Ex12/In-Class_Ex12.html">
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex12/In-Class_Ex12.html">
  <span class="dropdown-text">In-Class Exercise 12: Spatial Interaction Models</span></a>
   </li>  
     </ul>
@@ -203,11 +237,11 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -226,9 +260,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#interesting-website" id="toc-interesting-website" class="nav-link active" data-scroll-target="#interesting-website">Interesting Website</a></li>
-  <li><a href="#geographical-coordinate-systems" id="toc-geographical-coordinate-systems" class="nav-link" data-scroll-target="#geographical-coordinate-systems">Geographical Coordinate Systems</a></li>
-  <li><a href="#projected-coordinate-systems-pcs" id="toc-projected-coordinate-systems-pcs" class="nav-link" data-scroll-target="#projected-coordinate-systems-pcs">Projected Coordinate Systems (PCS)</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting Started</a></li>
   </ul>
 </nav>
     </div>
@@ -237,7 +269,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Home Page</h1>
+<h1 class="title">In-Class Exercise 03: Geospatial Data Science</h1>
 </div>
 
 
@@ -254,7 +286,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 17, 2024</p>
+      <p class="date">September 2, 2024</p>
     </div>
   </div>
   
@@ -272,68 +304,43 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>In this website, you will find my relevant coursework for IS415 Geospatial Analytics and Applications.</p>
-<!-- [Hands-on Exercise 1](/Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html) -->
-<!-- [In-Class Exercise 1](/In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html)-->
-<!-- Use create link. ctrl k or insert. -->
-<p><a href=".\Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">Hands-on Exercise 1</a></p>
-<p><a href=".\In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html">In-Class Exercise 1</a></p>
-<p><a href=".\Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">Hands-on Exercise 2</a></p>
-<p><a href=".\In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html">In-Class Exercise 2</a></p>
-<p><a href=".\Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html">Hands-On Exercise 3</a></p>
-<p><a href=".\In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html">/In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html</a></p>
-<p>Personal Notes belo</p>
-<p>To manually change the epsg code without transforming</p>
-<pre><code># To manually change the epsg code without transforming
-mpsz3414 &lt;- st_set_crs(mpsz, 3414)
-# To transform; WGS84 -&gt; SVY21
-preschool3414 &lt;- st_transform(preschool, 
-                              crs = 3414)
-                              
-# CSV files ; 4326 is WGS84, 3414 is SCY21
-listings_sf &lt;- st_as_sf(listings, 
-                       coords = c("longitude", "latitude"),
-                       crs=4326) %&gt;%
-  st_transform(crs = 3414)</code></pre>
-<section id="interesting-website" class="level3">
-<h3 class="anchored" data-anchor-id="interesting-website">Interesting Website</h3>
-<p><a href="https://epsg.io/" class="uri">https://epsg.io/</a> - provides a list of country coordinates system such as svy21</p>
-<p><a href="https://colorbrewer2.org/" class="uri">https://colorbrewer2.org/</a></p>
-<section id="data-sources" class="level4">
-<h4 class="anchored" data-anchor-id="data-sources">Data Sources:</h4>
-<p><a href="https://data.gov.sg/" class="uri">https://data.gov.sg/</a></p>
-<p><a href="https://www.singstat.gov.sg/" class="uri">https://www.singstat.gov.sg/</a></p>
-<p><a href="https://datamall.lta.gov.sg/content/datamall/en.html" class="uri">https://datamall.lta.gov.sg/content/datamall/en.html</a></p>
-<p><a href="https://insideairbnb.com/get-the-data/" class="uri">https://insideairbnb.com/get-the-data/</a></p>
+<section id="getting-started" class="level3">
+<h3 class="anchored" data-anchor-id="getting-started">Getting Started</h3>
+<p>Note that this file will not contain all the code mentioned in class as I felt that it was more beneficial to listen and understand instead of trying to copy everything down.</p>
+<p>Have set eval:false for this page.</p>
+<ul>
+<li>Note that maptools is depreciated. However, this is a way to find depreciated packages.</li>
+</ul>
+<section id="install-and-launch-r-packages" class="level4">
+<h4 class="anchored" data-anchor-id="install-and-launch-r-packages">Install and Launch R Packages</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sf, raster, spatstat, tmap, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"maptools"</span>,<span class="at">repos=</span><span class="st">'https://packagemanager.posit.co/cran/2023-10-13'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The various differences between st_combine and st_unions</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sg_sf <span class="ot">&lt;-</span> mpsz_sf <span class="sc">%&gt;%</span> <span class="fu">st_union</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that the reason why the previous as.SpatialGridFrame.im didnt work was because maptools wasnt installed.</p>
+<p>Hence, we had to do the workaround mentioned in Piazza</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gridded_kde_childcareSG_ad <span class="ot">&lt;-</span> maptools<span class="sc">::</span><span class="fu">as.SpatialGridDataFrae.im</span>(kde_childcareSG_adaptive)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">spplot</span>(gridded_kde_childcareSG_ad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Interesting data : ( also in index)</p>
 <p><a href="https://acleddata.com/data-export-tool/" class="uri">https://acleddata.com/data-export-tool/</a></p>
-<p>General Notes. Placeholder for now.</p>
-<p>GCS is the base. Convert to PCS to project since GCS is not appropriate for distance and area measurements.</p>
-</section>
-</section>
-<section id="geographical-coordinate-systems" class="level3">
-<h3 class="anchored" data-anchor-id="geographical-coordinate-systems">Geographical Coordinate Systems</h3>
-<p>GCS define locations on the earth using a three-dimensional spherical surface. For example, WGS84.</p>
-<p>They provides accuracy position information. Unit of measurement will be in either decimal degree or degree-minute-second format.</p>
-<p>GCS, however, are not appropriate for distance and area measurements. In this figure, it is clear that 1 degree distance at the north pole is relatively shorter than 1 degree at the equator.</p>
-</section>
-<section id="projected-coordinate-systems-pcs" class="level3">
-<h3 class="anchored" data-anchor-id="projected-coordinate-systems-pcs">Projected Coordinate Systems (PCS)</h3>
-<p>Based on a map projection such as transverse Mercator, Albers equal area, or Robinson.</p>
-<p>PCS provides consistent length and area measurement across space. Hence, it is important to transform a geospatial data from GCS to PCS before performing geospatial analysis.</p>
-<p>Sample ESRI shapefile code chunk:</p>
-<pre><code>sf_mpsz = st_read(dsn = "data/geospatial", layer = "MP14_SUBZONE")</code></pre>
-<pre><code>st_write(st_poly, "data/my_poly.shp")</code></pre>
-<p>Sample code chunk to import kml file:</p>
-<pre><code>sf_preschool = st_read("data/geospatial/pre-schools-location-kml.kml")</code></pre>
-<p>Placeholder - Please Ignore for now.</p>
-<p><a href=".\Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html">Hands-on Exercise 3</a></p>
-<p><a href=".\In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html">In-Class Exercise 3</a></p>
-<p><a href=".\Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html">Hands-on Exercise 4</a> <a href=".\In-Class_Ex/In-Class_Ex04/In-Class_Ex04.html">In-Class Exercise 4</a> <a href=".\Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html">Hands-on Exercise 5</a> <a href=".\In-Class_Ex/In-Class_Ex05/In-Class_Ex05.html">In-Class Exercise 5</a> <a href=".\Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html">Hands-on Exercise 6</a> <a href=".\In-Class_Ex/In-Class_Ex06/In-Class_Ex06.html">In-Class Exercise 6</a></p>
-<p><a href=".\Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html">Hands-on Exercise 7</a></p>
-<p><a href=".\In-Class_Ex/In-Class_Ex07/In-Class_Ex07.html">In-Class Exercise 7</a> <a href=".\Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.html">Hands-on Exercise 8</a> <a href=".\In-Class_Ex/In-Class_Ex08/In-Class_Ex08.html">In-Class Exercise 8</a></p>
-<p><a href=".\Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html">Hands-on Exercise 9</a> <a href=".\In-Class_Ex/In-Class_Ex09/In-Class_Ex09.html">In-Class Exercise 9</a> <a href=".\Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html">Hands-on Exercise 10</a> <a href=".\In-Class_Ex/In-Class_Ex10/In-Class_Ex10.html">In-Class Exercise 10</a> <a href=".\Hands-on_Ex/Hands-on_Ex11/Hands-on_Ex11.html">Hands-on Exercise 11</a> <a href=".\In-Class_Ex/In-Class_Ex11/In-Class_Ex11.html">In-Class Exercise 11</a> <a href=".\Hands-on_Ex/Hands-on_Ex12/Hands-on_Ex12.html">Hands-on Exercise 12</a> <a href=".\In-Class_Ex/In-Class_Ex12/In-Class_Ex12.html">In-Class Exercise 12</a></p>
+<p>themimu for more info</p>
+<p>Importing the data from the ACLED_Myanmar csv.</p>
+<p>Note that you should check the type of format the data is imported from. eg.</p>
+<p>Event Date, 31 December 2021 can be interpreted as char instead of datetime.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_as_sf</span>(<span class="at">coords=</span><span class="fu">c</span>(<span class="st">"logntiude"</span>, <span class="st">"latitude"</span>),<span class="at">crs=</span><span class="dv">4326</span>) <span class="sc">%&gt;%</span> <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">32647</span>) <span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">event_date=</span><span class="fu">dmy</span>(event_date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

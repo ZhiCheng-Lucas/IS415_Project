@@ -1,0 +1,15 @@
+{
+  "hash": "54ba632df92602c079df50c836793d76",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"In-Class Exercise 03: Geospatial Data Science\"\nauthor: \"Chong Zhi Cheng\"\ndate: \"September 2, 2024\"\ndate-modified: \"last-modified\"\nexecute:\n  eval: true\n  echo: true\n  freeze: true\n  warning: false\n---\n\n\n### Getting Started\n\nNote that this file will not contain all the code mentioned in class as I felt that it was more beneficial to listen and understand instead of trying to copy everything down.\n\nHave set eval:false for this page.\n\n-   Note that maptools is depreciated. However, this is a way to find depreciated packages.\n\n#### Install and Launch R Packages\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(sf, raster, spatstat, tmap, tidyverse)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\ninstall.packages(\"maptools\",repos='https://packagemanager.posit.co/cran/2023-10-13')\n```\n:::\n\n\nThe various differences between st_combine and st_unions\n\n\n::: {.cell}\n\n```{.r .cell-code}\nsg_sf <- mpsz_sf %>% st_union()\n```\n:::\n\n\nNote that the reason why the previous as.SpatialGridFrame.im didnt work was because maptools wasnt installed.\n\nHence, we had to do the workaround mentioned in Piazza\n\n\n::: {.cell}\n\n```{.r .cell-code}\ngridded_kde_childcareSG_ad <- maptools::as.SpatialGridDataFrae.im(kde_childcareSG_adaptive)\nspplot(gridded_kde_childcareSG_ad)\n```\n:::\n\n\nInteresting data : ( also in index)\n\n<https://acleddata.com/data-export-tool/>\n\nthemimu for more info\n\nImporting the data from the ACLED_Myanmar csv.\n\nNote that you should check the type of format the data is imported from. eg.\n\nEvent Date, 31 December 2021 can be interpreted as char instead of datetime.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nst_as_sf(coords=c(\"logntiude\", \"latitude\"),crs=4326) %>% st_transform(crs = 32647) %>%mutate(event_date=dmy(event_date))\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

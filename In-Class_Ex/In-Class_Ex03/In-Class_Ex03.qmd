@@ -1,0 +1,65 @@
+---
+title: "In-Class Exercise 03: Geospatial Data Science"
+author: "Chong Zhi Cheng"
+date: "September 2, 2024"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+---
+
+### Getting Started
+
+Note that this file will not contain all the code mentioned in class as I felt that it was more beneficial to listen and understand instead of trying to copy everything down.
+
+Have set eval:false for this page.
+
+-   Note that maptools is depreciated. However, this is a way to find depreciated packages.
+
+#### Install and Launch R Packages
+
+```{r}
+pacman::p_load(sf, raster, spatstat, tmap, tidyverse)
+```
+
+```{r}
+#| eval: false
+install.packages("maptools",repos='https://packagemanager.posit.co/cran/2023-10-13')
+```
+
+The various differences between st_combine and st_unions
+
+```{r}
+#| eval: false
+sg_sf <- mpsz_sf %>% st_union()
+
+```
+
+Note that the reason why the previous as.SpatialGridFrame.im didnt work was because maptools wasnt installed.
+
+Hence, we had to do the workaround mentioned in Piazza
+
+```{r}
+#| eval: false
+gridded_kde_childcareSG_ad <- maptools::as.SpatialGridDataFrae.im(kde_childcareSG_adaptive)
+spplot(gridded_kde_childcareSG_ad)
+```
+
+Interesting data : ( also in index)
+
+<https://acleddata.com/data-export-tool/>
+
+themimu for more info
+
+Importing the data from the ACLED_Myanmar csv.
+
+Note that you should check the type of format the data is imported from. eg.
+
+Event Date, 31 December 2021 can be interpreted as char instead of datetime.
+
+```{r}
+#| eval: false
+st_as_sf(coords=c("logntiude", "latitude"),crs=4326) %>% st_transform(crs = 32647) %>%mutate(event_date=dmy(event_date))
+```

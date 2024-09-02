@@ -59,6 +59,8 @@ listings_sf <- st_as_sf(listings,
 
 <https://insideairbnb.com/get-the-data/>
 
+<https://acleddata.com/data-export-tool/>
+
 General Notes. Placeholder for now.
 
 GCS is the base. Convert to PCS to project since GCS is not appropriate for distance and area measurements.
