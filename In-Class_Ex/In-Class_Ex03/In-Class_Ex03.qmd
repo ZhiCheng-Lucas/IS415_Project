@@ -63,3 +63,16 @@ Event Date, 31 December 2021 can be interpreted as char instead of datetime.
 #| eval: false
 st_as_sf(coords=c("logntiude", "latitude"),crs=4326) %>% st_transform(crs = 32647) %>%mutate(event_date=dmy(event_date))
 ```
+
+```{r}
+#| eval: false
+tmap_mode('view')
+acled_sf %>%
+  filter(year == 2023|event_type == 'Political violence') %>% tm_shape() + tm_dots()
+
+
+```
+
+```{r}
+tmap_mode('plot')
+```
