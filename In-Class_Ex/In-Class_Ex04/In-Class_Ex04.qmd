@@ -1,0 +1,163 @@
+---
+title: "In-Class Exercise 04: Spatio-Temporal Point Patterns Analysis"
+author: "Chong Zhi Cheng"
+date: "September 2, 2024"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+---
+
+### Getting Started
+
+Note that this file will not contain all the code mentioned in class as I felt that it was more beneficial to listen and understand instead of trying to copy everything down.
+
+A spatio-temporal point process (also called space-time or spatial-temporal point process) is a random collection of points, where each point represents the time and location of an event. Examples of events include incidence of disease, sightings or births of a species, or the occurrences of fires, earthquakes, lightning strikes, tsunamis, or volcanic eruptions.
+
+The analysis of spatio-temporal point patterns is becoming increasingly necessary, given the rapid emergence of geographically and temporally indexed data in a wide range of fields. Several spatio-temporal point patterns analysis methods have been introduced and implemented in R in the last ten years. This chapter shows how various R packages can be combined to run a set of spatio-temporal point pattern analyses in a guided and intuitive way. A real world forest fire events in Kepulauan Bangka Belitung, Indonesia from 1st January 2023 to 31st December 2023 is used to illustrate the methods, procedures and interpretations.
+
+### **The research questions**
+
+The specific question we would like to answer is:
+
+-   are the locations of forest fire in Kepulauan Bangka Belitung spatial and spatio-temporally independent?
+
+-   if the answer is NO, where and when the observed forest fire locations tend to cluster?
+
+### **The data**
+
+For the purpose of this exercise, two data sets are used, they are:
+
+-   forestfires, a csv file provides locations of forest fire detected from the Moderate Resolution Imaging Spectroradiometer (MODIS) sensor data. The data are downloaded from [Fire Information for Resource Management System](https://firms.modaps.eosdis.nasa.gov/download/). For the purpose of this exercise, only forest fires within Kepulauan Bangka Belitung will be used.
+
+-   Kepulauan_Bangka_Belitung, an ESRI shapefile showing the sub-district (i.e. [kelurahan](https://en.wikipedia.org/wiki/Villages_of_Indonesia)) boundary of Kepulauan Bangka Belitung. The data set was downloaded from [Indonesia Geospatial](https://www.indonesia-geospasial.com/2023/05/download-shapefile-batas-administrasi.html) portal. The original data covers the whole Indonesia. For the purpose of this exercise, only sub-districts within Kepulauan Bangka Belitung are extracted.
+
+## **Installing and Loading the R packages**
+
+For the purpose of this study, five R packages will be used. They are:
+
+-   rgdal for importing geospatial data in GIS file format such as shapefile into R and save them as Spatial\*DataFrame,
+
+-   maptools for converting Spatial\* object into ppp object,
+
+-   raster for handling raster data in R,
+
+-   spatstat for performing Spatial Point Patterns Analysis such as kcross, Lcross, etc., and
+
+-   tmap for producing cartographic quality thematic maps.
+
+#### Install and Launch R Packages
+
+```{r}
+pacman::p_load(sf, raster, spatstat, sparr, tmap, tidyverse)
+```
+
+```{r}
+pacman::p_load(spatstat)
+```
+
+Importing and Preparing Study Area
+
+Importing study area
+
+```{r}
+kbb <- st_read(dsn = 'data/rawdata', layer = "Kepulauan_Bangka_Belitung") %>%
+  st_transform(crs = 32748)
+```
+
+```{r}
+kbb_sf <- st_read(dsn = 'data/rawdata', layer = "Kepulauan_Bangka_Belitung") %>%
+  st_union() %>%
+  st_zm(drop = TRUE, what = "ZM") %>%
+  st_transform(crs = 32748)
+```
+
+Converting OWIN
+
+```{r}
+kbb_owin <- as.owin(kbb_sf)
+kbb_owin
+```
+
+```{r}
+class(kbb_owin)
+```
+
+## Importing and Preparing Forest Fire data
+
+Next, we will import the for
+
+```{r}
+fire_sf <- read.csv("data/rawdata/forestfires.csv") %>%
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326) %>%
+  st_transform(crs = 32748)
+
+
+```
+
+```{r}
+fire_sf
+```
+
+```{r}
+fire_sf <- fire_sf %>%
+  mutate(DayOfYear = yday(acq_date)) %>%
+  mutate(month_num = month(acq_date)) %>%
+  mutate(Month_fac = month(acq_date, label = TRUE, abbr = FALSE))
+```
+
+```{r}
+tm_shape(kbb_sf) +   
+tm_polygons() +
+tm_shape(fire_sf) + 
+tm_dots()
+```
+
+```{r}
+tm_shape(kbb_sf) +   
+tm_polygons() +   
+tm_shape(fire_sf) +   
+tm_dots(size=0.1) +   
+tm_facets(by="Month_fac",free.coords=FALSE,drop.units=TRUE)
+```
+
+```{r}
+fire_month <- fire_sf |>
+  select(month_num)
+
+fire_month
+```
+
+```{r}
+fire_month_ppp <- as.ppp(fire_month)
+fire_month_ppp
+```
+
+```{r}
+fire_month_owin <- fire_month_ppp[kbb_owin] 
+summary(fire_month_owin)
+```
+
+```{r}
+plot(fire_month_owin)
+```
+
+```{r}
+st_kde <- spattemp.density(fire_month_owin)
+summary(st_kde)
+```
+
+```{r}
+tims <- c(7, 8, 9, 10, 11, 12)
+
+par(mfcol = c(2, 3))
+
+for(i in tims) {
+  plot(st_kde, i,
+       override.par = FALSE,
+       fix.range = TRUE,
+       main = paste("KDE at month", i))
+}
+```
