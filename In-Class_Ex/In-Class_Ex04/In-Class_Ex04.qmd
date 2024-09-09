@@ -1,7 +1,7 @@
 ---
 title: "In-Class Exercise 04: Spatio-Temporal Point Patterns Analysis"
 author: "Chong Zhi Cheng"
-date: "September 2, 2024"
+date: "September 9, 2024"
 date-modified: "last-modified"
 execute:
   eval: true
