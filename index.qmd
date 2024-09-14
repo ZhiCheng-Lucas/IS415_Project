@@ -13,19 +13,7 @@ In this website, you will find my relevant coursework for IS415 Geospatial Analy
 
 <!-- Use create link. ctrl k or insert. -->
 
-[Hands-on Exercise 1](/Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html)
-
-[In-Class Exercise 1](/In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html)
-
-[Hands-on Exercise 2](/Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html)
-
-[In-Class Exercise 2](/In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html)
-
-[Hands-On Exercise 3](/Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html)
-
-[/In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html](/In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html)
-
-Personal Notes belo
+Personal Notes below
 
 To manually change the epsg code without transforming
 
