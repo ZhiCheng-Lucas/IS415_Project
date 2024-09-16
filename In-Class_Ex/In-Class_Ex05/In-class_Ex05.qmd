@@ -1,0 +1,143 @@
+---
+title: "In-class Exercise 05: Spatial Weights and Applications"
+author: "Chong Zhi Cheng"
+date: "September 16, 2024"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  freeze: true
+---
+
+::: callout-note
+This is a note callout. I will use this for personal comments as well.
+:::
+
+### **The Data**
+
+-   Two data sets will be used in this hands-on exercise, they are:
+
+    -   Hunan county boundary layer. This is a geospatial data set in ESRI shapefile format.
+
+    -   Hunan_2012.csv: This csv file contains selected Hunan’s local development indicators in 2012.
+
+## **Getting Started**
+
+```{r}
+pacman::p_load(sf, spdep, tmap, tidyverse, knitr, GWmodel)
+```
+
+## **Getting the Data Into R Environment**
+
+```{r}
+hunan <- st_read(dsn = "data/geospatial", 
+                 layer = "Hunan")
+```
+
+```{r}
+hunan2012 <- read_csv("data/aspatial/Hunan_2012.csv")
+```
+
+```{r}
+hunan <- left_join(hunan, hunan2012) %>% 
+  select(1, 3, 7, 15, 16, 31, 32)
+```
+
+```{r}
+write_rds(hunan, "data/rds/hunan.rds")
+```
+
+```{r}
+hunan <- read_rds("data/rds/hunan.rds")
+```
+
+```{r}
+hunan_sp <- hunan %>% as_Spatial()
+```
+
+Adaptive Bandwidth
+
+```{r}
+bw_AIC <- bw.gwr(
+  GDPPC ~1,
+  data = hunan_sp,
+  approach = "AIC",
+  adaptive = TRUE,
+  kernel = "bisquare",
+  longlat = T
+)
+```
+
+```{r}
+bw_AIC <- bw.gwr(
+  GDPPC ~1,
+  data = hunan_sp,
+  approach = "CV",
+  adaptive = TRUE,
+  kernel = "bisquare",
+  longlat = T
+)
+```
+
+Fixed
+
+```{r}
+bw_AIC <- bw.gwr(
+  GDPPC ~1,
+  data = hunan_sp,
+  approach = "AIC",
+  adaptive = FALSE,
+  kernel = "bisquare",
+  longlat = T
+)
+```
+
+```{r}
+bw_AIC <- bw.gwr(
+  GDPPC ~1,
+  data = hunan_sp,
+  approach = "CV",
+  adaptive = FALSE,
+  kernel = "bisquare",
+  longlat = T
+)
+```
+
+```{r}
+gwstat <- gwss(
+  data = hunan_sp,
+  vars = "GDPPC",
+  bw = bw_AIC,
+  adaptive = TRUE,
+  kernel = "bisquare",
+  longlat = T
+)
+```
+
+```{r}
+gwstat_df <- as.data.frame(gwstat$SDF)
+```
+
+```{r}
+hunan_gstat <- cbind(hunan, gwstat_df)
+```
+
+```{r}
+tm_shape(hunan_gstat) +
+  tm_fill(
+    "GDPPC_LM",
+    n = 5,
+    style = "quantile"
+  ) +
+  tm_borders(alpha = 0.5) +
+  tm_layout(
+    main.title = "Distribution of geographically weighted mean",
+    main.title.position = "center",
+    legend.text.size = 1.2,
+    legend.height = 1.50,
+    legend.width = 1.50,
+    frame = TRUE
+  )
+```
+
+## **References**
