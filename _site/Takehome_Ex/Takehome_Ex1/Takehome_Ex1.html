@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Chong Zhi Cheng">
-<meta name="dcterms.date" content="2024-09-11">
+<meta name="dcterms.date" content="2024-09-16">
 
 <title>IS415 - Geospatial Analytics for Social Good: Unveiling the Spatial and Temporal Dynamics of Armed Conflict in Myanmar (2021-2024)</title>
 <style>
@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 11, 2024</p>
+      <p class="date">September 16, 2024</p>
     </div>
   </div>
   
@@ -1311,11 +1311,11 @@ Geodetic CRS:  WGS 84
 <div class="cell-output cell-output-stdout">
 <pre><code>       r                theo              rs        
  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  
- 1st Qu.:0.01929   1st Qu.:0.5130   1st Qu.:0.9778  
- Median :0.03859   Median :0.9438   Median :0.9938  
- Mean   :0.03859   Mean   :0.7383   Mean   :0.9433  
- 3rd Qu.:0.05788   3rd Qu.:0.9985   3rd Qu.:0.9965  
- Max.   :0.07718   Max.   :1.0000   Max.   :0.9977  </code></pre>
+ 1st Qu.:0.01929   1st Qu.:0.5130   1st Qu.:0.9785  
+ Median :0.03859   Median :0.9438   Median :0.9937  
+ Mean   :0.03859   Mean   :0.7383   Mean   :0.9428  
+ 3rd Qu.:0.05788   3rd Qu.:0.9985   3rd Qu.:0.9966  
+ Max.   :0.07718   Max.   :1.0000   Max.   :0.9975  </code></pre>
 </div>
 </div>
 <p>This G-function plot provides strong evidence that conflict events in Sagaing are not randomly distributed but are instead highly clustered, particularly at very short distances. This could suggest that conflicts tend to occur in specific hotspots or that one conflict event might trigger others in very close proximity.</p>
@@ -1374,8 +1374,8 @@ hi   hat(G)[hi](r)  upper critical boundary for G(r)
 Default plot formula:  .~r
 where "." stands for 'obs', 'theo', 'hi', 'lo'
 Columns 'lo' and 'hi' will be plotted as shading (by default)
-Recommended range of argument r: [0, 0.0097982]
-Available range of argument r: [0, 0.0097982]</code></pre>
+Recommended range of argument r: [0, 0.0096475]
+Available range of argument r: [0, 0.0096475]</code></pre>
 </div>
 </div>
 <p>This Monte Carlo test provides strong evidence that conflict events in Sagaing are significantly more clustered than would be expected by chance, particularly at shorter distances.</p>
@@ -1402,41 +1402,41 @@ Available range of argument r: [0, 0.0097982]</code></pre>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>L_sagaing_env <span class="ot">&lt;-</span> <span class="fu">envelope</span>(conflict_ppp_sagaing, <span class="at">fun =</span> Lest, <span class="at">nsim =</span> <span class="dv">999</span>, <span class="at">rank =</span> <span class="dv">1</span>, <span class="at">global =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Generating 999 simulations of CSR  ...
-1, 2, 3, ......10 [4:34 remaining] .........20 [4:32 remaining] ...
-......30 [4:28 remaining] .........40 [4:27 remaining] .........50 [4:24 remaining] ..
-.......60 [4:22 remaining] .........70 [4:19 remaining] .........80 [4:16 remaining] .
-........90 [4:13 remaining] .........100 [4:10 remaining] .........110
- [4:07 remaining] .........120 [4:04 remaining] .........130 [4:01 remaining] .........
-140 [3:58 remaining] .........150 [3:56 remaining] .........160 [3:53 remaining] ........
-.170 [3:50 remaining] .........180 [3:48 remaining] .........190 [3:45 remaining] .......
-..200 [3:42 remaining] .........210 [3:39 remaining] .........220 [3:36 remaining] ......
-...230 [3:34 remaining] .........240 [3:31 remaining] .........250 [3:28 remaining] .....
-....260 [3:25 remaining] .........270 [3:22 remaining] .........280 [3:20 remaining] ....
-.....290 [3:17 remaining] .........300 [3:14 remaining] .........310 [3:11 remaining] ...
-......320 [3:08 remaining] .........330 [3:06 remaining] .........340 [3:03 remaining] ..
-.......350 [3:00 remaining] .........360 [2:57 remaining] .........370 [2:54 remaining] .
-........380 [2:52 remaining] .........390 [2:49 remaining] .........400
- [2:46 remaining] .........410 [2:43 remaining] .........420 [2:41 remaining] .........
-430 [2:38 remaining] .........440 [2:35 remaining] .........450 [2:32 remaining] ........
-.460 [2:29 remaining] .........470 [2:27 remaining] .........480 [2:24 remaining] .......
-..490 [2:21 remaining] .........500 [2:18 remaining] .........510 [2:15 remaining] ......
-...520 [2:13 remaining] .........530 [2:10 remaining] .........540 [2:07 remaining] .....
-....550 [2:04 remaining] .........560 [2:02 remaining] .........570 [1:59 remaining] ....
-.....580 [1:56 remaining] .........590 [1:53 remaining] .........600 [1:51 remaining] ...
-......610 [1:48 remaining] .........620 [1:45 remaining] .........630 [1:42 remaining] ..
+1, 2, 3, ......10 [4:38 remaining] .........20 [4:34 remaining] ...
+......30 [4:32 remaining] .........40 [4:28 remaining] .........50 [4:25 remaining] ..
+.......60 [4:22 remaining] .........70 [4:19 remaining] .........80 [4:17 remaining] .
+........90 [4:14 remaining] .........100 [4:11 remaining] .........110
+ [4:09 remaining] .........120 [4:06 remaining] .........130 [4:03 remaining] .........
+140 [4:00 remaining] .........150 [3:57 remaining] .........160 [3:55 remaining] ........
+.170 [3:52 remaining] .........180 [3:49 remaining] .........190 [3:46 remaining] .......
+..200 [3:43 remaining] .........210 [3:41 remaining] .........220 [3:38 remaining] ......
+...230 [3:35 remaining] .........240 [3:32 remaining] .........250 [3:29 remaining] .....
+....260 [3:26 remaining] .........270 [3:24 remaining] .........280 [3:21 remaining] ....
+.....290 [3:18 remaining] .........300 [3:15 remaining] .........310 [3:12 remaining] ...
+......320 [3:09 remaining] .........330 [3:06 remaining] .........340 [3:04 remaining] ..
+.......350 [3:01 remaining] .........360 [2:58 remaining] .........370 [2:55 remaining] .
+........380 [2:52 remaining] .........390 [2:50 remaining] .........400
+ [2:47 remaining] .........410 [2:44 remaining] .........420 [2:41 remaining] .........
+430 [2:38 remaining] .........440 [2:36 remaining] .........450 [2:33 remaining] ........
+.460 [2:30 remaining] .........470 [2:27 remaining] .........480 [2:24 remaining] .......
+..490 [2:21 remaining] .........500 [2:19 remaining] .........510 [2:16 remaining] ......
+...520 [2:13 remaining] .........530 [2:10 remaining] .........540 [2:08 remaining] .....
+....550 [2:05 remaining] .........560 [2:02 remaining] .........570 [1:59 remaining] ....
+.....580 [1:56 remaining] .........590 [1:54 remaining] .........600 [1:51 remaining] ...
+......610 [1:48 remaining] .........620 [1:45 remaining] .........630 [1:43 remaining] ..
 .......640 [1:40 remaining] .........650 [1:37 remaining] .........660 [1:34 remaining] .
-........670 [1:31 remaining] .........680 [1:28 remaining] .........690
+........670 [1:31 remaining] .........680 [1:29 remaining] .........690
  [1:26 remaining] .........700 [1:23 remaining] .........710 [1:20 remaining] .........
-720 [1:17 remaining] .........730 [1:15 remaining] .........740 [1:12 remaining] ........
-.750 [1:09 remaining] .........760 [1:06 remaining] .........770 [1:03 remaining] .......
+720 [1:18 remaining] .........730 [1:15 remaining] .........740 [1:12 remaining] ........
+.750 [1:09 remaining] .........760 [1:06 remaining] .........770 [1:04 remaining] .......
 ..780 [1:01 remaining] .........790 [58 sec remaining] .........800 [55 sec remaining] ......
-...810 [52 sec remaining] .........820 [50 sec remaining] .........830 [47 sec remaining] .....
+...810 [53 sec remaining] .........820 [50 sec remaining] .........830 [47 sec remaining] .....
 ....840 [44 sec remaining] .........850 [41 sec remaining] .........860 [39 sec remaining] ....
 .....870 [36 sec remaining] .........880 [33 sec remaining] .........890 [30 sec remaining] ...
-......900 [27 sec remaining] .........910 [25 sec remaining] .........920 [22 sec remaining] ..
+......900 [28 sec remaining] .........910 [25 sec remaining] .........920 [22 sec remaining] ..
 .......930 [19 sec remaining] .........940 [16 sec remaining] .........950 [14 sec remaining] .
 ........960 [11 sec remaining] .........970 [8 sec remaining] .........980
- [5 sec remaining] .........990 [2 sec remaining] ........
+ [5 sec remaining] .........990 [3 sec remaining] ........
 999.
 
 Done.</code></pre>
@@ -1566,7 +1566,7 @@ Available range of argument r: [0, 0.7193]</code></pre>
 <pre><code>Spatiotemporal Kernel Density Estimate
 
 Bandwidths
-  h = 0.0274 (spatial)
+  h = 0.0441 (spatial)
   lambda = 21.4746 (temporal)
 
 No. of observations
@@ -1581,7 +1581,7 @@ Temporal bound
 
 Evaluation
   128 x 128 x 1265 trivariate lattice
-  Density range: [0, 0.01592659]
+  Density range: [0, 0.007044499]
 NULL</code></pre>
 </div>
 </div>
@@ -1657,11 +1657,11 @@ Geodetic CRS:  WGS 84
 <div class="cell-output cell-output-stdout">
 <pre><code>       r                theo              rs        
  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  
- 1st Qu.:0.02141   1st Qu.:0.5130   1st Qu.:0.9664  
- Median :0.04283   Median :0.9438   Median :0.9883  
- Mean   :0.04283   Mean   :0.7383   Mean   :0.9529  
- 3rd Qu.:0.06424   3rd Qu.:0.9985   3rd Qu.:0.9950  
- Max.   :0.08565   Max.   :1.0000   Max.   :0.9980  </code></pre>
+ 1st Qu.:0.02141   1st Qu.:0.5130   1st Qu.:0.9625  
+ Median :0.04283   Median :0.9438   Median :0.9872  
+ Mean   :0.04283   Mean   :0.7383   Mean   :0.9520  
+ 3rd Qu.:0.06424   3rd Qu.:0.9985   3rd Qu.:0.9944  
+ Max.   :0.08565   Max.   :1.0000   Max.   :0.9978  </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1870,7 +1870,7 @@ Available range of argument r: [0, 0.51656]</code></pre>
 <pre><code>Spatiotemporal Kernel Density Estimate
 
 Bandwidths
-  h = 0.0095 (spatial)
+  h = 0.0128 (spatial)
   lambda = 26.5057 (temporal)
 
 No. of observations
@@ -1885,7 +1885,7 @@ Temporal bound
 
 Evaluation
   128 x 128 x 1265 trivariate lattice
-  Density range: [0, 0.1895888]
+  Density range: [0, 0.1435081]
 NULL</code></pre>
 </div>
 </div>
@@ -1960,11 +1960,11 @@ Geodetic CRS:  WGS 84
 <div class="cell-output cell-output-stdout">
 <pre><code>       r                theo              rs        
  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  
- 1st Qu.:0.02085   1st Qu.:0.5130   1st Qu.:0.9517  
- Median :0.04170   Median :0.9438   Median :0.9813  
- Mean   :0.04170   Mean   :0.7383   Mean   :0.9415  
+ 1st Qu.:0.02085   1st Qu.:0.5130   1st Qu.:0.9524  
+ Median :0.04170   Median :0.9438   Median :0.9811  
+ Mean   :0.04170   Mean   :0.7383   Mean   :0.9399  
  3rd Qu.:0.06255   3rd Qu.:0.9985   3rd Qu.:0.9909  
- Max.   :0.08340   Max.   :1.0000   Max.   :0.9964  </code></pre>
+ Max.   :0.08340   Max.   :1.0000   Max.   :0.9962  </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2022,8 +2022,8 @@ hi   hat(G)[hi](r)  upper critical boundary for G(r)
 Default plot formula:  .~r
 where "." stands for 'obs', 'theo', 'hi', 'lo'
 Columns 'lo' and 'hi' will be plotted as shading (by default)
-Recommended range of argument r: [0, 0.0096109]
-Available range of argument r: [0, 0.0096109]</code></pre>
+Recommended range of argument r: [0, 0.0101]
+Available range of argument r: [0, 0.0101]</code></pre>
 </div>
 </div>
 </section>
@@ -2169,7 +2169,7 @@ Available range of argument r: [0, 0.50342]</code></pre>
 <pre><code>Spatiotemporal Kernel Density Estimate
 
 Bandwidths
-  h = 0.0128 (spatial)
+  h = 0.0107 (spatial)
   lambda = 29.4614 (temporal)
 
 No. of observations
@@ -2184,7 +2184,7 @@ Temporal bound
 
 Evaluation
   128 x 128 x 1232 trivariate lattice
-  Density range: [0, 0.1041174]
+  Density range: [0, 0.1304056]
 NULL</code></pre>
 </div>
 </div>
@@ -2271,9 +2271,9 @@ Geodetic CRS:  WGS 84
  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  
  1st Qu.:0.03383   1st Qu.:0.5130   1st Qu.:0.9908  
  Median :0.06767   Median :0.9438   Median :0.9973  
- Mean   :0.06767   Mean   :0.7383   Mean   :0.9888  
- 3rd Qu.:0.10150   3rd Qu.:0.9985   3rd Qu.:0.9992  
- Max.   :0.13533   Max.   :1.0000   Max.   :1.0000  </code></pre>
+ Mean   :0.06767   Mean   :0.7383   Mean   :0.9889  
+ 3rd Qu.:0.10150   3rd Qu.:0.9985   3rd Qu.:0.9988  
+ Max.   :0.13533   Max.   :1.0000   Max.   :0.9996  </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2481,7 +2481,7 @@ Available range of argument r: [0, 0.86867]</code></pre>
 <pre><code>Spatiotemporal Kernel Density Estimate
 
 Bandwidths
-  h = 0.0085 (spatial)
+  h = 0.0078 (spatial)
   lambda = 21.4251 (temporal)
 
 No. of observations
@@ -2496,7 +2496,7 @@ Temporal bound
 
 Evaluation
   128 x 128 x 1263 trivariate lattice
-  Density range: [0, 0.3031752]
+  Density range: [0, 0.3199475]
 NULL</code></pre>
 </div>
 </div>

@@ -1,7 +1,7 @@
 ---
 title: "Geospatial Analytics for Social Good: Unveiling the Spatial and Temporal Dynamics of Armed Conflict in Myanmar (2021-2024)"
 author: "Chong Zhi Cheng"
-date: "September 11, 2024"
+date: "September 16, 2024"
 date-modified: "last-modified"
 execute:
   eval: true
