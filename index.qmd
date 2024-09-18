@@ -13,6 +13,10 @@ In this website, you will find my relevant coursework for IS415 Geospatial Analy
 
 <!-- Use create link. ctrl k or insert. -->
 
+The application of geospatial analytics to complex societal challenges has emerged as a powerful tool for understanding and addressing global issues. This study leverages advanced spatial and spatio-temporal point pattern analysis techniques to examine the geographical distribution and evolution of armed conflict in Myanmar following the military coup of February 1, 2021.
+
+[Unveiling the Spatial and Temporal Dynamics of Armed Conflict in Myanmar](/Takehome_Ex/Takehome_Ex1/Takehome_Ex1.qmd)
+
 Personal Notes below
 
 To manually change the epsg code without transforming

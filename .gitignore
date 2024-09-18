@@ -11,3 +11,5 @@ cheatsheets-all/
 cheatsheets_main/
 .png
 .gif
+**/*.png
+**/*.gif

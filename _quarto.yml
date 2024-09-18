@@ -57,6 +57,13 @@ website:
           href: "In-Class_Ex/In-Class_Ex11/In-Class_Ex11.html"
         - text: "In-Class Exercise 12: Spatial Interaction Models"
           href: "In-Class_Ex/In-Class_Ex12/In-Class_Ex12.html"
+    - text: "Takehome Exercise"
+      menu:
+        - text: "Takehome Exercise 1: Unveiling the Spatial and Temporal Dynamics of Armed Conflict in Myanmar"
+          href: "Takehome_Ex/Takehome_Ex1/Takehome_Ex1.qmd"
+        - text: "Takehome Exercise 2: "
+        - text: "Takehome Exercise 3: "
+
     right:
       - href: index.qmd
         text: Home
