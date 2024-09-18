@@ -92,7 +92,7 @@ While these three groups form the core of the alliance, they are also aligned wi
 
 # Data Sources and Parameters
 
-## **Armed conflict data**
+## Armed conflict data
 
 This study utilizes armed conflict data for Myanmar spanning from January 2021 to June 2024. The primary data source is the [Armed Conflict Location & Event Data (ACLED)](https://acleddata.com/), an independent, impartial, and international non-profit organization. ACLED is renowned for its comprehensive collection of data on violent conflicts and protests across all countries and territories worldwide.
 

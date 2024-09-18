@@ -285,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#data-sources-and-parameters" id="toc-data-sources-and-parameters" class="nav-link" data-scroll-target="#data-sources-and-parameters">Data Sources and Parameters</a>
   <ul class="collapse">
-  <li><a href="#armed-conflict-data" id="toc-armed-conflict-data" class="nav-link" data-scroll-target="#armed-conflict-data"><strong>Armed conflict data</strong></a>
+  <li><a href="#armed-conflict-data" id="toc-armed-conflict-data" class="nav-link" data-scroll-target="#armed-conflict-data">Armed conflict data</a>
   <ul class="collapse">
   <li><a href="#data-characteristics" id="toc-data-characteristics" class="nav-link" data-scroll-target="#data-characteristics">Data Characteristics</a></li>
   <li><a href="#acled-data-columns" id="toc-acled-data-columns" class="nav-link" data-scroll-target="#acled-data-columns">ACLED Data Columns</a></li>
@@ -436,7 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data-sources-and-parameters" class="level1">
 <h1>Data Sources and Parameters</h1>
 <section id="armed-conflict-data" class="level2">
-<h2 class="anchored" data-anchor-id="armed-conflict-data"><strong>Armed conflict data</strong></h2>
+<h2 class="anchored" data-anchor-id="armed-conflict-data">Armed conflict data</h2>
 <p>This study utilizes armed conflict data for Myanmar spanning from January 2021 to June 2024. The primary data source is the <a href="https://acleddata.com/">Armed Conflict Location &amp; Event Data (ACLED)</a>, an independent, impartial, and international non-profit organization. ACLED is renowned for its comprehensive collection of data on violent conflicts and protests across all countries and territories worldwide.</p>
 <section id="data-characteristics" class="level3">
 <h3 class="anchored" data-anchor-id="data-characteristics">Data Characteristics</h3>
@@ -1311,11 +1311,11 @@ Geodetic CRS:  WGS 84
 <div class="cell-output cell-output-stdout">
 <pre><code>       r                theo              rs        
  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  
- 1st Qu.:0.01929   1st Qu.:0.5130   1st Qu.:0.9789  
- Median :0.03859   Median :0.9438   Median :0.9946  
- Mean   :0.03859   Mean   :0.7383   Mean   :0.9428  
- 3rd Qu.:0.05788   3rd Qu.:0.9985   3rd Qu.:0.9970  
- Max.   :0.07718   Max.   :1.0000   Max.   :0.9975  </code></pre>
+ 1st Qu.:0.01929   1st Qu.:0.5130   1st Qu.:0.9797  
+ Median :0.03859   Median :0.9438   Median :0.9943  
+ Mean   :0.03859   Mean   :0.7383   Mean   :0.9432  
+ 3rd Qu.:0.05788   3rd Qu.:0.9985   3rd Qu.:0.9967  
+ Max.   :0.07718   Max.   :1.0000   Max.   :0.9978  </code></pre>
 </div>
 </div>
 <p>This G-function plot provides strong evidence that conflict events in Sagaing are not randomly distributed but are instead highly clustered, particularly at very short distances. This could suggest that conflicts tend to occur in specific hotspots or that one conflict event might trigger others in very close proximity.</p>
@@ -1374,8 +1374,8 @@ hi   hat(G)[hi](r)  upper critical boundary for G(r)
 Default plot formula:  .~r
 where "." stands for 'obs', 'theo', 'hi', 'lo'
 Columns 'lo' and 'hi' will be plotted as shading (by default)
-Recommended range of argument r: [0, 0.009949]
-Available range of argument r: [0, 0.009949]</code></pre>
+Recommended range of argument r: [0, 0.0094967]
+Available range of argument r: [0, 0.0094967]</code></pre>
 </div>
 </div>
 <p>This Monte Carlo test provides strong evidence that conflict events in Sagaing are significantly more clustered than would be expected by chance, particularly at shorter distances.</p>
@@ -1402,28 +1402,28 @@ Available range of argument r: [0, 0.009949]</code></pre>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>L_sagaing_env <span class="ot">&lt;-</span> <span class="fu">envelope</span>(conflict_ppp_sagaing, <span class="at">fun =</span> Lest, <span class="at">nsim =</span> <span class="dv">999</span>, <span class="at">rank =</span> <span class="dv">1</span>, <span class="at">global =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Generating 999 simulations of CSR  ...
-1, 2, 3, ......10 [4:53 remaining] .........20 [4:55 remaining] ...
-......30 [4:50 remaining] .........40 [4:48 remaining] .........50 [4:43 remaining] ..
+1, 2, 3, ......10 [4:56 remaining] .........20 [4:52 remaining] ...
+......30 [4:49 remaining] .........40 [4:44 remaining] .........50 [4:41 remaining] ..
 .......60 [4:39 remaining] .........70 [4:35 remaining] .........80 [4:33 remaining] .
-........90 [4:30 remaining] .........100 [4:26 remaining] .........110
- [4:24 remaining] .........120 [4:21 remaining] .........130 [4:17 remaining] .........
-140 [4:14 remaining] .........150 [4:11 remaining] .........160 [4:08 remaining] ........
-.170 [4:05 remaining] .........180 [4:02 remaining] .........190 [3:59 remaining] .......
-..200 [3:56 remaining] .........210 [3:53 remaining] .........220 [3:50 remaining] ......
+........90 [4:29 remaining] .........100 [4:26 remaining] .........110
+ [4:22 remaining] .........120 [4:19 remaining] .........130 [4:16 remaining] .........
+140 [4:12 remaining] .........150 [4:10 remaining] .........160 [4:07 remaining] ........
+.170 [4:04 remaining] .........180 [4:01 remaining] .........190 [3:58 remaining] .......
+..200 [3:55 remaining] .........210 [3:52 remaining] .........220 [3:49 remaining] ......
 ...230 [3:46 remaining] .........240 [3:43 remaining] .........250 [3:40 remaining] .....
-....260 [3:37 remaining] .........270 [3:34 remaining] .........280 [3:31 remaining] ....
-.....290 [3:28 remaining] .........300 [3:25 remaining] .........310 [3:22 remaining] ...
-......320 [3:19 remaining] .........330 [3:16 remaining] .........340 [3:13 remaining] ..
-.......350 [3:10 remaining] .........360 [3:07 remaining] .........370 [3:05 remaining] .
+....260 [3:37 remaining] .........270 [3:35 remaining] .........280 [3:32 remaining] ....
+.....290 [3:29 remaining] .........300 [3:26 remaining] .........310 [3:23 remaining] ...
+......320 [3:20 remaining] .........330 [3:17 remaining] .........340 [3:14 remaining] ..
+.......350 [3:11 remaining] .........360 [3:08 remaining] .........370 [3:05 remaining] .
 ........380 [3:02 remaining] .........390 [2:59 remaining] .........400
  [2:56 remaining] .........410 [2:53 remaining] .........420 [2:50 remaining] .........
-430 [2:47 remaining] .........440 [2:44 remaining] .........450 [2:41 remaining] ........
-.460 [2:38 remaining] .........470 [2:36 remaining] .........480 [2:32 remaining] .......
+430 [2:48 remaining] .........440 [2:45 remaining] .........450 [2:42 remaining] ........
+.460 [2:39 remaining] .........470 [2:36 remaining] .........480 [2:33 remaining] .......
 ..490 [2:30 remaining] .........500 [2:27 remaining] .........510 [2:24 remaining] ......
 ...520 [2:21 remaining] .........530 [2:18 remaining] .........540 [2:15 remaining] .....
 ....550 [2:12 remaining] .........560 [2:09 remaining] .........570 [2:06 remaining] ....
 .....580 [2:03 remaining] .........590 [2:00 remaining] .........600 [1:57 remaining] ...
-......610 [1:54 remaining] .........620 [1:51 remaining] .........630 [1:49 remaining] ..
+......610 [1:54 remaining] .........620 [1:52 remaining] .........630 [1:49 remaining] ..
 .......640 [1:46 remaining] .........650 [1:43 remaining] .........660 [1:40 remaining] .
 ........670 [1:37 remaining] .........680 [1:34 remaining] .........690
  [1:31 remaining] .........700 [1:28 remaining] .........710 [1:25 remaining] .........
@@ -1566,7 +1566,7 @@ Available range of argument r: [0, 0.7193]</code></pre>
 <pre><code>Spatiotemporal Kernel Density Estimate
 
 Bandwidths
-  h = 0.0499 (spatial)
+  h = 0.0299 (spatial)
   lambda = 21.4746 (temporal)
 
 No. of observations
@@ -1581,7 +1581,7 @@ Temporal bound
 
 Evaluation
   128 x 128 x 1265 trivariate lattice
-  Density range: [0, 0.005739644]
+  Density range: [0, 0.01399025]
 NULL</code></pre>
 </div>
 </div>
@@ -1657,11 +1657,11 @@ Geodetic CRS:  WGS 84
 <div class="cell-output cell-output-stdout">
 <pre><code>       r                theo              rs        
  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  
- 1st Qu.:0.02141   1st Qu.:0.5130   1st Qu.:0.9614  
- Median :0.04283   Median :0.9438   Median :0.9875  
- Mean   :0.04283   Mean   :0.7383   Mean   :0.9519  
- 3rd Qu.:0.06424   3rd Qu.:0.9985   3rd Qu.:0.9944  
- Max.   :0.08565   Max.   :1.0000   Max.   :0.9975  </code></pre>
+ 1st Qu.:0.02141   1st Qu.:0.5130   1st Qu.:0.9622  
+ Median :0.04283   Median :0.9438   Median :0.9866  
+ Mean   :0.04283   Mean   :0.7383   Mean   :0.9523  
+ 3rd Qu.:0.06424   3rd Qu.:0.9985   3rd Qu.:0.9950  
+ Max.   :0.08565   Max.   :1.0000   Max.   :0.9978  </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1719,8 +1719,8 @@ hi   hat(G)[hi](r)  upper critical boundary for G(r)
 Default plot formula:  .~r
 where "." stands for 'obs', 'theo', 'hi', 'lo'
 Columns 'lo' and 'hi' will be plotted as shading (by default)
-Recommended range of argument r: [0, 0.0083644]
-Available range of argument r: [0, 0.0083644]</code></pre>
+Recommended range of argument r: [0, 0.0081971]
+Available range of argument r: [0, 0.0081971]</code></pre>
 </div>
 </div>
 </section>
@@ -1870,7 +1870,7 @@ Available range of argument r: [0, 0.51656]</code></pre>
 <pre><code>Spatiotemporal Kernel Density Estimate
 
 Bandwidths
-  h = 0.0108 (spatial)
+  h = 0.0136 (spatial)
   lambda = 26.5057 (temporal)
 
 No. of observations
@@ -1885,7 +1885,7 @@ Temporal bound
 
 Evaluation
   128 x 128 x 1265 trivariate lattice
-  Density range: [0, 0.1762955]
+  Density range: [0, 0.1305313]
 NULL</code></pre>
 </div>
 </div>
@@ -1960,11 +1960,11 @@ Geodetic CRS:  WGS 84
 <div class="cell-output cell-output-stdout">
 <pre><code>       r                theo              rs        
  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  
- 1st Qu.:0.02085   1st Qu.:0.5130   1st Qu.:0.9529  
- Median :0.04170   Median :0.9438   Median :0.9794  
- Mean   :0.04170   Mean   :0.7383   Mean   :0.9392  
- 3rd Qu.:0.06255   3rd Qu.:0.9985   3rd Qu.:0.9919  
- Max.   :0.08340   Max.   :1.0000   Max.   :0.9962  </code></pre>
+ 1st Qu.:0.02085   1st Qu.:0.5130   1st Qu.:0.9505  
+ Median :0.04170   Median :0.9438   Median :0.9789  
+ Mean   :0.04170   Mean   :0.7383   Mean   :0.9401  
+ 3rd Qu.:0.06255   3rd Qu.:0.9985   3rd Qu.:0.9911  
+ Max.   :0.08340   Max.   :1.0000   Max.   :0.9966  </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -2022,8 +2022,8 @@ hi   hat(G)[hi](r)  upper critical boundary for G(r)
 Default plot formula:  .~r
 where "." stands for 'obs', 'theo', 'hi', 'lo'
 Columns 'lo' and 'hi' will be plotted as shading (by default)
-Recommended range of argument r: [0, 0.010425]
-Available range of argument r: [0, 0.010425]</code></pre>
+Recommended range of argument r: [0, 0.0101]
+Available range of argument r: [0, 0.0101]</code></pre>
 </div>
 </div>
 </section>
@@ -2184,7 +2184,7 @@ Temporal bound
 
 Evaluation
   128 x 128 x 1232 trivariate lattice
-  Density range: [0, 0.1390678]
+  Density range: [0, 0.1484057]
 NULL</code></pre>
 </div>
 </div>
@@ -2269,9 +2269,9 @@ Geodetic CRS:  WGS 84
 <div class="cell-output cell-output-stdout">
 <pre><code>       r                theo              rs        
  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  
- 1st Qu.:0.03383   1st Qu.:0.5130   1st Qu.:0.9904  
- Median :0.06767   Median :0.9438   Median :0.9973  
- Mean   :0.06767   Mean   :0.7383   Mean   :0.9890  
+ 1st Qu.:0.03383   1st Qu.:0.5130   1st Qu.:0.9900  
+ Median :0.06767   Median :0.9438   Median :0.9977  
+ Mean   :0.06767   Mean   :0.7383   Mean   :0.9888  
  3rd Qu.:0.10150   3rd Qu.:0.9985   3rd Qu.:0.9992  
  Max.   :0.13533   Max.   :1.0000   Max.   :0.9996  </code></pre>
 </div>
@@ -2331,8 +2331,8 @@ hi   hat(G)[hi](r)  upper critical boundary for G(r)
 Default plot formula:  .~r
 where "." stands for 'obs', 'theo', 'hi', 'lo'
 Columns 'lo' and 'hi' will be plotted as shading (by default)
-Recommended range of argument r: [0, 0.00079296]
-Available range of argument r: [0, 0.00079296]</code></pre>
+Recommended range of argument r: [0, 0.0010573]
+Available range of argument r: [0, 0.0010573]</code></pre>
 </div>
 </div>
 </section>
@@ -2481,7 +2481,7 @@ Available range of argument r: [0, 0.86867]</code></pre>
 <pre><code>Spatiotemporal Kernel Density Estimate
 
 Bandwidths
-  h = 0.004 (spatial)
+  h = 0.0084 (spatial)
   lambda = 21.4251 (temporal)
 
 No. of observations
@@ -2496,7 +2496,7 @@ Temporal bound
 
 Evaluation
   128 x 128 x 1263 trivariate lattice
-  Density range: [0, 0.3442227]
+  Density range: [0, 0.3054017]
 NULL</code></pre>
 </div>
 </div>
