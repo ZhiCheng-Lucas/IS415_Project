@@ -80,7 +80,7 @@ The key distinction lies in their operational scope and structure: PDFs are more
 
 The Three Brotherhood Alliance is made up of various ethnic armed groups with the key ones being the Arakan Army, the Myanmar National Democratic Alliance Army (MNDAA), and the Ta’ang National Liberation Army (TNLA).
 
--   **Arakan Army:** Founded in 2009, the Arakan Army is believed to have some 30,000 soldiers. It says it is fighting to restore the sovereignty of the multi-ethnic Arakanese in the western state of Rakhine. The group has recruited troops from the Rohingya, a minority mostly Muslim group from Rakhine, who were the target of a brutal military crackdown that is now the subject of a genocide case at the International Court of Justice.
+-   **Arakan Army:** Founded in 2009, the Arakan Army is believed to have some 30,000 soldiers. Their spoken mission is to restore the sovereignty of the multi-ethnic Arakanese in the western state of Rakhine. The group has recruited troops from the Rohingya, a minority mostly Muslim group from Rakhine, who were the target of a brutal military crackdown that is now the subject of a genocide case at the International Court of Justice.
 
 -   **Myanmar National Democratic Alliance Army (MNDAA):** The MNDAA operates near the Chinese border in northern Shan state. The group says it is fighting for autonomy for the Kokang people, a Han-speaking ethnic group. MNDAA controlled Shan for about 20 years as a special region of Myanmar, during which the narcotics trade boomed. Armed conflicts between the group and the military broke out in 2009 after it was ordered to become a border force, and give up control. MNDAA said earlier this month it had taken control of Laukkai, a town notorious for transnational human trafficking and online scams, that it lost in the 2009 conflict.
 
@@ -109,7 +109,7 @@ This study utilizes armed conflict data for Myanmar spanning from January 2021 t
 ### ACLED Data Columns
 
 | Field Name       | Description                                                                                                                                                    |
-|-----------------------|--------------------------------------------------------------|
+|--------------------|----------------------------------------------------|
 | ISO              | A numeric code for each individual country                                                                                                                     |
 | EVENT_ID_CNTY    | An individual event identifier by number and country acronym                                                                                                   |
 | EVENT_ID_NO_CNTY | An individual event numeric identifier                                                                                                                         |
@@ -371,7 +371,7 @@ Key findings from our analysis include:
 
 2.  **Hotspots in Northern/Central Regions**: The analysis identifies significant conflict activity in the following areas: Sagaing, Magway, Mandalay, and Shan.
 
-3.  **Southern Conflict Center**: Yangon also emerges as a notable a area of conflict.
+3.  **Southern Conflict Center**: Yangon also emerges as a notable area of conflict.
 
 4.  **Relative Calm in Uncontested Areas**: Regions that fall squarely within the undisputed territory of either the Junta or rebel groups show notably less conflict activity. This pattern aligns with the expectation that areas of clear control experience fewer armed confrontations.
 
@@ -385,11 +385,7 @@ Building upon our initial analysis, we segmented the conflict event data into qu
 
 **Handling Spatial Data Challenges (Duplicates)**
 
-A common challenge in spatial point pattern analysis is the occurrence of multiple events at identical coordinates, often due to limitations in spatial precision of reporting. To address this, we applied a jittering technique:
-
--   Each point was slightly displaced in a random direction.
-
--   This process helps prevent underrepresentation of high-density areas in subsequent analyses.
+A common challenge in spatial point pattern analysis is the occurrence of multiple events at identical coordinates, often due to limitations in spatial precision of reporting. To address this, we applied a jittering technique where each point was slightly displaced in a random direction.
 
 ## Kernel Density Estimation (KDE)
 
@@ -574,6 +570,33 @@ Key observations:
 1.  **Central Concentration**: Notice how the conflicts are consistently concentrated in the middle area of Myanmar throughout the entire period. This pattern supports our previous analysis and highlights the persistent nature of conflicts in this region.
 
 2.  **Relative Calm in Peripheries**: The peripheral areas, particularly the far north, far south and far east generally show lower conflict intensity.
+
+## Spatio-Temporal kernel density estimation
+
+```{r}
+# Prepare data for STKDE
+coords <- st_coordinates(conflict_data)
+t <- as.numeric(conflict_data$event_date - min(conflict_data$event_date))
+
+# Create observation window for the entire region
+window_full <- as.owin(st_bbox(adm0))
+
+# Create ppp object
+ppp_full <- as.ppp(coords, W = window_full)
+
+# Compute bandwidths
+h_spatial <- bw.ppl(ppp_full)
+h_temporal <- bw.SJ(t)
+
+# Perform STKDE
+stkde_result <- spattemp.density(ppp_full, t, tlim = range(t),
+                                 h = c(h_spatial, h_temporal))
+
+# Print summary of STKDE result
+print(summary(stkde_result))
+
+
+```
 
 # Second-order Spatial-Temporal Patterns Analysis
 
@@ -785,8 +808,6 @@ The spatiotemporal analysis of conflict events in Sagaing reveals a highly clust
 Over a period of about 3.5 years, 11,128 conflict events were recorded within a specific geographic area, averaging nearly 9 incidents per day.
 
 Statistical tests, including G-function and L-function analyses, consistently demonstrate that this clustering is significantly more pronounced than would be expected from random distribution, with particularly intense clustering at shorter distances but persisting across larger scales.
-
-The kernel density estimation further suggests the presence of specific spatiotemporal hotspots within the region.
 
 ### Mandalay
 
@@ -1089,8 +1110,6 @@ The analysis of conflict events in Magway reveals a significant pattern of spati
 
 Both the G-function and L-function analyses consistently demonstrate that this clustering is substantially more pronounced than would be expected from a random distribution, with particularly intense clustering at shorter distances but persisting across larger scales.
 
-The spatiotemporal kernel density estimation further indicates the presence of specific hotspots within the region, with a wide density range suggesting significant variation in conflict concentration.
-
 ### Central Region Analysis
 
 The analysis of conflict events across these three regions demonstrates a consistent pattern of significant spatial and temporal clustering, far exceeding what would be expected from random distribution.
@@ -1105,7 +1124,7 @@ The spatiotemporal kernel density estimations for each region reveal significant
 
 Given their status as critical border zones, the intense clustering and high frequency of conflict events in these regions likely reflect their strategic importance in the broader conflict. The patterns observed suggest a complex interplay of local and regional factors driving the conflict dynamics, potentially including control over key infrastructure, population centers, or resources.
 
-## Southern-Region : Yangon 
+## Southern-Region : Yangon
 
 ```{r}
 # Extract Yangon region
@@ -1252,8 +1271,6 @@ print(summary(stkde_result))
 The analysis of conflict events in Yangon reveals a complex and intensely clustered pattern of violence over approximately 3.5 years, with 2,608 recorded incidents averaging 2.07 events per day.
 
 Both the G-function and L-function analyses consistently demonstrate significant spatial clustering far exceeding what would be expected from random distribution, with particularly strong clustering at shorter and medium distances.
-
-The spatiotemporal kernel density estimation further confirms the presence of specific hotspots within the region, with a wide density range indicating significant variation in conflict concentration.
 
 Comparing the conflict dynamics in Yangon with those of the central region (Sagaing, Mandalay, and Magway) reveals both similarities and distinct characteristics, highlighting the complex nature of the conflict across different parts of Myanmar:
 
