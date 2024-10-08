@@ -1,0 +1,21 @@
+---
+title: "Shiny 1"
+author: "Chong Zhi Cheng"
+date: "September 30, 2024"
+date-modified: "last-modified"
+execute:
+  eval: false
+  echo: true
+  freeze: true
+---
+
+```{r}
+install.packages("shiny")
+
+```
+
+```{r}
+library(shiny)
+runExample("01_hello")
+
+```

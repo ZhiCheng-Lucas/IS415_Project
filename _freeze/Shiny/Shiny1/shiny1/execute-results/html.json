@@ -1,0 +1,15 @@
+{
+  "hash": "64a1506234c1fb6d80a9a52fa8734a22",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Shiny 1\"\nauthor: \"Chong Zhi Cheng\"\ndate: \"September 30, 2024\"\ndate-modified: \"last-modified\"\nexecute:\n  eval: false\n  echo: true\n  freeze: true\n---\n\n::: {.cell}\n\n```{.r .cell-code}\ninstall.packages(\"shiny\")\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(shiny)\nrunExample(\"01_hello\")\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

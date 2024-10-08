@@ -1,0 +1,341 @@
+---
+title: "Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level"
+author: "Chong Zhi Cheng"
+date: "September 30, 2024"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+---
+
+The application of geospatial analytics to complex societal challenges has emerged as a powerful tool for understanding and addressing global issues. This study leverages advanced spatial and spatio-temporal point pattern analysis techniques to examine the geographical distribution and evolution of armed conflict in Myanmar following the military coup of February 1, 2021.
+
+To provide more context for this analysis, readers are encouraged to explore two key resources:
+
+1.  The International Institute for Strategic Studies (IISS) offers an interactive map of the conflict, along with a concise introduction to the situation in Myanmar. This resource can be accessed at <https://myanmar.iiss.org/>
+
+2.  For a comprehensive understanding of the conflict, the Special Advisory Council for Myanmar has published an in-depth report, available at <https://specialadvisorycouncil.org/>.
+
+These resources complement our geospatial analysis by providing crucial background information and additional perspectives on the ongoing conflict in Myanmar.
+
+## Objectives
+
+-   if the key indicators of drug abuse of Thailand are independent from space.
+
+-   If the indicators of drug abuse is indeed spatial dependent, then, you would like to detect where are the clusters and outliers, and the hotspots.
+
+-   Last but not least, you are also interested to investigate how the observation above evolve over time.
+
+The specific tasks of this take-home exercise are as follows:
+
+-   Using appropriate function of **sf** and **tidyverse**, preparing the following geospatial data layer:
+
+    -   a study area layer in sf polygon features. It must be at [province level](https://en.wikipedia.org/wiki/Provinces_of_Thailand) (including Bangkok) of Thailand.
+
+    -   a drug abuse indicators layer within the study area in sf polygon features.
+
+-   Using the extracted data, perform global spatial autocorrelation analysis by using [sfdep methods](https://is415-gaa-tskam.netlify.app/in-class_ex/in-class_ex05/in-class_ex05-glsa).
+
+-   Using the extracted data, perform local spatial autocorrelation analysis by using [sfdep methods](https://r4gdsa.netlify.app/chap10.html).
+
+-   Describe the spatial patterns revealed by the analysis above.
+
+## **About Dataset**
+
+# **Thailand Drug Offenses \[2017-2022\]**
+
+This dataset presents statistics related to different types of drug offenses in Thailand, categorized by fiscal year. The data provides insights into the prevalence of various drug-related cases and their distribution across different provinces.
+
+Sourced from the [Office of the Narcotics Control Board](https://data.oncb.go.th/casePer)
+
+> **Cleaned and ready-to-use** 77 Provinces, 6 Years with total 7,392 rows.
+
+-   **Fiscal Year:** The fiscal year during which the drug offenses were recorded.
+
+-   **Types of Drug Offenses:** The various categories of drug-related offenses that are being reported. These categories include cases related to drug use, possession, possession with intent to distribute, trafficking, production, import, export, conspiracy, and more.
+
+-   **Number of Cases:** The total number of cases recorded for each specific combination of fiscal year, type of drug offense, and province.
+
+**Column Descriptions:**
+
+| **Column**             | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| fiscal_year            | The fiscal year during which the drug offenses were recorded.                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| types_of_drug_offenses | The specific type or category of drug offense being reported. The types include drug use cases, suspects in drug use cases, possession cases, suspects in possession cases, possession with intent to distribute cases, suspects in possession with intent to distribute cases, trafficking cases, suspects in trafficking cases, production cases, suspects in production cases, import cases, suspects in import cases, export cases, suspects in export cases, conspiracy cases, and suspects in conspiracy cases. |
+| no_cases               | The total number of cases recorded for the specific combination of fiscal year, type of drug offense, and province.                                                                                                                                                                                                                                                                                                                                                                                                   |
+| province_th            | The name of the province in Thailand, written in Thai.                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| province_en            | The name of the province in Thailand, written in English.                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+
+```{r}
+pacman::p_load(sf, spdep, tmap, tidyverse, lubridate, scales, sfdep)
+```
+
+```{r}
+adm1 <- st_read(dsn = "data/adm", layer = "tha_admbnda_adm1_rtsd_20220121")
+```
+
+```{r}
+adm0 <- st_read(dsn = "data/adm", layer = "tha_admbnda_adm0_rtsd_20220121")
+```
+
+```{r}
+st_crs(adm1)
+
+```
+
+```{r}
+adm1
+```
+
+```{r}
+
+# Load the dataset
+data <- read_csv("data/thai_drug_offenses_2017_2022.csv")
+
+# 1. Basic information about the dataset
+str(data)
+summary(data)
+
+# 2. Distribution of cases across years (updated to line chart)
+yearly_cases <- data %>%
+  group_by(fiscal_year) %>%
+  summarize(Total_Cases = sum(no_cases))
+
+ggplot(yearly_cases, aes(x = fiscal_year, y = Total_Cases, group = 1)) +
+  geom_line(color = "skyblue", size = 1) +
+  geom_point(color = "darkblue", size = 3) +
+  labs(title = "Trend of Total Drug Offense Cases by Fiscal Year",
+       x = "Fiscal Year", y = "Total Cases") +
+  theme_minimal() +
+  scale_y_continuous(labels = comma) +
+  scale_x_continuous(breaks = yearly_cases$fiscal_year) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# 3. Types of drug offenses
+offense_types <- data %>%
+  group_by(types_of_drug_offenses) %>%
+  summarize(Total_Cases = sum(no_cases)) %>%
+  arrange(desc(Total_Cases))
+
+ggplot(offense_types, aes(x = reorder(types_of_drug_offenses, -Total_Cases), y = Total_Cases)) +
+  geom_bar(stat = "identity", fill = "lightgreen") +
+  labs(title = "Total Cases by Type of Drug Offense",
+       x = "Type of Offense", y = "Total Cases") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(labels = comma)
+
+# 4. Geographical distribution of cases
+province_cases <- data %>%
+  group_by(province_en) %>%
+  summarize(Total_Cases = sum(no_cases)) %>%
+  arrange(desc(Total_Cases))
+
+top_10_provinces <- head(province_cases, 10)
+
+ggplot(top_10_provinces, aes(x = reorder(province_en, -Total_Cases), y = Total_Cases)) +
+  geom_bar(stat = "identity", fill = "salmon") +
+  labs(title = "Top 10 Provinces by Total Drug Offense Cases",
+       x = "Province", y = "Total Cases") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(labels = comma)
+
+# 5. Trends over time for top offenses
+top_5_offenses <- head(offense_types$types_of_drug_offenses, 5)
+
+trends_data <- data %>%
+  filter(types_of_drug_offenses %in% top_5_offenses) %>%
+  group_by(fiscal_year, types_of_drug_offenses) %>%
+  summarize(Total_Cases = sum(no_cases))
+
+ggplot(trends_data, aes(x = fiscal_year, y = Total_Cases, color = types_of_drug_offenses)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Trends of Top 5 Drug Offenses Over Time",
+       x = "Fiscal Year", y = "Total Cases") +
+  theme_minimal() +
+  scale_y_continuous(labels = comma)
+
+```
+
+```{r}
+# Get unique province names from both datasets
+shapefile_provinces <- unique(adm1$ADM1_EN)
+data_provinces <- unique(data$province_en)
+
+# Create a comparison dataframe
+comparison <- data.frame(
+  shapefile_provinces = sort(shapefile_provinces),
+  data_provinces = sort(data_provinces)
+)
+
+# Check for exact matches
+comparison$exact_match <- comparison$shapefile_provinces == comparison$data_provinces
+
+# Print provinces that don't match exactly
+mismatches <- comparison[!comparison$exact_match, ]
+print("Provinces that don't match exactly:")
+print(mismatches)
+
+# Function to calculate string similarity
+string_similarity <- function(a, b) {
+  agrepl(a, b, max.distance = 0.1)
+}
+
+# Check for similar names among mismatches
+if(nrow(mismatches) > 0) {
+  for(i in 1:nrow(mismatches)) {
+    similar <- sapply(data_provinces, function(x) string_similarity(mismatches$shapefile_provinces[i], x))
+    if(any(similar)) {
+      cat("Possible match for", mismatches$shapefile_provinces[i], ":", data_provinces[similar], "\n")
+    }
+  }
+}
+
+# Check for provinces in one dataset but not in the other
+in_shapefile_not_in_data <- setdiff(shapefile_provinces, data_provinces)
+in_data_not_in_shapefile <- setdiff(data_provinces, shapefile_provinces)
+
+cat("\nProvinces in shapefile but not in data:\n")
+print(in_shapefile_not_in_data)
+
+cat("\nProvinces in data but not in shapefile:\n")
+print(in_data_not_in_shapefile)
+
+```
+
+```{r}
+# Function to update province names
+update_province_name <- function(name) {
+  case_when(
+    name == "Loburi" ~ "Lop Buri",
+    name == "buogkan" ~ "Bueng Kan",
+    TRUE ~ name
+  )
+}
+
+# Update the province_en column
+data$province_en <- sapply(data$province_en, update_province_name)
+
+# Verify the changes
+print(data %>% 
+  filter(province_en %in% c("Lop Buri", "Bueng Kan", "Loei")) %>% 
+  select(province_en) %>% 
+  distinct())
+
+
+# Get unique province names from both datasets
+shapefile_provinces <- unique(adm1$ADM1_EN)
+data_provinces <- unique(data$province_en)
+
+# Check for any remaining mismatches
+mismatches <- setdiff(data_provinces, shapefile_provinces)
+cat("\nAny remaining mismatches between data provinces and shapefile:\n")
+print(mismatches)
+
+if (length(mismatches) == 0) {
+  cat("\nAll province names now match between the data file and the shapefile.\n")
+}
+
+# Additional check for case sensitivity
+case_sensitive_mismatches <- setdiff(tolower(data_provinces), tolower(shapefile_provinces))
+if (length(case_sensitive_mismatches) > 0) {
+  cat("\nWarning: Some provinces match when ignoring case, but have different capitalization:\n")
+  print(case_sensitive_mismatches)
+}
+```
+
+```{r}
+ggplot(data = adm1) +
+  geom_sf() +
+  theme_minimal() +
+  labs(title = "Provinces of Thailand")
+
+```
+
+# 
+
+```{r}
+
+# Aggregate total cases by province
+province_totals <- data %>%
+  group_by(province_en) %>%
+  summarize(total_cases = sum(no_cases))
+
+# Join the totals with the spatial data
+adm1_with_data <- adm1 %>%
+  left_join(province_totals, by = c("ADM1_EN" = "province_en"))
+
+# Create the map with a red color scheme
+ggplot(data = adm1_with_data) +
+  geom_sf(aes(fill = total_cases)) +
+  scale_fill_gradient(
+    low = "pink",
+    high = "darkred",
+    name = "Total Cases",
+    trans = "log",
+    labels = scales::comma_format()
+  ) +
+  theme_minimal() +
+  labs(title = "Overview of Drug Offense Cases in Thailand",
+       subtitle = "Total cases by province (2017-2022)",
+       caption = "Data source: Office of the Narcotics Control Board") +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    legend.title = element_text(size = 10),
+    legend.text = element_text(size = 8)
+  )
+```
+
+```{r}
+
+# Aggregate total cases by province and year
+province_year_totals <- data %>%
+  group_by(province_en, fiscal_year) %>%
+  summarize(total_cases = sum(no_cases), .groups = "drop")
+
+# Create a list of sf objects, one for each year
+adm1_with_data_by_year <- map(unique(province_year_totals$fiscal_year), function(year) {
+  year_data <- province_year_totals %>% 
+    filter(fiscal_year == year)
+  
+  adm1 %>%
+    left_join(year_data, by = c("ADM1_EN" = "province_en"))
+})
+
+# Combine all years into one sf object
+all_years_sf <- do.call(rbind, adm1_with_data_by_year)
+
+# Create the faceted map
+ggplot(data = all_years_sf) +
+  geom_sf(aes(fill = total_cases)) +
+  scale_fill_gradient(
+    low = "lightpink",
+    high = "darkred",
+    name = "Total Cases",
+    trans = "log",
+    labels = scales::comma_format()
+  ) +
+  facet_wrap(~ fiscal_year, ncol = 3) +
+  theme_minimal() +
+  labs(title = "Drug Offense Cases in Thailand by Year",
+       subtitle = "Total cases by province (2017-2022)",
+       caption = "Data source: Office of the Narcotics Control Board") +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    legend.title = element_text(size = 10),
+    legend.text = element_text(size = 8),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank()
+  )
+```
+
+## Global spatial autocorrelation analysis
