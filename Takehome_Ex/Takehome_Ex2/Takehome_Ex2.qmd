@@ -46,7 +46,7 @@ Sourced from the [Office of the Narcotics Control Board](https://data.oncb.go.th
 **Column Descriptions:**
 
 | **Column**             | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|------------|------------------------------------------------------------|
 | fiscal_year            | The fiscal year during which the drug offenses were recorded.                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | types_of_drug_offenses | The specific type or category of drug offense being reported. The types include drug use cases, suspects in drug use cases, possession cases, suspects in possession cases, possession with intent to distribute cases, suspects in possession with intent to distribute cases, trafficking cases, suspects in trafficking cases, production cases, suspects in production cases, import cases, suspects in import cases, export cases, suspects in export cases, conspiracy cases, and suspects in conspiracy cases. |
 | no_cases               | The total number of cases recorded for the specific combination of fiscal year, type of drug offense, and province.                                                                                                                                                                                                                                                                                                                                                                                                   |
@@ -1505,7 +1505,79 @@ plot_ly() %>%
   )
 ```
 
-# 
+The following 3D interactive animated plot was created to address the feedback given, specifically the concern about unclear visualization, especially for casual users. The plot aims to present the space-time cube data in a more accessible and interactive format.
+
+In this visualization:
+
+1.  The x and y axes represent the longitude and latitude of Thai provinces, preserving their geographical relationships.
+
+2.  The z-axis, labeled "Number of cases", represents the total number of drug abuse cases. Higher points on this axis indicate a greater number of cases, providing an immediate visual cue for high-incidence areas.
+
+3.  The color of each point corresponds to the number of cases, as shown in the legend on the right. The scale ranges from purple (fewer cases, around 20k) to yellow (more cases, around 60k).
+
+4.  The size of each point is also proportional to the number of cases, offering an additional visual indicator of case volume. Larger circles represent provinces with more cases.
+
+This 3D animated scatter plot presents the space-time cube data in a more intuitive and visually appealing manner. It makes it easier for both casual and experienced users to grasp the geographical distribution of drug abuse cases and how it changes over time across Thailand, addressing the original feedback about visualization clarity and accessibility.
+
+```{r}
+# Prepare data for all years
+drug_summary_all <- data %>%
+  group_by(province_en, fiscal_year) %>%
+  summarize(total_cases = sum(no_cases, na.rm = TRUE)) %>%
+  ungroup()
+
+# Join with spatial data
+map_data_all <- adm1 %>%
+  left_join(drug_summary_all, by = c("ADM1_EN" = "province_en"))
+
+# Calculate centroids of each province
+centroids <- st_centroid(map_data_all)
+centroids_coords <- st_coordinates(centroids)
+
+# Prepare data for plotting
+plot_data <- data.frame(
+  longitude = centroids_coords[, 1],
+  latitude = centroids_coords[, 2],
+  province = map_data_all$ADM1_EN,
+  year = map_data_all$fiscal_year,
+  cases = map_data_all$total_cases
+)
+
+# Create the 3D animated plot with smaller circles
+p <- plot_ly(plot_data, x = ~longitude, y = ~latitude, z = ~cases, 
+             color = ~cases, size = ~cases,
+             text = ~paste("Province:", province, 
+                           "<br>Year:", year,
+                           "<br>Cases:", cases),
+             hoverinfo = "text",
+             type = "scatter3d", mode = "markers",
+             marker = list(sizemode = "diameter", 
+                           sizeref = 2.0,  # Adjust this value to make circles smaller
+                           sizemin = 3),   # Set a minimum size for the smallest points
+             frame = ~year) %>%
+  layout(scene = list(xaxis = list(title = "Longitude"),
+                      yaxis = list(title = "Latitude"),
+                      zaxis = list(title = "Number of Cases")),
+         title = "Drug Abuse Cases in Thailand (2017-2022)")
+
+# Add slider
+p <- p %>% animation_slider(
+  currentvalue = list(prefix = "Year ", font = list(color="black"))
+)
+
+# Add play button
+p <- p %>% animation_button(
+  x = 1, xanchor = "right", y = 0, yanchor = "bottom"
+)
+
+# Set other animation options
+p <- p %>% animation_opts(
+  frame = 1000, transition = 500, easing = "cubic-in-out", redraw = FALSE
+)
+
+# Display the plot
+p
+```
 
 # **Conclusion**
 
