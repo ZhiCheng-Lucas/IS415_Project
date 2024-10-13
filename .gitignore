@@ -12,3 +12,4 @@ cheatsheets_main/
 rsconnect/
 .RDataTmp
 *.zip
+.RDataTmp1
