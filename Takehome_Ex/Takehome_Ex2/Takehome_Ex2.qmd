@@ -1509,13 +1509,13 @@ plot_ly() %>%
 
 # **Conclusion**
 
-This comprehensive spatial analysis of drug abuse cases in Thailand from 2017 to 2022 aims to valuable insights into the complex and dynamic nature of this critical social issue. Through a combination of traditional spatial statistical methods and advanced visualization techniques, we have uncovered significant patterns and trends that have important implications for policy-making and intervention strategies.
+This comprehensive spatial analysis of drug abuse cases in Thailand from 2017 to 2022 aims to provide valuable insights into the complex and dynamic nature of this critical social issue. Through a combination of traditional spatial statistical methods and advanced visualization techniques, we have uncovered significant patterns and trends that have important implications for policy-making and intervention strategies.
 
 Key findings from our analysis include:
 
 1.  **Spatial Dependency**: The consistent positive spatial autocorrelation observed across all years indicates that drug abuse cases in Thailand are not randomly distributed but tend to cluster geographically. This spatial dependency strengthened over time, highlighting the increasing importance of location in understanding and addressing drug abuse.
 
-2.  **Regional Variations**: We identified persistent hotspots in the southern region and emerging areas of concern in the northeast, particularly in 2022. Conversely, the western region consistently maintained lower drug abuse rates, offering potential insights into effective control measures.
+2.  **Regional Variations**: We identified persistent hotspots in the southern region and the central region. However, data from 2022 suggests an improvement in those areas. Conversely, the western region consistently maintained lower drug abuse rates, offering potential insights into effective control measures.
 
 3.  **Border Influences**: Provinces bordering neighboring countries often showed significant clustering of drug abuse cases, highlighting the potential influence of cross-border activities on drug-related issues.
 
