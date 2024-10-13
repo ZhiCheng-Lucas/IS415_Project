@@ -13,6 +13,12 @@ In this website, you will find my relevant coursework for IS415 Geospatial Analy
 
 <!-- Use create link. ctrl k or insert. -->
 
+Drug abuse is associated with significant negative health, financial and social consequences. Yet, illicit drug consumption remains highly prevalent and continues to be a growing problem worldwide. In 2021, 1 in 17 people aged 15–64 in the world had used a drug in the past 12 months. Notwithstanding population growth, the estimated number of drug users grew from 240 million in 2011 to 296 million in 2021.
+
+The geopolitics of Thailand which is near the [Golden Triangle](https://en.wikipedia.org/wiki/Golden_Triangle_(Southeast_Asia)) of Indochina, the largest drug production site in Asia, and the constant transportation infrastructure development made Thailand became market and transit routes for drug trafficking to the third countries.
+
+[Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level](Takehome_Ex/Takehome_Ex2/Takehome_Ex2.qmd)
+
 The application of geospatial analytics to complex societal challenges has emerged as a powerful tool for understanding and addressing global issues. This study leverages advanced spatial and spatio-temporal point pattern analysis techniques to examine the geographical distribution and evolution of armed conflict in Myanmar following the military coup of February 1, 2021.
 
 [Unveiling the Spatial and Temporal Dynamics of Armed Conflict in Myanmar](/Takehome_Ex/Takehome_Ex1/Takehome_Ex1.qmd)

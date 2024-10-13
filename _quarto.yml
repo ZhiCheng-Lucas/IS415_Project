@@ -61,7 +61,9 @@ website:
       menu:
         - text: "Takehome Exercise 1: Unveiling the Spatial and Temporal Dynamics of Armed Conflict in Myanmar"
           href: "Takehome_Ex/Takehome_Ex1/Takehome_Ex1.qmd"
-        - text: "Takehome Exercise 2: "
+        - text: "Takehome Exercise 2: Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level"
+          href: "Takehome_Ex/Takehome_Ex2/Takehome_Ex2.qmd"
+
         - text: "Takehome Exercise 3: "
 
     right:
