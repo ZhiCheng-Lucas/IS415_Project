@@ -991,6 +991,17 @@ Last but not least, we can also compute the summary statistics such as mean, med
 
 In the code chunk below, `group_by()` and `summarise()` of dplyr are used to derive mean values of the clustering variables.
 
+```{r}
+shan_sf_ngeo_cluster %>% 
+  st_set_geometry(NULL) %>%
+  group_by(CLUSTER) %>%
+  summarise(mean_RADIO_PR = mean(RADIO_PR),
+            mean_TV_PR = mean(TV_PR),
+            mean_LLPHONE_PR = mean(LLPHONE_PR),
+            mean_MPHONE_PR = mean(MPHONE_PR),
+            mean_COMPUTER_PR = mean(COMPUTER_PR))
+```
+
 ## **References**
 
 Utilized Claude AI to clarify code concepts and refining responses.
