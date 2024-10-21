@@ -1,0 +1,144 @@
+---
+title: "In-class Exercise 09"
+author: "Chong Zhi Cheng"
+date: "October 21, 2024"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  freeze: true
+---
+
+::: callout-note
+This is a note callout. I will use this for personal comments as well.
+:::
+
+###   ---  
+
+```{r}
+pacman::p_load(spdep, sp, tmap, sf, ClustGeo, cluster, factoextra, NbClust, tidyverse, GGally)
+```
+
+```{r}
+shan_sf <- read_rds("data/rds/shan_sf.rds")
+shan_ict <- read_rds("data/rds/shan_ict.rds")
+shan_sf_cluster <- read_rds("data/rds/shan_sf_cluster.rds")
+```
+
+```{r}
+proxmat <- dist(shan_ict, method = 'euclidean')
+hclust_ward <- hclust(proxmat, method = 'ward.D')
+groups <- as.factor(cutree(hclust_ward, k=6))
+```
+
+```{r}
+shan_sf_cluster <- cbind(shan_sf, as.matrix(groups)) %>%
+  rename(`CLUSTER` = `as.matrix.groups.`) %>%
+  select(-c(3:4, 7:9)) %>%
+  rename(TS = TS.x)
+```
+
+```{r}
+plot(hclust_ward, cex = 0.6)
+rect.hclust(hclust_ward, k = 6, border = 2:5)
+```
+
+```{r}
+qtm(shan_sf_cluster, "CLUSTER")
+```
+
+```{r}
+dist <- st_distance(shan_sf, shan_sf)
+distmat <- as.dist(dist)
+```
+
+```{r}
+shan.nb <- poly2nb(shan_sf)
+summary(shan.nb)
+```
+
+```{r}
+plot(st_geometry(shan_sf),
+     border = grey(.5))
+pts <- st_coordinates(st_centroid(shan_sf))
+plot(shan.nb,
+     pts,
+     col="blue",
+     add=TRUE)
+```
+
+```{r}
+lcosts <- nbcosts(shan.nb, shan_ict)
+```
+
+```{r}
+shan.w <- nb2listw(shan.nb, lcosts, style = "B")
+summary(shan.w)
+```
+
+```{r}
+shan.mst <- mstree(shan.w)
+```
+
+```{r}
+plot(st_geometry(shan_sf),
+     border=grey(.5))
+plot.mst(shan.mst,
+     pts,
+     col="blue",
+     cex.lab=0.7,
+     cex.circles=0.005,
+     add=TRUE)
+```
+
+```{r}
+skater.clust6 <- skater(edges = shan.mst[,1:2],
+                        data = shan_ict, 
+                        method = "euclidean",
+                        ncuts = 5)
+```
+
+```{r}
+plot(st_geometry(shan_sf),
+     border=gray(.5))
+plot(skater.clust6,
+     pts,
+     cex.lab=.7,
+     groups.colors=c("red","green","blue","brown","pink"),
+     cex.circles=0.005,
+     add=TRUE)
+```
+
+```{r}
+groups_mat <- as.matrix((skater.clust6$groups))
+shan_sf_spatialcluster <- cbind(shan_sf_cluster, as.factor(groups_mat)) %>%
+  rename(`skater_CLUSTER` = `as.factor.groups_mat.`)
+qtm(shan_sf_spatialcluster, "skater_CLUSTER")
+```
+
+```{r}
+cr <- choicealpha(proxmat, distmat, range.alpha = seq(0, 1, 0.1),
+                  K=6, graph = TRUE)
+```
+
+```{r}
+clustG <- hclustgeo(proxmat, distmat, alpha = 0.2)
+groups <- as.factor(cutree(clustG, k=6))
+shan_sf_clustGeo <- cbind(shan_sf, as.matrix(groups)) %>%
+  rename(`clustGeo` = `as.matrix.groups.`)
+```
+
+```{r}
+qtm(shan_sf_clustGeo, "clustGeo")
+```
+
+```{r}
+ggparcoord(data = shan_sf_clustGeo,
+          columns = c(17:21),
+          scale = "globalminmax",
+          alphaLines = 0.2,
+          boxplot = TRUE,
+          title = "Multiple Parallel Coordinates Plots of ICT Variables by Cluster") +
+  facet_grid(~ clustGeo) +
+  theme(axis.text.x = element_text(angle = 30))
+```
