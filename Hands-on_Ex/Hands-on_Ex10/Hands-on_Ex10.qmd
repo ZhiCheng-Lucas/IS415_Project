@@ -533,11 +533,11 @@ Since the Observed Global Moran I = 0.1424418 which is greater than 0, we can in
 
 ### **Building Fixed Bandwidth GWR Model**
 
-#### Computing fixed bandwith
+#### Computing fixed bandwidth
 
 In the code chunk below `bw.gwr()` of GWModel package is used to determine the optimal fixed bandwidth to use in the model. Notice that the argument ***adaptive*** is set to **FALSE** indicates that we are interested to compute the fixed bandwidth.
 
-There are two possible approaches can be uused to determine the stopping rule, they are: CV cross-validation approach and AIC corrected (AICc) approach. We define the stopping rule using ***approach*** argeement.
+There are two possible approaches can be used to determine the stopping rule, they are: CV cross-validation approach and AIC corrected (AICc) approach. We define the stopping rule using ***approach*** agreement.
 
 ```{r}
 bw.fixed <- bw.gwr(formula = SELLING_PRICE ~ AREA_SQM + AGE + PROX_CBD + 
@@ -560,9 +560,9 @@ It's because the data (MP14_SUBZONE_WEB_PL) is using SVY21 (Singapore's official
 SVY21 uses metres as its unit of measurement.
 :::
 
-#### GWModel method - fixed bandwith
+#### GWModel method - fixed bandwidth
 
-Now we can use the code chunk below to calibrate the gwr model using fixed bandwidth and gaussian kernel.
+Now we can use the code chunk below to calibrate the gwr model using fixed bandwidth and Gaussian kernel.
 
 ```{r}
 gwr.fixed <- gwr.basic(formula = SELLING_PRICE ~ AREA_SQM + AGE + PROX_CBD + 
@@ -580,7 +580,7 @@ gwr.fixed <- gwr.basic(formula = SELLING_PRICE ~ AREA_SQM + AGE + PROX_CBD +
 gwr.fixed
 ```
 
-The report shows that the AICc of the gwr is 42263.61 which is significantly smaller than the globel multiple linear regression model of 42967.14.
+The report shows that the AICc of the gwr is 42263.61 which is significantly smaller than the global multiple linear regression model of 42967.14.
 
 ### **Building Adaptive Bandwidth GWR Model**
 
@@ -607,7 +607,7 @@ The result shows that the 30 is the recommended data points to be used.
 
 #### Constructing the adaptive bandwidth gwr model
 
-Now, we can go ahead to calibrate the gwr-based hedonic pricing model by using adaptive bandwidth and gaussian kernel as shown in the code chunk below.
+Now, we can go ahead to calibrate the gwr-based hedonic pricing model by using adaptive bandwidth and Gaussian kernel as shown in the code chunk below.
 
 ```{r}
 gwr.adaptive <- gwr.basic(formula = SELLING_PRICE ~ AREA_SQM + AGE + 
@@ -629,7 +629,7 @@ gwr.adaptive
 
 The report shows that the AICc the adaptive distance gwr is 41982.22 which is even smaller than the AICc of the fixed distance gwr of 42263.61.
 
-### **Visualising GWR Output**
+### **Visualizing GWR Output**
 
 In addition to regression residuals, the output feature class table includes fields for observed and predicted y values, condition number (cond), Local R2, residuals, and explanatory variable coefficients and standard errors:
 
@@ -647,7 +647,7 @@ They are all stored in a SpatialPointsDataFrame or SpatialPolygonsDataFrame obje
 
 ### **Converting SDF into *sf* data.frame**
 
-To visualise the fields in **SDF**, we need to first covert it into **sf** data.frame by using the code chunk below.
+To visualize the fields in **SDF**, we need to first covert it into **sf** data.frame by using the code chunk below.
 
 ```{r}
 condo_resale.sf.adaptive <- st_as_sf(gwr.adaptive$SDF) %>%
@@ -674,7 +674,7 @@ glimpse(condo_resale.sf.adaptive)
 summary(gwr.adaptive$SDF$yhat)
 ```
 
-### **Visualising local R2**
+### **Visualizing local R2**
 
 ::: callout-note
 Note that I will be setting the mode to plot for performance reasons.
@@ -691,7 +691,7 @@ tm_shape(condo_resale.sf.adaptive) +
   tm_view(set.zoom.limits = c(11,14))
 ```
 
-### **Visualising coefficient estimates**
+### **Visualizing coefficient estimates**
 
 ```{r}
 tmap_mode("plot")
@@ -716,7 +716,7 @@ tmap_arrange(AREA_SQM_SE, AREA_SQM_TV,
              sync = TRUE)
 ```
 
-#### By URA Plannign Region
+#### By URA Planning Region
 
 ```{r}
 tm_shape(mpsz_svy21[mpsz_svy21$REGION_N=="CENTRAL REGION", ])+
