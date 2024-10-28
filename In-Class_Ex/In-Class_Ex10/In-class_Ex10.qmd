@@ -1,0 +1,160 @@
+---
+title: "In-class Exercise 10"
+author: "Chong Zhi Cheng"
+date: "October 28, 2024"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  freeze: true
+---
+
+::: callout-note
+This is a note callout. I will use this for personal comments as well.
+:::
+
+```{r}
+pacman::p_load(olsrr, ggstatsplot, sf, tmap, tidyverse, gtsummary, performance, see, sfdep)
+```
+
+```{r}
+condo_resale <- read.csv("data/aspatial/Condo_resale_2015.csv")
+mpsz <- read_rds("data/rds/datampsz.rds")
+condo_resale_sf <- read_rds("data/rds/condo_resale_sf.rds")
+```
+
+```{r}
+ggcorrmat(condo_resale[, 5:23])
+```
+
+```{r}
+condo_mlr <- lm(formula = SELLING_PRICE ~ AREA_SQM + AGE + PROX_CBD + PROX_CHILDCARE + PROX_ELDERLYCARE + PROX_URA_GROWTH_AREA + PROX_HAWKER_MARKET + PROX_KINDERGARTEN + PROX_MRT + PROX_PARK + PROX_PRIMARY_SCH + PROX_TOP_PRIMARY_SCH + PROX_SHOPPING_MALL + PROX_SUPERMARKET + PROX_BUS_STOP + NO_Of_UNITS + FAMILY_FRIENDLY + FREEHOLD + LEASEHOLD_99YR, data = condo_resale_sf )
+```
+
+```{r}
+summary(condo_mlr)
+```
+
+```{r}
+ols_regress(condo_mlr)
+```
+
+```{r}
+condo_fw_mlr <- ols_step_forward_p(
+  condo_mlr,
+  p_val = 0.05,
+  details=FALSE
+)
+condo_fw_mlr
+```
+
+```{r}
+plot(condo_fw_mlr)
+```
+
+```{r}
+condo_bw_mlr <- ols_step_backward_p(
+  condo_mlr,
+  p_val = 0.05,
+  details=FALSE
+)
+condo_bw_mlr
+```
+
+```{r}
+plot(condo_bw_mlr)
+```
+
+```{r}
+condo_both_mlr <- ols_step_both_p(
+  condo_mlr,
+  p_val = 0.05,
+  details=FALSE
+)
+condo_both_mlr
+```
+
+```{r}
+plot(condo_both_mlr)
+```
+
+```{r}
+metric <- compare_performance(condo_mlr,
+                              condo_fw_mlr$model,
+                              condo_bw_mlr$model,
+                              condo_both_mlr$model)
+metric$Name <- gsub(".*\\\\([a-zA-Z0-9_]+)\\\\, \\\\model\\\\.*", "\\1",metric$Name)
+```
+
+```{r}
+plot(metric)
+```
+
+```{r}
+ggcoefstats(condo_both_mlr$model,
+            sort = "ascending")
+```
+
+```{r}
+check_collinearity(condo_both_mlr$model)
+```
+
+```{r}
+plot(check_collinearity(condo_both_mlr$model)) +
+  theme(axis.text.x = element_text(
+    angle = 45, hjust = 1
+  ))
+```
+
+```{r}
+out <- plot(check_model(condo_both_mlr$model,
+                        panel=FALSE))
+out[[2]]
+```
+
+```{r}
+plot(check_normality(condo_both_mlr$model))
+```
+
+```{r}
+outliers <- check_outliers(condo_both_mlr$model, 
+                           method = "cook")
+outliers
+```
+
+```{r}
+plot(check_outliers(condo_both_mlr$model, method = "cook"))
+```
+
+```{r}
+mlr_output <- as.data.frame(condo_fw_mlr$model$residuals) %>%
+  rename('FW_MLR_RES' = 'condo_fw_mlr$model$residuals')
+
+
+```
+
+```{r}
+condo_resale_sf <- cbind(condo_resale_sf, 
+                        mlr_output$FW_MLR_RES) %>%
+  rename(`MLR_RES` = `mlr_output.FW_MLR_RES`)
+
+```
+
+```{r}
+condo_resale_sf <- condo_resale_sf %>%
+  mutate(nb = st_knn(geometry, k=6,
+                     longlat = FALSE),
+         wt = st_weights(nb,
+                         style = "W"),
+         .before = 1)
+
+```
+
+```{r}
+global_moran_perm(condo_resale_sf$MLR_RES, 
+                  condo_resale_sf$nb, 
+                  condo_resale_sf$wt, 
+                  alternative = "two.sided", 
+                  nsim = 99)
+
+```
