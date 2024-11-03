@@ -64,7 +64,9 @@ website:
         - text: "Takehome Exercise 2: Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level"
           href: "Takehome_Ex/Takehome_Ex2/Takehome_Ex2.qmd"
 
-        - text: "Takehome Exercise 3: "
+        - text: "Takehome Exercise 3: Spatial Distribution Analysis of Educational Facilities in Jakarta "
+          href: "Takehome_Ex/Takehome_Ex3/Takehome_Ex3.qmd"
+
 
     right:
       - href: index.qmd

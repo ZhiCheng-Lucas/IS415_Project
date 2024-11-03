@@ -13,6 +13,14 @@ In this website, you will find my relevant coursework for IS415 Geospatial Analy
 
 <!-- Use create link. ctrl k or insert. -->
 
+The spatial distribution of schools in Jakarta, Indonesia's capital city, represents a critical aspect of educational accessibility and urban planning. As one of the world's most densely populated metropolitan areas, Jakarta's educational infrastructure directly impacts the lives of millions of students and their families. Understanding the spatial patterns, clustering, and relationships between school locations and socioeconomic factors is crucial for informed policy-making and urban development strategies.
+
+[Spatial Distribution Analysis of Educational Facilities in Jakarta](Takehome_Ex/Takehome_Ex3/Takehome_Ex3.qmd)
+
+Shiny Application:
+
+<https://zcchong415.shinyapps.io/Takehome_Ex3/>
+
 Drug abuse is associated with significant negative health, financial and social consequences. Yet, illicit drug consumption remains highly prevalent and continues to be a growing problem worldwide. In 2021, 1 in 17 people aged 15–64 in the world had used a drug in the past 12 months. Notwithstanding population growth, the estimated number of drug users grew from 240 million in 2011 to 296 million in 2021.
 
 The geopolitics of Thailand which is near the [Golden Triangle](https://en.wikipedia.org/wiki/Golden_Triangle_(Southeast_Asia)) of Indochina, the largest drug production site in Asia, and the constant transportation infrastructure development made Thailand became market and transit routes for drug trafficking to the third countries.

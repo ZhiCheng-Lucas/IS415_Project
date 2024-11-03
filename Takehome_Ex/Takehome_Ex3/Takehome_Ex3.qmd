@@ -1,0 +1,1525 @@
+---
+title: "Prototyping Modules for Geospatial Analytics Shiny Application"
+author: "Chong Zhi Cheng"
+date: "October 27, 2024"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+---
+
+# Spatial Distribution Analysis of Educational Facilities in Jakarta:
+
+## A Comprehensive Study of Accessibility and Urban Planning
+
+The spatial distribution of schools in Jakarta, Indonesia's capital city, represents a critical aspect of educational accessibility and urban planning. As one of the world's most densely populated metropolitan areas, Jakarta's educational infrastructure directly impacts the lives of millions of students and their families. Understanding the spatial patterns, clustering, and relationships between school locations and socioeconomic factors is crucial for informed policy-making and urban development strategies.
+
+## Significance and Impact
+
+Equitable access to education is fundamental to social mobility and economic development, particularly in rapidly growing urban centers like Jakarta. Several factors make this analysis particularly crucial:
+
+-   **Educational Equity**: Spatial disparities in school distribution can perpetuate or exacerbate socioeconomic inequalities, as access to quality education often correlates with neighborhood demographics and income levels.
+
+-   **Urban Planning Challenges**: Jakarta's rapid urbanization and population growth create unique challenges for educational infrastructure planning, requiring evidence-based approaches to resource allocation.
+
+-   **Economic Implications**: School accessibility directly affects property values, population movement patterns, and local economic development, making it a key consideration for urban development strategies.
+
+-   **Transportation and Infrastructure**: Understanding school distribution patterns helps optimize transportation networks and reduce traffic congestion, a significant issue in Jakarta's urban landscape.
+
+-   **Policy Development**: Results from this analysis can inform evidence-based policy decisions about new school construction, resource allocation, and educational zoning regulations.
+
+## Research Objectives
+
+Our research objectives encompass three primary areas of investigation:
+
+1.  **Spatial Point Patterns Analysis for School Locations**
+2.  **LISA and HCSA Analysis of Schools**
+3.  **Geographically Weighted Regression Analysis**
+
+# Project Overview and Scope
+
+## Project Goals and Deliverable
+
+The primary objective of this research is to conduct a comprehensive spatial analysis of Jakarta's educational infrastructure, with findings ultimately presented through an interactive Shiny application. This web-based platform will allow stakeholders to explore and interact with our analytical results, making complex spatial patterns and relationships accessible to policymakers, educators, and the public.
+
+## Collaborative Framework
+
+This project represents a collaborative effort among three students, with work structured in the following phases:
+
+### Joint Research and Foundation (Team Effort)
+
+-   Initial research and literature review
+
+-   Data acquisition and preprocessing
+
+-   Exploratory Data Analysis (EDA)
+
+-   Problem formulation and methodology selection
+
+The core analytical work has been distributed among team members, with each focusing on a specific aspect of spatial analysis:
+
+1.  **Spatial Point Patterns Analysis for School Locations**
+    -   <https://is415-gaa-baojieyeo.netlify.app/>
+2.  **LISA and HCSA Analysis of Schools**
+    -   *Current Report Focus*
+    -   The current latest interface design implementation can be accessed via the following link:
+        <https://zcchong415.shinyapps.io/Takehome_Ex3/>
+3.  **Geographically Weighted Regression Analysis**
+    -   <https://hxyap-is415-geospatial-workbook.netlify.app/>
+
+## Scope of Current Report
+
+This report specifically details the **LISA and HCSA Analysis of Schools** component of the larger project. While this document can be read independently, it is designed to be part of a larger analytical narrative. Readers are encouraged to review all three reports for a complete understanding of Jakarta's educational spatial dynamics. The findings presented here complement and intersect with the other analytical streams.
+
+# Data Sources and Educational Context
+
+## Data Sources
+
+This study utilizes three primary datasets:
+
+1.  **School Location Dataset** (`complete_data.csv`)
+    -   Source: Kaggle - Indonesia School Dataset with Province Data
+    -   URL: <https://www.kaggle.com/datasets/marchotridyo/indonesia-school-dataset-with-province-data>
+    -   Content: Comprehensive information about schools including:
+        -   Geographic coordinates
+        -   School type classification
+        -   Operational status
+        -   Administrative information
+2.  **Administrative Boundaries** (`geoBoundaries-IDN-ADM2_simplified`)
+    -   Source: Humanitarian Data Exchange (HDX)
+    -   URL: <https://data.humdata.org/dataset/geoboundaries-admin-boundaries-for-indonesia>
+    -   Content: Simplified boundary data for:
+        -   Administrative level 2 (ADM2) regions
+        -   Provincial divisions
+        -   District demarcations
+3.  **Village-Level Boundaries** (`BATAS_DESA_DESEMBER_2019_DUKCAPIL_DKI_JAKARTA`)
+    -   Source: Indonesia Geospatial Portal
+    -   URL: <https://www.indonesia-geospasial.com>
+    -   Content: Detailed boundary data for:
+        -   Village (desa) level administrative units
+
+        -   Jakarta metropolitan area
+
+## Indonesian Education System Context
+
+The Indonesian education system comprises several distinct school types, each serving specific educational needs and age groups:
+
+### Primary Education
+
+-   **SD (Sekolah Dasar)**
+    -   Elementary school for ages 6-12
+    -   Grades 1-6
+    -   Mandatory basic education
+    -   Core subjects: mathematics, science, language, social studies
+-   **SDLB (Sekolah Dasar Luar Biasa)**
+    -   Special needs elementary school
+    -   Adapted curriculum for disabled students
+    -   Equivalent to SD grades 1-6
+    -   Individualized education programs
+
+### Secondary Education
+
+-   **SMP (Sekolah Menengah Pertama)**
+    -   Junior high school for ages 12-15
+    -   Grades 7-9
+    -   Advanced curriculum building on SD foundation
+-   **SMPLB (Sekolah Menengah Pertama Luar Biasa)**
+    -   Special needs junior high school
+    -   Modified curriculum for disabled students
+    -   Equivalent to SMP grades 7-9
+
+### Upper Secondary Education
+
+-   **SMA (Sekolah Menengah Atas)**
+    -   Academic senior high school for ages 15-18
+    -   Grades 10-12
+    -   Streams: Natural Sciences (IPA), Social Sciences (IPS), Language
+    -   University preparation focus
+-   **SMK (Sekolah Menengah Kejuruan)**
+    -   Vocational high school
+    -   Ages 15-18
+    -   Career-oriented curriculum
+    -   Direct workforce preparation
+
+### Special Education
+
+-   **SMLB (Sekolah Menengah Luar Biasa)**
+
+    -   Special needs senior high school
+    -   Equivalent to SMA/SMK grades 10-12
+    -   Customized curriculum
+
+-   **SLB (Sekolah Luar Biasa)**
+
+    -   Comprehensive special education
+    -   Covers all education levels
+    -   Specialized support services
+    -   Individualized learning programs
+
+# Data Loading and Processing
+
+The foundation of our spatial analysis rests on the careful preparation and integration of multiple datasets that capture Jakarta's educational landscape. This section details the systematic process of loading, cleaning, and standardizing three key data sources:
+
+1.  A comprehensive database of Indonesian schools from Kaggle
+2.  Administrative boundary data at the city level (ADM2)
+3.  Detailed village-level (kelurahan) boundary data
+
+Our primary objectives in this data processing phase were to:
+
+-   Isolate and clean Jakarta's school data while excluding the Thousand Islands region
+
+-   Standardize administrative boundary information across different geographic scales
+
+-   Ensure consistent naming conventions across all datasets
+
+-   Establish proper spatial relationships through coordinate system alignment
+
+Particular attention was paid to creating meaningful categorical variables for school types and levels, while also incorporating crucial demographic information at the village level. This processed data provides the structured foundation necessary for our subsequent LISA and HCSA analyses, enabling us to meaningfully investigate spatial patterns in Jakarta's educational infrastructure.
+
+```{r}
+# Load required packages
+pacman::p_load(
+  sf,              # For spatial data handling
+  tidyverse,       # Data manipulation and visualization
+  knitr,           # For report generation
+  viridis,         # Color palettes
+  patchwork,       # Combine multiple plots
+  gridExtra,       # Arrange multiple plots
+  kableExtra,      # Enhanced tables
+  sfdep,           # Spatial dependence functions
+  tmap,            # Thematic mapping
+  tmaptools,       # Additional mapping tools
+  scales,          # Scale functions for visualization
+  spdep,           # Spatial dependence testing
+  ggrepel,         # Text and label repulsion
+  spatstat,        # Point pattern analysis
+  GWmodel,         # Geographically weighted models
+  gtsummary,       # Summary statistics
+  olsrr,           # OLS regression
+  ClustGeo         # Geographical clustering
+)
+
+```
+
+```{r}
+# Load raw school data from Kaggle dataset
+indo_schools_kaggle <- read_csv("data/aspatial/complete_data.csv")
+```
+
+```{r}
+# Process Jakarta schools data
+jakarta_schools <- indo_schools_kaggle %>% 
+  # Filter for Jakarta province, excluding Thousand Islands
+  filter(province_name == "DKI JAKARTA",
+         city_name != "Kab. Kepulauan Seribu") %>%
+  # Remove entries with missing coordinates
+  filter(!is.na(long) & !is.na(lat)) %>%
+  # Convert to spatial features (sf) object
+  st_as_sf(coords = c("long", "lat"), crs = 4326) %>%
+  # Create new categorical variables for school level and type
+  mutate(
+      school_level = case_when(
+        stage %in% c("SD", "SDLB") ~ "Elementary",
+        stage %in% c("SMP", "SMPLB") ~ "Junior High",
+        stage %in% c("SMA", "SMK", "SMLB") ~ "Senior High",
+        TRUE ~ "Special Education"
+      ),
+      school_type = if_else(status == "N", "Public", "Private")
+    )
+
+```
+
+```{r}
+# Load and filter administrative boundary data (ADM2 level)
+adm2 <- st_read("data/geospatial", layer = "geoBoundaries-IDN-ADM2_simplified") %>%
+  # Select only Jakarta's five administrative cities
+  filter(shapeName %in% c(
+      "Kota Jakarta Barat", "Kota Jakarta Pusat",
+      "Kota Jakarta Selatan", "Kota Jakarta Timur",
+      "Kota Jakarta Utara"
+    ))
+```
+
+```{r}
+# Load and process detailed village-level boundary data
+batas <- st_read("data/geospatial", layer = "BATAS_DESA_DESEMBER_2019_DUKCAPIL_DKI_JAKARTA")  %>%
+    # Select relevant columns and rename for clarity
+    select(OBJECT_ID, PROVINSI, KAB_KOTA, KECAMATAN, DESA_KELUR, 
+         JUMLAH_PEN, JUMLAH_KK, LUAS_WILAY, KEPADATAN, geometry) %>%
+    rename(
+      province = PROVINSI,
+      city = KAB_KOTA,
+      district = KECAMATAN,
+      subdistrict = DESA_KELUR,
+      population = JUMLAH_PEN,
+      total_families = JUMLAH_KK,
+      area_size = LUAS_WILAY,
+      popn_density = KEPADATAN
+    ) %>%
+    # Remove Thousand Islands and missing values
+    filter(!is.na(city) & city != "KEPULAUAN SERIBU") %>%
+    # Standardize city names
+    mutate(city = case_when(
+      city == "JAKARTA BARAT" ~ "Kota Jakarta Barat",
+      city == "JAKARTA PUSAT" ~ "Kota Jakarta Pusat",
+      city == "JAKARTA SELATAN" ~ "Kota Jakarta Selatan",
+      city == "JAKARTA TIMUR" ~ "Kota Jakarta Timur",
+      city == "JAKARTA UTARA" ~ "Kota Jakarta Utara",
+      TRUE ~ city
+    ))
+
+```
+
+```{r}
+
+# Create district name mapping for standardization
+district_mapping <- c(
+    "TAMAN SARI" = "Kec. Taman Sari",
+    "KEMAYORAN" = "Kec. Kemayoran",
+    "SAWAH BESAR" = "Kec. Sawah Besar",
+    "GAMBIR" = "Kec. Gambir",
+    "SENEN" = "Kec. Senen",
+    "CEMPAKA PUTIH" = "Kec. Cempaka Putih",
+    "MENTENG" = "Kec. Menteng",
+    "TANAH ABANG" = "Kec. Tanah Abang",
+    "JOHAR BARU" = "Kec. Johar Baru",
+    "KOJA" = "Kec. Koja",
+    "PENJARINGAN" = "Kec. Penjaringan",
+    "TANJUNG PRIOK" = "Kec. Tanjung Priok",
+    "CILINCING" = "Kec. Cilincing",
+    "GROGOL PETAMBURAN" = "Kec. Grogol Petamburan",
+    "PADEMANGAN" = "Kec. Pademangan",
+    "KELAPA GADING" = "Kec. Kelapa Gading",
+    "CENGKARENG" = "Kec. Cengkareng",
+    "TAMBORA" = "Kec. Tambora",
+    "KEBON JERUK" = "Kec. Kebon Jeruk",
+    "KALIDERES" = "Kec. Kali Deres",
+    "PAL MERAH" = "Kec. Palmerah",
+    "JATINEGARA" = "Kec. Jatinegara",
+    "KEMBANGAN" = "Kec. Kembangan",
+    "TEBET" = "Kec. Tebet",
+    "SETIABUDI" = "Kec. Setia Budi",
+    "MAMPANG PRAPATAN" = "Kec. Mampang Prapatan",
+    "PASAR MINGGU" = "Kec. Pasar Minggu",
+    "KEBAYORAN LAMA" = "Kec. Kebayoran Lama",
+    "KEBAYORAN BARU" = "Kec. Kebayoran Baru",
+    "CILANDAK" = "Kec. Cilandak",
+    "PESANGGRAHAN" = "Kec. Pesanggrahan",
+    "PANCORAN" = "Kec. Pancoran",
+    "JAGAKARSA" = "Kec. Jagakarsa",
+    "MATRAMAN" = "Kec. Matraman",
+    "PULOGADUNG" = "Kec. Pulo Gadung",
+    "KRAMATJATI" = "Kec. Kramat Jati",
+    "PASAR REBO" = "Kec. Pasar Rebo",
+    "DUREN SAWIT" = "Kec. Duren Sawit",
+    "MAKASAR" = "Kec. Makasar",
+    "CIRACAS" = "Kec. Ciracas",
+    "CIPAYUNG" = "Kec. Cipayung",
+    "CAKUNG" = "Kec. Cakung"
+)
+
+```
+
+```{r}
+# Apply district name standardization
+batas <- batas %>%
+  mutate(district = district_mapping[district])
+
+```
+
+# Exploratory Data Analysis at the Provincial Level
+
+Before diving into complex spatial statistics, we begin with an exploratory data analysis (EDA) at the provincial level to understand the basic distribution patterns of schools across Jakarta.
+
+This initial exploration focuses on four key aspects:
+
+-   The overall distribution of schools across Jakarta's administrative cities,
+
+-   The composition of different school levels in each city,
+
+-   The spatial density of schools,
+
+-   The relationship between school distribution and population density.
+
+## Overall Distribution of Schools
+
+```{r}
+# Plot 1: Basic distribution of schools across cities
+ggplot(data = jakarta_schools) +
+  # Create bar chart counting schools per city
+  geom_bar(aes(x = city_name, fill = city_name)) +
+  # Use plasma color palette for distinction
+  scale_fill_viridis_d(option = "plasma") +
+  theme_minimal() +
+  theme(
+    # Rotate x-axis labels for better readability
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(size = 12, face = "bold"),
+    # Remove redundant legend
+    legend.position = "none"
+  ) +
+  labs(
+    title = "Distribution of Schools Across Jakarta",
+    x = "City",
+    y = "Number of Schools"
+  )
+```
+
+## Distribution of School Levels
+
+```{r}
+# Plot 2: Distribution of school levels by city
+ggplot(data = jakarta_schools) +
+  # Stacked bar chart showing school level composition
+  geom_bar(aes(x = city_name, fill = school_level)) +
+  scale_fill_viridis_d(option = "plasma") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(size = 12, face = "bold")
+  ) +
+  labs(
+    title = "Distribution of School Levels Across Jakarta",
+    x = "City",
+    y = "Number of Schools",
+    fill = "School Level"
+  )
+```
+
+## School Density Across Jakarta
+
+```{r}
+# Plot 3: Spatial distribution of schools
+ggplot() +
+  # Create choropleth map using administrative boundaries
+  geom_sf(data = adm2, 
+          # Count number of schools in each administrative region
+          aes(fill = lengths(st_intersects(adm2, jakarta_schools)))) +
+  scale_fill_viridis_c(option = "plasma") +
+  theme_minimal() +
+  labs(
+    title = "School Density Across Jakarta",
+    fill = "Number of\nSchools"
+  )
+```
+
+## Population Density in Jakarta
+
+```{r}
+# Plot 4: Population density distribution
+ggplot() +
+  # Create choropleth map of population density
+  geom_sf(data = batas, aes(fill = popn_density)) +
+  scale_fill_viridis_c(
+    option = "plasma",
+    # Format large numbers with commas
+    labels = scales::comma_format()
+  ) +
+  theme_minimal() +
+  labs(
+    title = "Population Density in Jakarta",
+    fill = "Population\nDensity\n(per km²)"
+  )
+```
+
+### Key Insights
+
+1.  **Geographic Disparities**: There are clear disparities in school distribution across Jakarta's regions, which may require attention from educational planners.
+
+2.  **Educational Level Balance**: While elementary schools dominate, there appears to be a reasonable distribution across educational levels, though some areas might benefit from more balanced development.
+
+# Kernel Density Estimation Analysis at Provincial Level
+
+Following our initial exploratory analysis, we employ Kernel Density Estimation (KDE) to gain a more nuanced understanding of school distribution patterns across Jakarta. KDE is particularly valuable for this analysis as it helps identify areas of high and low school concentration by creating a continuous surface of density estimates.\
+
+This technique goes beyond simple point mapping by considering the spatial influence of each school location on its surroundings, effectively highlighting clusters and gaps in educational infrastructure. By converting our data to UTM projection and applying appropriate edge corrections, we ensure accurate distance calculations and reliable density estimates, especially near the study area boundaries.
+
+```{r}
+# Convert coordinate systems for accurate distance measurement
+# UTM Zone 48S (EPSG:32748) is appropriate for Jakarta
+jakarta_schools_utm <- st_transform(jakarta_schools, 32748)
+adm2_utm <- st_transform(adm2, 32748)
+```
+
+```{r}
+# Extract coordinates and add small random noise to prevent exact duplicates
+# This helps avoid computational issues in point pattern analysis
+coords <- st_coordinates(jakarta_schools_utm)
+jittered_coords <- coords + matrix(
+  runif(nrow(coords) * 2, -0.1, 0.1),  # Add noise between -0.1 and 0.1 meters
+  ncol = 2
+)
+```
+
+```{r}
+# Create observation window from administrative boundary
+# This defines the study area for the point pattern analysis
+window <- as.owin(st_union(adm2_utm))
+
+# Filter points to ensure they fall within the study area
+# This step is crucial for accurate density estimation
+inside <- inside.owin(x = jittered_coords[,1], 
+                     y = jittered_coords[,2], 
+                     w = window)
+valid_coords <- jittered_coords[inside,]
+```
+
+```{r}
+# Create point pattern object for spatial statistics
+points <- ppp(
+  x = valid_coords[,1],
+  y = valid_coords[,2],
+  window = window
+)
+
+# Diagnostic prints to verify data integrity
+print(paste("Original points:", nrow(coords)))
+print(paste("Points in window:", sum(inside)))
+print(paste("Duplicated points:", sum(duplicated(valid_coords))))
+```
+
+```{r}
+# Perform kernel density estimation
+# bw.diggle provides data-driven bandwidth selection
+# edge=TRUE applies edge correction for boundary effects
+kde <- density.ppp(points, 
+                  sigma = bw.diggle(points),
+                  edge = TRUE)
+
+# Convert KDE results to data frame for further analysis/visualization
+kde_df <- as.data.frame(kde)
+
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = adm2_utm, fill = "transparent") +
+  geom_tile(data = kde_df, aes(x = x, y = y, fill = value)) +
+  scale_fill_viridis_c(option = "plasma") +
+  theme_minimal() +
+  labs(
+    title = "Kernel Density Estimation of All Schools",
+    subtitle = paste0("Based on ", sum(inside), " school locations"),
+    fill = "Density"
+  )
+
+```
+
+# 
+
+### Distribution Patterns
+
+The KDE analysis of 4,734 schools across Jakarta shows:
+
+1.  **High-Density Clusters (Yellow/Orange)**
+    -   Several distinct hotspots visible across the map
+    -   Particularly noticeable in scattered locations across the northern and central regions
+    -   Maximum density reaches 0.00015 schools per square meter
+2.  **Medium-Density Areas (Pink/Light Purple)**
+    -   Form connecting networks between the high-density clusters
+    -   More prevalent in the central portions of the map
+3.  **Low-Density Regions (Dark Purple)**
+    -   Large portions of Jakarta, especially in the southern regions
+    -   Shows minimal school presence compared to other areas
+
+The distribution appears notably clustered rather than uniform, suggesting spatial variations in school accessibility across different parts of Jakarta.
+
+#### 1.2.2 KDE by School Level
+
+```{r}
+# Create an empty list to store KDE plots for each school level
+kde_plots <- list()
+
+# Iterate through each unique school level in the dataset
+for(level in unique(jakarta_schools_utm$school_level)) {
+  # Filter schools for current level
+  schools_subset <- jakarta_schools_utm[jakarta_schools_utm$school_level == level,]
+  
+  # Extract coordinates from spatial data
+  coords <- st_coordinates(schools_subset)
+  
+  # Add small random noise to prevent exact duplicates
+  # Important for computational stability
+  jittered_coords <- coords + matrix(
+    runif(nrow(coords) * 2, -0.1, 0.1),  # Random noise between -0.1 and 0.1 meters
+    ncol = 2
+  )
+  
+  # Check which points fall within study area boundary
+  inside <- inside.owin(x = jittered_coords[,1],
+                       y = jittered_coords[,2],
+                       w = window)
+  valid_coords <- jittered_coords[inside,]
+  
+  # Create point pattern object for spatial analysis
+  points_subset <- ppp(
+    x = valid_coords[,1],
+    y = valid_coords[,2],
+    window = window
+  )
+  
+  # Perform kernel density estimation
+  # Using Diggle's method for bandwidth selection
+  # Edge correction applied for boundary effects
+  kde_level <- density.ppp(points_subset,
+                          sigma = bw.diggle(points_subset),
+                          edge = TRUE)
+  
+  # Convert KDE results to data frame for plotting
+  kde_df <- as.data.frame(kde_level)
+  
+  # Create density plot using ggplot2
+  kde_plots[[level]] <- ggplot() +
+    # Add administrative boundaries
+    geom_sf(data = adm2_utm, fill = "transparent") +
+    # Add density heatmap
+    geom_tile(data = kde_df, aes(x = x, y = y, fill = value)) +
+    # Use plasma color scheme for density visualization
+    scale_fill_viridis_c(option = "plasma") +
+    theme_minimal() +
+    labs(
+      title = paste("School Density:", level),
+      # Show number of schools included in analysis
+      subtitle = paste0("Based on ", sum(inside), " school locations"),
+      fill = "Density"
+    )
+}
+
+walk(kde_plots, print)
+```
+
+### Numbers and Coverage
+
+-   Elementary (2,585 schools): Most widely distributed, showing small scattered hotspots across Jakarta
+-   Junior High (1,025 schools): Strong clustering pattern, with prominent hotspots in central areas
+-   Senior High (1,044 schools): Concentrated clusters, particularly in northern and central regions
+-   Special Education (80 schools): Limited coverage with sparse distribution
+
+### 
+
+# Exploratory Data Analysis at the City Level
+
+## School Distribution by City
+
+```{r}
+# Convert boundaries to UTM projection for accurate spatial operations
+batas_utm <- st_transform(batas, 32748)
+
+# Initialize list to store individual city maps
+city_maps <- list()
+
+# Create separate maps for each city
+for(city in unique(batas$city)) {
+  # Extract boundary for current city
+  city_boundary <- batas_utm[batas_utm$city == city,]
+  
+  # Find schools within current city boundary
+  city_schools <- jakarta_schools_utm[st_intersects(jakarta_schools_utm, 
+                                                   st_union(city_boundary)) %>% 
+                                      lengths > 0,]
+  
+  # Create map for current city
+  city_maps[[city]] <- ggplot() +
+    # Add population density choropleth
+    geom_sf(data = city_boundary, 
+            aes(fill = popn_density)) +
+    # Add school points colored by level
+    geom_sf(data = city_schools,
+            aes(color = school_level),
+            size = 2,
+            alpha = 0.6) +
+    # Set color scales
+    scale_fill_viridis_c(
+      option = "plasma",
+      name = "Population\nDensity",
+      labels = scales::comma_format()
+    ) +
+    scale_color_viridis_d(
+      option = "plasma",
+      name = "School Level"
+    ) +
+    # Customize theme
+    theme_minimal() +
+    theme(
+      plot.title = element_text(size = 14, face = "bold"),
+      plot.subtitle = element_text(size = 12),
+      legend.title = element_text(size = 10),
+      legend.text = element_text(size = 8),
+      plot.margin = margin(10, 10, 10, 10)
+    ) +
+    labs(
+      title = paste("Schools Distribution in", city)
+    )
+}
+
+# Display all city maps
+walk(names(city_maps), function(city) {
+  print(city_maps[[city]])
+})
+
+```
+
+## Public School Ratio by City
+
+```{r}
+# Calculate the proportion of public schools for each city
+public_ratio <- jakarta_schools_utm %>%
+  # Group data by city
+  group_by(city_name) %>%
+  # Calculate summary statistics
+  summarise(
+    total_schools = n(),                                    # Total number of schools
+    public_schools = sum(school_type == "Public"),          # Count of public schools
+    public_ratio = public_schools / total_schools,          # Calculate proportion
+    .groups = "drop"                                        # Drop grouping
+  )
+
+# Create bar plot of public school ratios
+ggplot(public_ratio) +
+  # Create bars, reordered by public_ratio
+  geom_bar(aes(x = reorder(city_name, public_ratio),       # Order bars by ratio
+               y = public_ratio, 
+               fill = city_name), 
+           stat = "identity") +
+  # Use plasma color palette from viridis
+  scale_fill_viridis_d(option = "plasma") +
+  # Apply minimal theme
+  theme_minimal() +
+  # Customize theme elements
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),     # Rotate x-axis labels
+    legend.position = "none",                               # Remove legend
+    plot.title = element_text(size = 14, face = "bold"),   # Format title
+    plot.subtitle = element_text(size = 12)                 # Format subtitle
+  ) +
+  # Add plot labels
+  labs(
+    title = "Public School Ratio by City",
+    subtitle = "Proportion of public schools to total schools",
+    x = "City",
+    y = "Proportion of Public Schools"
+  )
+```
+
+### Public School Ratio Analysis - Key Findings
+
+#### Distribution Across Cities
+
+-   **Highest Ratio**: Kota Jakarta Selatan (\~52% public schools)
+-   **Lowest Ratio**: Kota Jakarta Utara (\~38% public schools)
+-   **Overall Range**: \~14% difference between highest and lowest
+
+#### City-Specific Breakdown
+
+1.  **Kota Jakarta Selatan** (Pink)
+    -   Highest proportion of public schools (\~52%)
+    -   Suggests strongest public education presence
+2.  **Kota Jakarta Timur** (Orange)
+    -   Second-highest ratio (\~51%)
+    -   Nearly matches South Jakarta's public school proportion
+3.  **Kota Jakarta Pusat** (Purple)
+    -   Middle range (\~50%)
+    -   Shows balanced public-private distribution
+4.  **Kota Jakarta Barat** (Dark Blue)
+    -   Lower ratio (\~40%)
+    -   Shows stronger private school presence
+5.  **Kota Jakarta Utara** (Yellow)
+    -   Lowest public school ratio (\~38%)
+    -   Indicates dominance of private education providers
+
+# Kernel Density Estimation Analysis at City Level
+
+```{r}
+# Initialize list to store KDE results for each city
+kde_city_level <- list()
+
+# Perform KDE analysis for each city
+for(city in unique(jakarta_schools_utm$city_name)) {
+  # Filter data for current city
+  city_schools <- jakarta_schools_utm[jakarta_schools_utm$city_name == city,]
+  city_boundary <- adm2_utm[adm2_utm$shapeName == city,]
+  city_window <- as.owin(st_union(city_boundary))
+  
+  # Calculate window size for bandwidth consideration
+  win_size <- sqrt(area.owin(city_window))
+  
+  kde_city_level[[city]] <- list()
+  
+  # Process all schools in city
+  coords <- st_coordinates(city_schools)
+  jittered_coords <- coords + matrix(
+    runif(nrow(coords) * 2, -0.1, 0.1),  # Add small random noise
+    ncol = 2
+  )
+  
+  # Filter valid points
+  inside <- inside.owin(x = jittered_coords[,1],
+                       y = jittered_coords[,2],
+                       w = city_window)
+  valid_coords <- jittered_coords[inside,]
+  
+  # Perform KDE if enough points available
+  if(nrow(valid_coords) >= 4) {
+    points_ppp <- ppp(
+      x = valid_coords[,1],
+      y = valid_coords[,2],
+      window = city_window
+    )
+    
+    # Calculate bandwidth using Scott's rule
+    h <- bw.scott(points_ppp)
+    kde <- density.ppp(points_ppp, 
+                      sigma = h,
+                      edge = TRUE,
+                      at = "pixels",
+                      dimyx = c(128, 128))
+    
+    kde_city_level[[city]][["All"]] <- list(
+      kde = kde,
+      n_points = nrow(valid_coords),
+      bandwidth = h
+    )
+  }
+  
+  # Repeat analysis for each school level
+  for(level in unique(city_schools$school_level)) {
+    level_schools <- city_schools[city_schools$school_level == level,]
+    coords <- st_coordinates(level_schools)
+    
+    # Add jitter and filter points
+    jittered_coords <- coords + matrix(
+      runif(nrow(coords) * 2, -0.1, 0.1),
+      ncol = 2
+    )
+    
+    inside <- inside.owin(x = jittered_coords[,1],
+                         y = jittered_coords[,2],
+                         w = city_window)
+    valid_coords <- jittered_coords[inside,]
+    
+    # Perform KDE if enough points
+    if(nrow(valid_coords) >= 4) {
+      points_ppp <- ppp(
+        x = valid_coords[,1],
+        y = valid_coords[,2],
+        window = city_window
+      )
+      
+      h <- bw.scott(points_ppp)
+      kde <- density.ppp(points_ppp, 
+                        sigma = h,
+                        edge = TRUE,
+                        at = "pixels",
+                        dimyx = c(128, 128))
+      
+      kde_city_level[[city]][[level]] <- list(
+        kde = kde,
+        n_points = nrow(valid_coords),
+        bandwidth = h
+      )
+    }
+  }
+}
+
+```
+
+```{r}
+# Calculate and store density metrics
+density_metrics <- data.frame(
+  city = character(),
+  level = character(),
+  max_density = numeric(),
+  mean_density = numeric(),
+  relative_density = numeric(),
+  stringsAsFactors = FALSE
+)
+
+# Calculate relative densities for each city and school level
+for(city in names(kde_city_level)) {
+  city_max <- max(kde_city_level[[city]][["All"]]$kde$v, na.rm = TRUE)
+  
+  for(level in names(kde_city_level[[city]])) {
+    if(level != "All") {
+      kde_data <- kde_city_level[[city]][[level]]
+      
+      density_metrics <- rbind(density_metrics, data.frame(
+        city = city,
+        level = level,
+        max_density = max(kde_data$kde$v, na.rm = TRUE),
+        mean_density = mean(kde_data$kde$v, na.rm = TRUE),
+        relative_density = max(kde_data$kde$v, na.rm = TRUE) / city_max,
+        stringsAsFactors = FALSE
+      ))
+    }
+  }
+}
+
+# Create visualization of relative densities
+ggplot(density_metrics, 
+       aes(x = level, y = relative_density, fill = city)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_viridis_d(option = "plasma") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(size = 16, face = "bold"),
+    axis.title = element_text(size = 12),
+    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 10),
+    plot.margin = margin(20, 20, 20, 20)
+  ) +
+  labs(
+    title = "Relative Density of School Types by City",
+    subtitle = "Maximum density relative to overall school density",
+    x = "School Level",
+    y = "Relative Density",
+    fill = "City"
+  )
+
+```
+
+## 
+
+## Key Findings - Relative Density Analysis
+
+### School Level Patterns
+
+1.  **Elementary Schools**
+    -   Highest relative density across all cities (\~0.6-0.7)
+    -   Kota Jakarta Pusat shows highest concentration
+    -   Relatively consistent across cities
+2.  **Secondary Education**
+    -   Junior High: Moderate density (\~0.2) across all cities
+    -   Senior High: Similar pattern to Junior High but slightly lower
+    -   Consistent pattern across cities
+3.  **Special Education**
+    -   Lowest relative density (\<0.1) in all cities
+    -   Minimal variation between cities
+
+### Overall Observations
+
+-   Clear hierarchical pattern: Elementary \> Junior High \> Senior High \> Special Education
+-   Remarkably consistent patterns across all five cities
+-   Central Jakarta (Pusat) shows slightly higher densities across most school levels
+
+## 
+
+# LISA Analysis
+
+```{r}
+# Correct aggregation to maintain separate districts
+district_boundaries <- batas_utm %>%
+  group_by(city, district) %>%
+  summarise(
+    total_population = sum(population),
+    total_area = sum(area_size),
+    popn_density = total_population / total_area,
+    # Maintain separate geometries for each district
+    do_union = TRUE,
+    .groups = 'drop'
+  )
+
+
+```
+
+```{r}
+# Spatial Analysis of Jakarta Educational Infrastructure
+
+# 1. Join school data with district boundaries
+# Purpose: Aggregate school-level data to district level
+# Input: jakarta_schools_utm (school points), district_boundaries (polygons)
+# Output: District-level summary statistics
+district_schools <- st_join(jakarta_schools_utm, 
+                           st_transform(district_boundaries, st_crs(jakarta_schools_utm))) %>%
+  st_drop_geometry() %>%
+  group_by(district) %>%
+  summarise(
+    # Count total schools and public schools
+    total_schools = n(),
+    public_schools = sum(school_type == "Public"),
+    
+    # Count schools by education level
+    elementary_count = sum(school_level == "Elementary"),
+    junior_high_count = sum(school_level == "Junior High"),
+    senior_high_count = sum(school_level == "Senior High"),
+    special_ed_count = sum(school_level == "Special Education")
+  )
+
+# 2. Calculate district-level metrics
+# Purpose: Compute density and ratio metrics for analysis
+# Output: District boundaries with added metrics
+district_metrics <- district_boundaries %>%
+  left_join(district_schools, by = "district") %>%
+  mutate(
+    # Calculate school density (schools per square km)
+    school_density = total_schools / total_area,
+    elementary_density = elementary_count / total_area,
+    junior_high_density = junior_high_count / total_area,
+    senior_high_density = senior_high_count / total_area,
+    special_ed_density = special_ed_count / total_area,
+    
+    # Calculate public school ratio
+    public_ratio = public_schools / total_schools
+  )
+
+# 3. Create spatial weights matrix
+# Purpose: Define spatial relationships between districts
+# Method: Queen contiguity (districts sharing any boundary point are neighbors)
+district_neighbors <- poly2nb(district_metrics, queen = TRUE)
+district_weights <- nb2listw(district_neighbors, style = "W")
+
+# 4. Define metrics for analysis
+# List of variables to be analyzed with LISA statistics
+metrics_to_analyze <- c(
+    "school_density",
+    "elementary_density",
+    "junior_high_density",
+    "senior_high_density",
+    "special_ed_density",
+    "public_ratio"
+)
+
+# 5. Calculate LISA statistics
+# Purpose: Identify spatial clusters and outliers
+# Method: Local Moran's I with significance testing
+lisa_results <- lapply(metrics_to_analyze, function(metric) {
+    # Calculate Local Moran's I
+    local_moran <- localmoran(district_metrics[[metric]], district_weights)
+    
+    # Calculate spatial lag for clustering
+    lag_var <- lag.listw(district_weights, district_metrics[[metric]])
+    
+    # Standardize variables for comparison
+    z_var <- scale(district_metrics[[metric]])
+    z_lag <- scale(lag_var)
+    
+    # Classify clusters based on significance (p < 0.05)
+    clusters <- rep("Not Significant", length(z_var))
+    sig_indices <- which(local_moran[, "Pr(z != E(Ii))"] < 0.05)
+    
+    # Determine cluster types:
+    # High-High: High values surrounded by high values (hot spots)
+    # Low-Low: Low values surrounded by low values (cold spots)
+    # High-Low: High values surrounded by low values (spatial outliers)
+    # Low-High: Low values surrounded by high values (spatial outliers)
+    for(i in sig_indices) {
+        if(z_var[i] > 0 && z_lag[i] > 0) clusters[i] <- "High-High"
+        else if(z_var[i] < 0 && z_lag[i] < 0) clusters[i] <- "Low-Low"
+        else if(z_var[i] > 0 && z_lag[i] < 0) clusters[i] <- "High-Low"
+        else if(z_var[i] < 0 && z_lag[i] > 0) clusters[i] <- "Low-High"
+    }
+    
+    return(list(
+        clusters = clusters,
+        local_i = local_moran[, "Ii"],
+        p_values = local_moran[, "Pr(z != E(Ii))"]
+    ))
+})
+names(lisa_results) <- metrics_to_analyze
+
+# 6. Create LISA maps
+# Purpose: Visualize spatial clusters and outliers
+# Output: ggplot maps for each metric
+lisa_maps <- lapply(metrics_to_analyze, function(metric) {
+    district_metrics$cluster <- lisa_results[[metric]]$clusters
+    
+    ggplot(district_metrics) +
+        geom_sf(aes(fill = cluster)) +
+        scale_fill_manual(values = c(
+            "High-High" = "#FF0000",    # Hot spots (red)
+            "Low-Low" = "#0000FF",      # Cold spots (blue)
+            "High-Low" = "#FF69B4",     # High outliers (pink)
+            "Low-High" = "#87CEEB",     # Low outliers (light blue)
+            "Not Significant" = "#CCCCCC" # Not significant (gray)
+        )) +
+        theme_minimal() +
+        labs(
+            title = paste("LISA Cluster Map:", gsub("_", " ", metric)),
+            fill = "Cluster Type"
+        )
+})
+names(lisa_maps) <- metrics_to_analyze
+
+# 7. Display maps
+# Print individual maps for each metric
+print(lisa_maps$school_density)
+print(lisa_maps$elementary_density)
+print(lisa_maps$junior_high_density)
+print(lisa_maps$senior_high_density)
+print(lisa_maps$special_ed_density)
+print(lisa_maps$public_ratio)
+
+
+```
+
+```{r}
+# Create a summary of LISA cluster patterns for each metric
+lisa_summary <- lapply(metrics_to_analyze, function(metric) {
+    # Get cluster counts
+    cluster_counts <- table(lisa_results[[metric]]$clusters)
+    
+    # Calculate percentages
+    cluster_percentages <- prop.table(cluster_counts) * 100
+    
+    # Identify significant districts
+    significant_districts <- district_metrics$district[lisa_results[[metric]]$clusters != "Not Significant"]
+    
+    # Calculate global Moran's I
+    global_moran <- moran.test(district_metrics[[metric]], district_weights)
+    
+    # Return summary
+    list(
+        metric = metric,
+        cluster_counts = cluster_counts,
+        cluster_percentages = cluster_percentages,
+        significant_districts = significant_districts,
+        global_moran = global_moran
+    )
+})
+names(lisa_summary) <- metrics_to_analyze
+
+# Print comprehensive analysis for each metric
+for(metric in metrics_to_analyze) {
+    cat("\n\n=== Analysis for", gsub("_", " ", metric), "===\n")
+    
+    # Global spatial autocorrelation
+    cat("\nGlobal Moran's I:\n")
+    cat("Value:", round(lisa_summary[[metric]]$global_moran$estimate[1], 4), "\n")
+    cat("p-value:", round(lisa_summary[[metric]]$global_moran$p.value, 4), "\n")
+    
+    # Cluster distribution
+    cat("\nCluster Distribution:\n")
+    print(round(lisa_summary[[metric]]$cluster_percentages, 2))
+    
+    # List significant clusters
+    cat("\nSignificant Districts:\n")
+    for(district in lisa_summary[[metric]]$significant_districts) {
+        cluster_type <- lisa_results[[metric]]$clusters[district_metrics$district == district]
+        cat(sprintf("%s: %s\n", district, cluster_type))
+    }
+}
+
+# Create numeric dataframe for correlation
+metric_data <- data.frame(
+    school_density = as.numeric(district_metrics$school_density),
+    elementary_density = as.numeric(district_metrics$elementary_density),
+    junior_high_density = as.numeric(district_metrics$junior_high_density),
+    senior_high_density = as.numeric(district_metrics$senior_high_density),
+    special_ed_density = as.numeric(district_metrics$special_ed_density),
+    public_ratio = as.numeric(district_metrics$public_ratio)
+)
+
+# Calculate correlation matrix
+correlation_matrix <- cor(metric_data, use = "complete.obs")
+print(round(correlation_matrix, 3))
+```
+
+## Key Findings from Spatial Analysis
+
+-   All school density metrics (except special education) show significant positive spatial autocorrelation (p \< 0.01)
+-   Strongest clustering in:
+    -   Junior high density (Moran's I = 0.2588, p = 0.0011)
+    -   Overall school density (Moran's I = 0.2536, p = 0.0013)
+-   Special education shows no significant spatial pattern (Moran's I = -0.0218, p = 0.4891)
+
+## Cluster Patterns
+
+-   Central Jakarta districts consistently form hot spots:
+    -   Senen appears as High-High in school, elementary, junior high, and senior high density
+    -   Gambir shifts from Low-High in elementary to High-High in junior and senior high
+    -   Cempaka Putih shows mixed patterns across different school levels
+-   Pademangan consistently appears as a Low-High outlier across multiple metrics
+-   Very few High-Low outliers except in public ratio distribution
+
+## Correlation Analysis
+
+**Strong correlations:**
+
+-   Elementary and overall school density (r = 0.978)
+
+-   Junior high and overall school density (r = 0.898)
+
+-   Senior high and overall school density (r = 0.849)
+
+**Weak correlations:**
+
+-   Special education density with all other metrics (r \< 0.35)
+
+-   Public ratio with all density metrics (r ranges from -0.151 to 0.284)
+
+# Getis-Ord G\*
+
+```{r}
+# Calculate Getis-Ord G* statistics for each metric
+calculate_g_star <- function(x, weights) {
+    # Standardize the variable
+    x_std <- scale(x)
+    
+    # Calculate G* statistic
+    g_star <- lag.listw(weights, x) / scale(x)[,1]
+    
+    # Calculate z-scores
+    n <- length(x)
+    W <- listw2mat(weights)
+    W2 <- W * W
+    S1 <- sum(W2)
+    
+    mean_g <- sum(W %*% x) / n
+    var_g <- S1 * (n - 1) / (n * n - 1)
+    z_scores <- (g_star - mean_g) / sqrt(var_g)
+    
+    # Calculate p-values
+    p_values <- 2 * pnorm(-abs(z_scores))
+    
+    # Classify hot and cold spots
+    classification <- rep("Not Significant", length(z_scores))
+    classification[z_scores > 1.96 & p_values < 0.05] <- "Hot Spot (95%)"
+    classification[z_scores > 2.58 & p_values < 0.01] <- "Hot Spot (99%)"
+    classification[z_scores < -1.96 & p_values < 0.05] <- "Cold Spot (95%)"
+    classification[z_scores < -2.58 & p_values < 0.01] <- "Cold Spot (99%)"
+    
+    return(list(
+        g_star = g_star,
+        z_scores = z_scores,
+        p_values = p_values,
+        classification = classification
+    ))
+}
+
+# Apply G* analysis to each metric
+g_star_results <- lapply(metrics_to_analyze, function(metric) {
+    calculate_g_star(district_metrics[[metric]], district_weights)
+})
+names(g_star_results) <- metrics_to_analyze
+
+# Create maps for G* results
+g_star_maps <- lapply(metrics_to_analyze, function(metric) {
+    district_metrics$hot_cold <- g_star_results[[metric]]$classification
+    
+    ggplot(district_metrics) +
+        geom_sf(aes(fill = hot_cold)) +
+        scale_fill_manual(values = c(
+            "Hot Spot (99%)" = "#FF0000",
+            "Hot Spot (95%)" = "#FF6666",
+            "Cold Spot (99%)" = "#0000FF",
+            "Cold Spot (95%)" = "#6666FF",
+            "Not Significant" = "#CCCCCC"
+        )) +
+        theme_minimal() +
+        labs(
+            title = paste("Hot Spot Analysis:", gsub("_", " ", metric)),
+            subtitle = "Getis-Ord G* Statistics",
+            fill = "Significance Level"
+        )
+})
+names(g_star_maps) <- metrics_to_analyze
+
+# Print maps
+for(metric in metrics_to_analyze) {
+    print(g_star_maps[[metric]])
+}
+
+# Print summary statistics
+for(metric in metrics_to_analyze) {
+    cat("\n\n=== Hot Spot Analysis for", gsub("_", " ", metric), "===\n")
+    
+    # Print cluster counts
+    cluster_counts <- table(g_star_results[[metric]]$classification)
+    cluster_percentages <- prop.table(cluster_counts) * 100
+    
+    cat("\nCluster Distribution:\n")
+    print(round(cluster_percentages, 2))
+    
+    # List significant districts
+    cat("\nSignificant Districts:\n")
+    sig_districts <- district_metrics$district[g_star_results[[metric]]$classification != "Not Significant"]
+    sig_types <- g_star_results[[metric]]$classification[g_star_results[[metric]]$classification != "Not Significant"]
+    
+    for(i in seq_along(sig_districts)) {
+        cat(sprintf("%s: %s\n", sig_districts[i], sig_types[i]))
+    }
+    
+    # Print range of z-scores
+    cat("\nZ-score range:", 
+        round(min(g_star_results[[metric]]$z_scores), 3), "to",
+        round(max(g_star_results[[metric]]$z_scores), 3), "\n")
+}
+```
+
+## 
+
+## Analysis of School Distribution Patterns in Jakarta
+
+### Junior High & Senior High School Patterns
+
+-   **Observed Pattern**: Both show central concentration (hot spots) but senior high schools have a more dispersed pattern with more transition zones
+-   **This could be because**:
+    -   Junior high students typically travel shorter distances, requiring more evenly spread schools
+    -   Senior high schools might be larger facilities serving wider areas
+    -   Senior high schools might be more specialized (science, vocational, etc.) leading to more varied locations
+
+### Special Education vs Regular Schools
+
+-   **Observed Pattern**: Special education shows minimal clustering with isolated hot spots, contrasting sharply with the clustered patterns of regular schools
+-   **This could be because**:
+    -   Special education facilities might be strategically placed to serve larger catchment areas
+    -   Each facility might be specialized for different needs, requiring broader distribution
+    -   Smaller target population might not require dense clustering
+
+### Public School Ratio Distribution
+
+-   **Observed Pattern**: Western districts show significant cold spots (low public ratio), while public school hot spots are scattered
+-   **This could be because**:
+    -   Different administrative approaches to school provision across districts
+    -   Private schools might be filling gaps in certain areas
+        -   Historical development patterns of school establishment
+
+### Transition Zones
+
+-   **Observed Pattern**: Areas of "not significant" clustering often appear between hot and cold spots, particularly in senior high and public ratio maps
+
+# Storyboard: Jakarta Schools Spatial Analysis Dashboard
+
+#### Background & Significance
+
+The spatial distribution of schools across Jakarta, Indonesia's capital city, represents a critical aspect of educational accessibility and urban planning. Our proposed web application aims to provide interactive spatial analysis tools that enable stakeholders to understand and optimize educational resource distribution through Local Indicators of Spatial Association (LISA) and Hot-Spot Cold-Spot Analysis (HCSA).
+
+#### Motivation
+
+This spatial analysis dashboard serves two critical purposes: identifying gaps in educational access across districts and providing data-driven insights for policy decisions.These capabilities directly enable stakeholders in:
+
+1.  **Achieving Educational Equity**
+
+    -   Helps identify areas of educational resource concentration and scarcity
+    -   Reveals potential gaps in school accessibility across different districts
+    -   Supports evidence-based decision making for new school placement
+    -   Highlights disparities between public and private school distribution
+
+2.  **Policy Implementation**
+
+    -   Supports data-driven educational policy decisions
+    -   Identifies priority areas for educational infrastructure development
+    -   Helps evaluate the effectiveness of current school distribution policies
+    -   Facilitates monitoring of educational access initiatives
+
+# UI Design
+
+The latest interface design implementation can be accessed via the following link:
+<https://zcchong415.shinyapps.io/Takehome_Ex3/>
+
+The corresponding source code and associated Shiny application files are located within the mockup directory on elearn.
+
+## Design Philosophy & Objectives
+
+### Design Philosophy
+
+The district-level spatial analysis interface integrates Local Indicators of Spatial Association (LISA) and Hot-Spot Cold-Spot Analysis (HCSA) methodologies to enable comprehensive understanding of educational facility distribution patterns across Jakarta's districts, emphasizing analytical clarity while maintaining statistical rigor in the visualization and analysis process.
+
+### Core Design Objectives
+
+1.  The interface must deliver clear spatial visualizations that effectively communicate complex clustering patterns of educational facilities, enabling stakeholders to identify significant concentrations and gaps in educational resource distribution at the district level.
+
+2.  Statistical analysis tools need to be presented in an intuitive manner that allows users to seamlessly transition between LISA and HCSA methodologies while maintaining a clear understanding of the statistical significance and implications of their findings.
+
+3.  The visualization system must effectively represent cross-district relationships and boundary effects through clear color schemes and interactive elements, enabling users to understand how educational resource distribution patterns extend beyond individual district boundaries.
+
+4.  Parameter controls for both LISA and HCSA analyses must be designed to provide precise analytical control while remaining accessible to users with varying levels of statistical expertise, ensuring the interface serves both technical and policy-focused users.
+
+### Interactive Components & Controls
+
+The interface incorporates three primary interactive control components designed to facilitate spatial analysis:
+
+1.  **Analysis Method Toggle**
+
+    \- Enables users to switch between LISA and Hotspot (Getis-Ord) analysis methodologies
+
+    \- Provides clear visual indication of currently selected analysis type
+
+2.  **Metric Selection**
+
+    \- Offers multiple educational facility metrics for analysis
+
+    \- Allows for single metric selection to maintain analysis clarity
+
+3.  **Significance Level Control**
+
+    \- Enables adjustment of statistical significance threshold
+
+    \- Includes visual feedback showing impact on result confidence
+
+    \- Displays clear numerical representation of current significance level
+
+## Layout Architecture - Mock up 1
+
+### Spatial Organization
+
+The interface utilizes a two-panel design structure that optimizes the analytical workflow while maintaining clear visual hierarchy and relationships between interface elements:
+
+```         
++------------------------------------------+
+|          Jakarta Schools Analysis        |
++------------------------------------------+
+|                |                         |
+| Control Panel  |    Spatial              |
+| • Analysis     |    Visualization        |
+| • Metrics      |    Window               |
+| • Parameters   |                         |
+|                |                         |
+| Analysis       |                         |
+| Summary        |                         |
+| • Statistics   |                         |
+| • Results      |                         |
+|                |                         |
+|                |                         |
++----------------+-------------------------+
+```
+
+![](Mockup_1_LayoutArchitecture.PNG)
+
+#### Component Relationships
+
+The spatial organization of the interface establishes clear relationships between analytical elements through a hierarchical structure that guides users through the analysis process:
+
+1.  The Control Panel serves as the primary input interface, containing essential analysis parameters, metric selection options, and statistical controls that directly influence the spatial analysis visualization.
+
+2.  The Analysis Window occupies the majority of the interface space, providing a comprehensive view of district-level spatial patterns and clustering results through color-coded visualizations and interactive elements.
+
+3.  The Statistical Summary Panel provides contextual information and detailed metrics that support the interpretation of spatial patterns observed in the analysis window, offering both global and district-specific statistical measures.
+
+### Control Panel Organization
+
+The control panel implements a hierarchical organization that reflects the logical progression of spatial analysis.
+
+``` plaintext
++-----------------------------------+
+|        Analysis Selection         |
+|  Primary Method Choice            |
++-----------------------------------+
+|        Metric Selection           |
+|  Analysis Variable Choice         |
++-----------------------------------+
+|      Significance Control         |
+|  Statistical Parameter Tuning     |
++-----------------------------------+
+|      Analysis Summary             |           
+|                                   |
++-----------------------------------+
+```
+
+![](Mockup_1_Control_Panel.PNG){width="286"}
+
+### Visualization Organization
+
+The central visualization component consists of a single interactive map display that renders spatial analysis results for Jakarta's districts
+
+![](Mockup_1_Visualization.PNG)
+
+## Layout Architecture - Mock up 2
+
+### Design Evolution Rationale
+
+The second mockup iteration proposes a significant shift in how spatial analyses are presented, moving from a toggle-based single view to a simultaneous dual-view layout. This design decision is driven by several key insights:
+
+1.  **Comparative Analysis Enhancement**
+    -   Displaying LISA and Hot-Spot analyses side by side enables immediate visual comparison
+    -   Reduces cognitive load by eliminating the need to mentally retain patterns while switching between views
+    -   Facilitates deeper understanding of how different spatial statistics complement each other
+2.  **Workflow Efficiency**
+    -   Eliminates the friction of switching between analysis types
+    -   Enables real-time parameter adjustments with immediate visual feedback across both methods
+    -   Streamlines the decision-making process by providing comprehensive spatial information at a glance
+
+### Proposed Layout Structure
+
+```         
++------------------------------------------+
+|          Jakarta Schools Analysis        |
++------------------------------------------+
+|          |              |                |
+| Control  |    LISA      |   Hot-Spot     |
+| Panel    |    Analysis  |   Analysis     |
+| (20%)    |    (40%)     |   (40%)        |
+|          |              |                |
+|          |              |                |
++----------+              |                |
+| Summary  |              |                |
++------------------------------------------+
+```
+
+### ![](Mockup_2_diagram.PNG)
+
+### Design Limitations and Future Considerations
+
+While the side-by-side visualization approach offers valuable comparative insights, several significant limitations have emerged during testing:
+
+1.  **Map Size Constraints**
+    -   Smaller map sizes make it difficult to discern fine details in Jakarta's complex district structure
+    -   Reduced visualization area impacts the overall user experience when analyzing spatial patterns
+
+Based on these findings, we will be returning to the single-map toggle design for the Jakarta schools analysis dashboard. However, the dual-view concept could be retained for future applications where rapid comparative analysis takes precedence over detailed spatial examination.
+
+## Layout Architecture - Mock up 3
+
+### Design Evolution Rationale
+
+After evaluating the limitations of Mock-up 2's side-by-side approach, Mock-up 3 returns to the successful single-map toggle design from Mock-up 1, while introducing a key structural improvement to enhance data comprehension and workflow efficiency.
+
+### Key Innovation: Repositioned Summary Panel
+
+The primary modification in Mock-up 3 is the relocation of the statistical summary from within the control panel to a dedicated horizontal panel at the bottom of the interface. This design decision is driven by several important considerations:
+
+1.  **Enhanced Control Panel Focus**
+    -   Provides room for potential additional control options
+    -   Improves overall readability of control parameters
+2.  **Improved Data Context**
+    -   Creates a natural "analysis flow" from top to bottom
+    -   Summary statistics become a conclusion rather than a sidebar
+    -   Facilitates easier comparison of statistics across different analysis states
+    -   Provides more horizontal space for detailed statistical presentations
+
+### Proposed Layout Structure
+
+```         
++------------------------------------------+
+|       Jakarta Schools Analysis           |
++------------------------------------------+
+|            |                             |
+| Analysis   |     Spatial Analysis        |
+| Controls   |     Visualization           |
+|            |     Window                  |
+|            |                             |
+|            |                             |
++------------+-----------------------------+
+|           Statistical Summary            |
+|                                          |
++------------------------------------------+
+```
+
+![](mockup_3_diagram.PNG)
+
+### Component Modifications
+
+1.  **Control Panel Refinements**
+    -   More vertical space for interactive elements
+    -   Improved spacing between controls
+    -   Room for explanatory text or tooltips
+    -   Potential for additional analysis parameters
+2.  **Summary Panel Design**
+    -   Horizontal layout maximizes readable width for statistical data
+    -   Organized in clear sections for different types of statistics
+    -   Option for tabbed or segmented display of different statistical views
+    -   Space for data visualizations like small charts or graphs
+3.  **Visual Hierarchy**
+    -   Clear progression from input (controls) to output (map) to results (summary)
+    -   Maintains strong relationship between controls and visualization
+    -   Creates natural "story" flow for data analysis process
+
+This revised layout maintains the successful elements of Mock-up 1 while improving the organization and presentation of statistical information. The horizontal summary panel provides a natural conclusion to the analysis workflow, enhancing both the user experience and the analytical process.
+
+# References
+
+-   Utilized Claude AI to clarify code concepts and refining responses.
+
+-   Seniors' learning from <https://giniceseah.netlify.app/posts/2021-07-31-storyboard/> and <https://is415-gaa-project-group3.netlify.app/>
