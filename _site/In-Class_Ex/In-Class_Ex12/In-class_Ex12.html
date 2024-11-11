@@ -1,0 +1,2536 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Chong Zhi Cheng">
+<meta name="dcterms.date" content="2024-11-11">
+
+<title>IS415 - In-class Exercise 12</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">IS415</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Hands-on Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
+ <span class="dropdown-text">Hands-on Exercise 1: Introduction to Geospatial Analytics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
+ <span class="dropdown-text">Hands-on Exercise 2: GeoVisualisation and Analytical Mapping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html">
+ <span class="dropdown-text">Hands-on Exercise 3: Spatial Point Patterns Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
+ <span class="dropdown-text">Hands-on Exercise 4: Advanced Spatial Point Patterns Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html">
+ <span class="dropdown-text">Hands-on Exercise 5: Spatial Weights and Applications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html">
+ <span class="dropdown-text">Hands-on Exercise 6: Measures of Global and Local Spatial Association</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html">
+ <span class="dropdown-text">Hands-on Exercise 7: Shiny for Building Web-enabled Geospatial Analytics Application</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.html">
+ <span class="dropdown-text">Hands-on Exercise 8: Hierarchical Clustering for Multivariate Geographically Referenced Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex08.html">
+ <span class="dropdown-text">Hands-on Exercise 9: Spatially Constrained Cluster Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html">
+ <span class="dropdown-text">Hands-on Exercise 10: Regression Modelling of Geographically Reference Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html">
+ <span class="dropdown-text">Hands-on Exercise 11: Geographically Weighted Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex12/Hands-on_Ex12.html">
+ <span class="dropdown-text">Hands-on Exercise 12: Geographically Weighted Predictive Modelling</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">In-Class Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex01/In-Class_Ex01.html">
+ <span class="dropdown-text">In-Class Exercise 1: Introduction to Geospatial Analytics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex02/In-Class_Ex02.html">
+ <span class="dropdown-text">In-Class Exercise 2: GeoVisualisation and Analytical Mapping</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex03/In-Class_Ex03.html">
+ <span class="dropdown-text">In-Class Exercise 3: Spatial Point Patterns Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex04/In-Class_Ex04.html">
+ <span class="dropdown-text">In-Class Exercise 4: Advanced Spatial Point Patterns Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex05/In-Class_Ex05.html">
+ <span class="dropdown-text">In-Class Exercise 5: Spatial Weights and Applications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex06/In-Class_Ex06.html">
+ <span class="dropdown-text">In-Class Exercise 6: Measures of Global and Local Spatial Association</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex07/In-Class_Ex07.html">
+ <span class="dropdown-text">In-Class Exercise 7: Shiny for Building Web-enabled Geospatial Analytics Application</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex08/In-Class_Ex08.html">
+ <span class="dropdown-text">In-Class Exercise 8: Hierarchical Clustering for Multivariate Geographically Referenced Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex09/In-Class_Ex09.html">
+ <span class="dropdown-text">In-Class Exercise 9: Spatially Constrained Cluster Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex10/In-Class_Ex10.html">
+ <span class="dropdown-text">In-Class Exercise 10: Regression Modelling of Geographically Reference Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex11/In-Class_Ex11.html">
+ <span class="dropdown-text">In-Class Exercise 11: Geographically Weighted Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-Class_Ex/In-Class_Ex12/In-Class_Ex12.html">
+ <span class="dropdown-text">In-Class Exercise 12: Geographically Weighted Predictive Modelling</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-takehome-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Takehome Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-takehome-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Takehome_Ex/Takehome_Ex1/Takehome_Ex1.html">
+ <span class="dropdown-text">Takehome Exercise 1: Unveiling the Spatial and Temporal Dynamics of Armed Conflict in Myanmar</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Takehome_Ex/Takehome_Ex2/Takehome_Ex2.html">
+ <span class="dropdown-text">Takehome Exercise 2: Application of Geospatial Analysis Methods to Discover Thailand Drug Abuse at the Province Level</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Takehome_Ex/Takehome_Ex3/Takehome_Ex3.html">
+ <span class="dropdown-text">Takehome Exercise 3: Spatial Distribution Analysis of Educational Facilities in Jakarta</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">In-class Exercise 12</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Chong Zhi Cheng </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 11, 2024</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">November 11, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is a note callout. I will use this for personal comments as well.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sf, spdep, GWmodel, SpatialML, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               tmap, rsample, yardstick, tidyverse,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>               knitr, kableExtra, spatialRF)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mdata <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"data/rds/mdata.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>HDB_sample <span class="ot">&lt;-</span> mdata <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>overlapping_points <span class="ot">&lt;-</span> HDB_sample <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">overlap =</span> <span class="fu">lengths</span>(<span class="fu">st_equals</span>(., .)) <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(overlapping_points<span class="sc">$</span>overlap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Mode   FALSE    TRUE 
+logical    1047     453 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>HDB_sample <span class="ot">&lt;-</span> HDB_sample <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_jitter</span>(<span class="at">amount =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>resale_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(HDB_sample, <span class="at">prop =</span> <span class="fl">0.67</span><span class="sc">/</span><span class="dv">10</span>,)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> <span class="fu">training</span>(resale_split)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">testing</span>(resale_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(train_data, <span class="st">"data/rds/train_data.rds"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(test_data, <span class="st">"data/rds/test_data.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mdata_nogeo <span class="ot">&lt;-</span> mdata <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ggstatsplot<span class="sc">::</span><span class="fu">ggcorrmat</span>(mdata_nogeo[, <span class="dv">2</span><span class="sc">:</span><span class="dv">17</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="In-class_Ex12_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>gwr_bw_train_ad <span class="ot">&lt;-</span> <span class="fu">bw.gwr</span>(resale_price <span class="sc">~</span> floor_area_sqm <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                            storey_order <span class="sc">+</span> remaining_lease_mths <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                            PROX_CBD <span class="sc">+</span> PROX_ELDERLYCARE <span class="sc">+</span> PROX_HAWKER <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                            PROX_MRT <span class="sc">+</span> PROX_PARK <span class="sc">+</span> PROX_MALL <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                            PROX_SUPERMARKET <span class="sc">+</span> WITHIN_350M_KINDERGARTEN <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                            WITHIN_350M_CHILDCARE <span class="sc">+</span> WITHIN_350M_BUS <span class="sc">+</span> WITHIN_1KM_PRISCH,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data=</span>train_data,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">approach=</span><span class="st">"CV"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">kernel=</span><span class="st">"gaussian"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">adaptive=</span><span class="cn">TRUE</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">longlat=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Adaptive bandwidth: 69 CV score: 407907229193 
+Adaptive bandwidth: 51 CV score: 399223079695 
+Adaptive bandwidth: 38 CV score: 388447223999 
+Adaptive bandwidth: 32 CV score: 378970170216 
+Adaptive bandwidth: 26 CV score: 365612583260 
+Adaptive bandwidth: 24 CV score: 365385607488 
+Adaptive bandwidth: 21 CV score: 3.69993e+11 
+Adaptive bandwidth: 24 CV score: 365385607488 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>gwr_pred <span class="ot">&lt;-</span> <span class="fu">gwr.predict</span>(<span class="at">formula =</span> resale_price <span class="sc">~</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                          floor_area_sqm <span class="sc">+</span> storey_order <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                          remaining_lease_mths <span class="sc">+</span> PROX_CBD <span class="sc">+</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                          PROX_ELDERLYCARE <span class="sc">+</span> PROX_HAWKER <span class="sc">+</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                          PROX_MRT <span class="sc">+</span> PROX_PARK <span class="sc">+</span> PROX_MALL <span class="sc">+</span> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                          PROX_SUPERMARKET <span class="sc">+</span> WITHIN_350M_KINDERGARTEN <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                          WITHIN_350M_CHILDCARE <span class="sc">+</span> WITHIN_350M_BUS <span class="sc">+</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                          WITHIN_1KM_PRISCH, </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data=</span>train_data, </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">predictdata =</span> test_data, </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">bw=</span><span class="dv">20</span>, </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">kernel =</span> <span class="st">'gaussian'</span>, </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">adaptive=</span><span class="cn">TRUE</span>, </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>                        <span class="at">longlat =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>gwr_pred_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  gwr_pred<span class="sc">$</span>SDF<span class="sc">$</span>prediction</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gwr_pred =</span> <span class="st">"gwr_pred$SDF$prediction"</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>gwr_pred_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      gwr_pred
+1     361764.3
+2     404810.3
+3     352967.9
+4     399129.1
+5     259860.6
+6     344771.1
+7     454756.3
+8     339169.8
+9     430861.9
+10    446909.2
+11    533967.0
+12    726512.1
+13    432441.3
+14    401419.7
+15    474368.0
+16    443278.3
+17    815035.0
+18    386959.4
+19    374500.6
+20    430369.3
+21    340290.6
+22    408148.5
+23    366942.4
+24    436157.6
+25    494310.6
+26    542262.4
+27    399822.4
+28    610995.3
+29    478708.8
+30    367577.5
+31    741927.7
+32    407717.8
+33    587832.7
+34    473556.1
+35    397873.4
+36    400358.4
+37    350257.4
+38    337720.7
+39    316130.8
+40    489439.5
+41    361044.4
+42    331775.5
+43    365597.2
+44    428455.6
+45    359266.3
+46    482771.1
+47    398567.8
+48    464359.0
+49    430935.4
+50    378492.6
+51    643706.4
+52    394668.0
+53    330354.0
+54    560831.5
+55    243870.0
+56    368251.1
+57    354373.2
+58    516663.1
+59    378773.0
+60    381935.6
+61    441114.4
+62    346294.4
+63    319955.2
+64    360572.6
+65    539681.6
+66    358242.5
+67    479444.8
+68    453188.9
+69    346242.6
+70    317140.7
+71    643278.8
+72    422853.7
+73    390452.1
+74    311153.2
+75    456599.8
+76    361901.1
+77    641826.0
+78    885826.3
+79    378352.5
+80    361529.5
+81    261782.1
+82    479947.5
+83    359887.5
+84    315373.4
+85    638087.9
+86    188312.7
+87    442509.9
+88   1004534.4
+89    486219.2
+90    414490.5
+91    432705.0
+92    424381.3
+93    412428.0
+94    420286.9
+95    385320.3
+96    464638.0
+97    243089.7
+98    668145.6
+99    470218.2
+100   343284.7
+101   367459.4
+102   367944.1
+103   506094.9
+104   331611.7
+105   342080.8
+106   458412.8
+107   360764.1
+108   309338.1
+109   402426.6
+110   469084.4
+111   537476.1
+112   425313.2
+113   443396.0
+114   457652.2
+115   415268.2
+116   448949.1
+117   670374.4
+118   565069.5
+119   475822.1
+120   299345.6
+121   382756.3
+122   770838.1
+123   238698.8
+124   309166.8
+125   479721.8
+126   341972.8
+127   561556.4
+128   711318.5
+129   450843.3
+130   323653.5
+131   311340.6
+132   399282.9
+133   287274.3
+134   392648.1
+135   293736.2
+136   305230.0
+137   504076.6
+138   482911.9
+139   296808.6
+140   282256.8
+141   318012.7
+142   334757.0
+143   490505.9
+144   365448.6
+145   385986.6
+146   632812.9
+147   400510.1
+148   373237.4
+149   385357.3
+150   511925.4
+151   519105.8
+152   345265.2
+153   349336.4
+154   378235.1
+155   584906.4
+156   279081.6
+157   255639.3
+158   388664.9
+159   384760.2
+160   332066.4
+161   404556.1
+162   476245.7
+163   423496.4
+164   387567.7
+165   418647.3
+166   407249.3
+167   339144.2
+168   491780.7
+169   351742.5
+170   336083.2
+171   434749.4
+172   400493.0
+173   507730.8
+174   375992.2
+175   404225.7
+176   321220.5
+177   315025.8
+178   341462.1
+179   374940.0
+180   274920.8
+181   171582.3
+182   461377.1
+183   405190.3
+184   300301.4
+185   451359.9
+186   467497.8
+187   379416.6
+188   432251.8
+189   402891.4
+190   263293.3
+191   432569.2
+192   309843.1
+193   402656.8
+194   467386.0
+195   399103.7
+196   447948.4
+197   434829.8
+198   299076.4
+199   498249.9
+200   474152.0
+201   432061.4
+202   311834.6
+203   495782.8
+204   412605.7
+205   368871.7
+206   404396.9
+207   485224.2
+208   653629.3
+209   327349.3
+210   471622.2
+211   374722.0
+212   545529.5
+213   527741.1
+214   385087.5
+215   595053.8
+216   326270.1
+217   722077.2
+218   390041.6
+219   653716.5
+220   389222.7
+221   460248.7
+222   357648.8
+223   289913.0
+224   436232.7
+225   335883.4
+226   577168.5
+227   269549.6
+228   681242.3
+229   380949.8
+230   294526.3
+231   480965.9
+232   520064.7
+233   476986.9
+234   459403.4
+235   393465.7
+236   382494.0
+237   363397.0
+238   333414.4
+239   545360.9
+240   540557.4
+241   327231.6
+242   387096.2
+243   494360.5
+244   328933.0
+245   377709.5
+246   461118.4
+247   403342.6
+248   513199.6
+249   602735.0
+250   485862.8
+251   476535.5
+252   497582.7
+253   616006.4
+254   341332.5
+255   522065.0
+256   345967.6
+257   344659.6
+258   394397.8
+259   396623.7
+260   295211.9
+261   624842.8
+262   563311.6
+263   354873.0
+264   722213.2
+265   522580.3
+266   386732.3
+267   700605.0
+268   466609.5
+269   517939.8
+270   313346.9
+271   588212.5
+272   397634.2
+273   520911.5
+274   378617.2
+275   450902.7
+276   385234.5
+277   650772.1
+278   414322.9
+279   479540.8
+280   574080.7
+281   418198.1
+282   381982.6
+283   586798.1
+284   454861.7
+285   362548.2
+286   550679.2
+287   516738.7
+288   699549.2
+289   567001.2
+290   342697.9
+291   397856.3
+292   483324.4
+293   397847.2
+294   345785.8
+295   369186.4
+296   356123.6
+297   514290.8
+298   338293.9
+299   480701.2
+300   368595.0
+301   421369.5
+302   298011.8
+303   467953.5
+304   574956.5
+305   550699.3
+306   484910.1
+307   288193.3
+308   394205.2
+309   605627.7
+310   591976.3
+311   628477.6
+312   418476.9
+313   355393.9
+314   433008.3
+315   355427.7
+316   416397.0
+317   470595.9
+318   346919.2
+319   464223.5
+320   656617.6
+321   431866.8
+322   326627.3
+323   302844.7
+324   614439.0
+325   358344.5
+326   410107.4
+327   336395.3
+328   338231.1
+329   637914.2
+330   458672.9
+331   408109.0
+332   751119.0
+333   329252.2
+334   552091.7
+335   424013.9
+336   392581.1
+337   265954.5
+338   490004.0
+339   354203.5
+340   462745.0
+341   350625.1
+342   557904.3
+343   498706.9
+344   430211.1
+345   454646.2
+346   446456.7
+347   547396.3
+348   330700.5
+349   488024.7
+350   423727.3
+351   473819.6
+352   444076.6
+353   477634.3
+354   466514.3
+355   442039.7
+356   473660.5
+357   333183.0
+358   411753.0
+359   313485.3
+360   393186.8
+361   373329.1
+362   725780.9
+363   358709.7
+364   451540.8
+365   451482.3
+366   424964.0
+367   365111.2
+368   306723.3
+369   485947.1
+370   478389.0
+371   325878.7
+372   329572.5
+373   399988.0
+374   327327.1
+375   307728.0
+376   376420.6
+377   285508.1
+378   526097.3
+379   345943.0
+380   288480.1
+381   464931.9
+382   516680.8
+383   361105.0
+384   408164.4
+385   371719.8
+386   368501.3
+387   456301.0
+388   380625.5
+389   361766.3
+390   366389.1
+391   767847.4
+392   379396.7
+393   387135.1
+394   398157.1
+395   396563.8
+396   501972.3
+397   418979.9
+398   347490.0
+399   335867.8
+400   520538.2
+401   416517.2
+402   320859.5
+403   588074.7
+404   413817.5
+405   454886.6
+406   385256.4
+407   266412.4
+408   314833.6
+409   480724.0
+410   348286.1
+411   429043.0
+412   535413.5
+413   432553.4
+414   311476.8
+415   666531.1
+416   322376.5
+417   606249.3
+418   359898.3
+419   397613.9
+420   447704.0
+421   356611.2
+422   528507.1
+423   726546.6
+424   351478.3
+425   473771.6
+426   722531.5
+427   381709.1
+428   529182.9
+429   454354.0
+430   295175.9
+431   323309.8
+432   501503.0
+433   365679.5
+434   367795.9
+435   749016.9
+436   298763.7
+437   448888.0
+438   518018.9
+439   411087.5
+440   330685.1
+441   297708.7
+442   441544.8
+443   481204.0
+444   432402.8
+445   502161.6
+446   608196.9
+447   287838.8
+448   424629.7
+449   452909.1
+450   378236.0
+451   245310.5
+452   285258.1
+453   315788.9
+454   276970.5
+455   398479.5
+456   393293.2
+457   334529.3
+458   594643.9
+459   444400.1
+460   240531.7
+461   409860.4
+462   546232.1
+463   369190.3
+464   358923.2
+465   679680.7
+466   435207.3
+467   353814.0
+468   471599.8
+469   462855.5
+470   351942.2
+471   469289.6
+472   471630.9
+473   431785.1
+474   429742.1
+475   478121.4
+476   363306.6
+477   608807.9
+478   573540.7
+479   312007.0
+480   410642.2
+481   428819.5
+482   393268.8
+483   304114.8
+484   523660.1
+485   317289.4
+486   352494.5
+487   463204.7
+488   402230.9
+489   308967.6
+490   462743.0
+491   443421.5
+492   527190.2
+493   434271.1
+494   353793.2
+495   587110.6
+496   446160.9
+497   331750.6
+498   328417.8
+499   469981.1
+500   408781.0
+501   477950.7
+502   374814.1
+503   386635.4
+504   702888.4
+505   342006.9
+506   466701.1
+507   321638.5
+508   463193.9
+509   324326.8
+510   383863.6
+511   390612.8
+512   352833.8
+513   360725.5
+514   402507.8
+515   534355.2
+516   378342.1
+517   400794.8
+518   588654.5
+519   374325.0
+520   437762.9
+521   347780.3
+522   159415.8
+523   496429.8
+524   506834.3
+525   722756.6
+526   455181.1
+527   371169.7
+528   406182.6
+529   375698.3
+530   363735.4
+531   453411.2
+532   359075.3
+533   358958.7
+534   523230.6
+535   377644.4
+536   351566.2
+537   726069.1
+538   424224.6
+539   348548.2
+540   373640.5
+541   379529.0
+542   397316.0
+543   553296.6
+544   349804.7
+545   352604.3
+546   342811.2
+547   498249.9
+548   477729.7
+549   354595.8
+550   409173.9
+551   693623.6
+552   512175.3
+553   414694.8
+554   491274.2
+555   330229.8
+556   549632.4
+557   453544.4
+558   336051.8
+559   336035.7
+560   619573.3
+561   470203.8
+562   316799.7
+563   439709.9
+564   395184.6
+565   445512.4
+566   545983.1
+567   647862.1
+568   387638.3
+569   502237.7
+570   330108.9
+571   457842.1
+572   465691.4
+573   540411.3
+574   532626.2
+575   296829.6
+576   504832.7
+577   362697.3
+578   391094.1
+579   319679.3
+580   265950.6
+581   530784.9
+582   326770.9
+583   506142.6
+584   398807.4
+585   436204.6
+586   517819.8
+587   388995.4
+588   593069.2
+589   300768.7
+590   487801.4
+591   404538.0
+592   460326.6
+593   451056.9
+594   403160.4
+595   316006.0
+596   313802.5
+597   356687.2
+598   355493.5
+599   625248.3
+600   439950.7
+601   456935.3
+602   314041.5
+603   380949.3
+604   457835.2
+605   642139.1
+606   337606.9
+607   315467.0
+608   340450.2
+609   425072.0
+610   503589.2
+611   507876.2
+612   485611.2
+613   401645.7
+614   464653.4
+615   446826.5
+616   376009.2
+617   278435.1
+618   376782.8
+619   476120.6
+620   368608.5
+621   480921.7
+622   391595.1
+623   440177.4
+624   449914.7
+625   366682.6
+626   476555.1
+627   358451.9
+628   369053.1
+629   403485.6
+630   468551.5
+631   453754.1
+632   599874.5
+633   319979.8
+634   369551.7
+635   343813.6
+636   545440.6
+637   385626.9
+638   381901.9
+639   403130.5
+640   459875.1
+641   958527.9
+642   283733.5
+643   654885.3
+644   419292.3
+645   313030.8
+646   430960.0
+647   418507.4
+648   432234.8
+649   548564.5
+650   291777.5
+651   329279.4
+652   584954.8
+653   467518.0
+654   391676.8
+655   557892.3
+656   577860.0
+657   621101.0
+658   326509.9
+659   425376.9
+660   459805.1
+661   313676.0
+662   512291.3
+663   624086.8
+664   680227.3
+665   406028.5
+666   494335.4
+667   327461.0
+668   409462.4
+669   572764.3
+670   657790.2
+671   378665.9
+672   438614.2
+673   359412.7
+674   336256.9
+675   372264.9
+676   698083.8
+677   374974.7
+678   367671.7
+679   743862.5
+680   335758.0
+681   330745.4
+682   531787.8
+683   663498.3
+684   331528.0
+685   466570.6
+686   447321.3
+687   413950.4
+688   305478.9
+689   377204.4
+690   448459.4
+691   412842.8
+692   452222.0
+693   579239.2
+694   526783.4
+695   390433.6
+696   290196.7
+697   449993.5
+698   322668.5
+699   413174.9
+700   478590.8
+701   397509.3
+702  1018902.0
+703   472971.1
+704   342677.6
+705   377412.5
+706   345338.6
+707   422917.6
+708   344633.7
+709   535921.5
+710   326908.7
+711   671405.2
+712   345254.2
+713   627847.7
+714   472820.0
+715   405739.9
+716   428388.4
+717   515716.3
+718   344364.3
+719   341000.1
+720   540922.4
+721   450402.3
+722   433784.1
+723   425547.8
+724   359767.5
+725   404435.4
+726   482821.4
+727   350165.2
+728   310241.4
+729   335413.6
+730   406790.1
+731   499557.8
+732   464721.4
+733   414010.3
+734   322986.4
+735   407645.3
+736   446456.1
+737   801327.8
+738   557067.8
+739   578883.2
+740   303992.5
+741   396170.8
+742   511698.8
+743   353467.1
+744   372383.5
+745   285627.8
+746   358579.8
+747   491287.9
+748   490201.3
+749   465274.0
+750   363127.2
+751   369526.8
+752   365802.4
+753   413128.1
+754   340196.4
+755   404175.4
+756   370631.1
+757   312528.5
+758   522092.6
+759   563902.5
+760   438723.6
+761   314922.0
+762   312342.7
+763   412196.3
+764   404036.5
+765   424396.0
+766   482842.8
+767   354087.9
+768   505947.6
+769   372454.4
+770   286116.9
+771   398693.8
+772   435756.5
+773   410870.5
+774   403038.6
+775   421317.3
+776   305655.5
+777   441420.3
+778   768244.8
+779   443081.1
+780   383140.6
+781   515518.3
+782   432956.0
+783   305329.1
+784   319016.9
+785   354320.9
+786   338784.5
+787   822615.1
+788   420295.4
+789   467730.8
+790   461454.1
+791   448754.9
+792   376118.2
+793   373808.7
+794   444536.1
+795   322188.6
+796   283825.9
+797   349567.8
+798   518474.9
+799   423625.1
+800   418759.8
+801   382970.6
+802   439033.0
+803   326621.1
+804   414495.3
+805   404346.4
+806   716454.0
+807   355838.5
+808   367134.1
+809   299077.5
+810   307593.3
+811   404069.1
+812   463769.7
+813   341683.4
+814   298317.5
+815   446852.7
+816   336459.1
+817   381285.2
+818   485089.4
+819   435228.7
+820   425509.6
+821   495352.1
+822   277096.7
+823   463567.8
+824   441026.8
+825   376846.3
+826   418424.0
+827   343496.8
+828   445080.4
+829   409416.1
+830   369106.0
+831   352164.7
+832   480439.2
+833   784393.5
+834   360815.1
+835   595795.0
+836   557902.7
+837   376240.3
+838   343024.2
+839   390668.3
+840   399463.9
+841   671872.0
+842   393361.2
+843   391183.9
+844   406559.4
+845   335026.9
+846   406369.8
+847   346769.7
+848   493771.6
+849   372380.0
+850   449717.3
+851   652121.3
+852   445187.3
+853   439442.9
+854   442836.3
+855   259104.6
+856   386249.7
+857   294013.3
+858   305907.6
+859   480983.6
+860   374634.6
+861   406807.2
+862   455702.8
+863   363355.9
+864   413010.4
+865   355190.8
+866   407604.6
+867   572578.4
+868   385961.6
+869   493471.6
+870   460211.0
+871   430526.5
+872   412074.7
+873   444857.0
+874   371412.1
+875   353432.3
+876   348062.3
+877   510808.9
+878   477871.8
+879   431542.2
+880   368760.2
+881   369367.1
+882   554870.0
+883   593839.4
+884   449378.2
+885   331524.5
+886   387530.0
+887   277847.0
+888   412433.0
+889   475926.8
+890   648174.3
+891   428911.9
+892   422527.5
+893   393343.1
+894   562634.1
+895   333267.3
+896   461317.3
+897   387101.4
+898   319703.2
+899   494820.6
+900   377080.2
+901   400072.2
+902   529385.4
+903   428632.9
+904   405728.8
+905   493798.9
+906   418984.0
+907   442138.9
+908   358405.7
+909   329630.9
+910   406515.4
+911   358690.8
+912   619834.9
+913   326425.9
+914   341801.1
+915   249409.0
+916   652821.1
+917   364777.8
+918   317984.4
+919   520085.2
+920   471454.2
+921   335284.3
+922   423366.6
+923   339923.5
+924   454824.1
+925   349279.7
+926   523399.5
+927   359623.8
+928   340300.5
+929   454383.9
+930   585985.9
+931   537171.0
+932   298344.9
+933   384852.4
+934   409241.5
+935   425662.4
+936   428830.9
+937   343630.0
+938   315026.6
+939   312039.6
+940   450886.2
+941   421153.9
+942   433321.0
+943   366620.9
+944   393532.0
+945   398907.7
+946   355997.6
+947   252852.8
+948   392957.8
+949   492410.0
+950   734672.1
+951   390013.1
+952   571422.7
+953   473024.6
+954   415346.6
+955   345405.4
+956   456030.9
+957   450841.7
+958   447644.9
+959   326507.4
+960   210130.8
+961   515072.5
+962   510531.4
+963   456175.0
+964   546321.5
+965   439206.7
+966   454014.0
+967   331029.5
+968   249489.6
+969   545349.6
+970   591779.4
+971   463649.2
+972   401010.8
+973   623523.1
+974   338672.9
+975   387960.5
+976   341149.5
+977   509742.1
+978   347380.7
+979   501067.4
+980   245461.1
+981   393585.8
+982   466187.6
+983   350698.7
+984   734010.0
+985   527096.3
+986   408655.1
+987   255388.1
+988   538950.7
+989   422343.7
+990   274246.8
+991   426517.9
+992   353928.9
+993   453209.0
+994   352386.4
+995   340993.2
+996   449643.7
+997   468079.4
+998   408213.5
+999   344677.3
+1000  485566.1
+1001  432000.8
+1002  413315.4
+1003  379320.0
+1004  311575.6
+1005  417268.9
+1006  496868.1
+1007  420021.2
+1008  428590.0
+1009  454174.4
+1010  329880.7
+1011  424067.3
+1012  423835.0
+1013  529704.4
+1014  655911.5
+1015  355537.3
+1016  452515.5
+1017  533720.7
+1018  418511.0
+1019  548897.8
+1020  319782.6
+1021  412213.3
+1022  397923.1
+1023  397633.1
+1024  292425.4
+1025  502755.9
+1026  358396.9
+1027  414308.5
+1028  455617.1
+1029  412145.0
+1030  535780.9
+1031  647824.7
+1032  371650.5
+1033  508598.4
+1034  376796.9
+1035  399950.2
+1036  450510.4
+1037  733520.4
+1038  421680.8
+1039  303038.3
+1040  454877.3
+1041  329245.4
+1042  439721.9
+1043  632460.0
+1044  331261.0
+1045  369984.5
+1046  478371.2
+1047  507672.0
+1048  412331.5
+1049  547652.4
+1050  636481.8
+1051  376711.0
+1052  417887.2
+1053  440277.9
+1054  380582.4
+1055  694551.9
+1056  347934.2
+1057  450239.5
+1058  566366.5
+1059  454439.9
+1060  542185.4
+1061  382953.9
+1062  403668.5
+1063  501502.3
+1064  270557.0
+1065  337026.8
+1066  659538.7
+1067  697938.1
+1068  320506.2
+1069  489834.5
+1070  548636.2
+1071  358607.9
+1072  472590.9
+1073  834004.6
+1074  469494.0
+1075  401127.7
+1076  539043.7
+1077  369461.0
+1078  469015.5
+1079  366730.4
+1080  316393.5
+1081  291358.4
+1082  496718.7
+1083  383197.5
+1084  289071.9
+1085  310061.2
+1086  346001.5
+1087  391407.6
+1088  324127.3
+1089  348571.0
+1090  428166.2
+1091  333483.6
+1092  346871.2
+1093  477680.9
+1094  326142.6
+1095  394834.5
+1096  323057.3
+1097  323392.0
+1098  345420.7
+1099  335817.2
+1100  271029.7
+1101  406737.2
+1102  366423.9
+1103  287594.3
+1104  385799.2
+1105  530187.5
+1106  383236.8
+1107  431329.6
+1108  297466.0
+1109  406871.2
+1110  421716.9
+1111  585350.4
+1112  353166.6
+1113  428444.5
+1114  496076.2
+1115  348733.4
+1116  439611.1
+1117  441706.5
+1118  470064.1
+1119  440437.8
+1120  354286.0
+1121  403141.4
+1122  478062.6
+1123  497444.9
+1124  356080.4
+1125  406822.5
+1126  388179.4
+1127  329808.5
+1128  451577.7
+1129  351051.4
+1130  531091.2
+1131  402033.0
+1132  386526.3
+1133  513392.1
+1134  293543.4
+1135  318599.7
+1136  494538.6
+1137  295043.8
+1138  193107.8
+1139  405857.0
+1140  392920.3
+1141  414589.9
+1142  539464.5
+1143  435479.9
+1144  448365.6
+1145  320403.4
+1146  433461.6
+1147  335360.4
+1148  444034.2
+1149  260801.5
+1150  449203.0
+1151  416831.1
+1152  308302.0
+1153  511957.6
+1154  400423.9
+1155  309579.3
+1156  470532.6
+1157  532690.0
+1158  332484.8
+1159  412407.9
+1160  371920.7
+1161  268010.5
+1162  417956.4
+1163  438437.4
+1164  259660.9
+1165  381441.8
+1166  591105.2
+1167  482188.6
+1168  347234.5
+1169  367169.8
+1170  342018.9
+1171  521334.2
+1172  257779.2
+1173  750519.7
+1174  405793.3
+1175  375462.9
+1176  262166.9
+1177  339869.1
+1178  388644.1
+1179  446477.6
+1180  345058.0
+1181  411969.9
+1182  762794.3
+1183  451956.9
+1184  821323.2
+1185  374570.1
+1186  400087.8
+1187  434275.2
+1188  292089.3
+1189  300654.5
+1190  336651.7
+1191  306417.8
+1192  547456.4
+1193  295179.2
+1194  431554.6
+1195  433016.2
+1196  448708.9
+1197  354281.5
+1198  593294.1
+1199  431077.4
+1200  332651.5
+1201  359373.7
+1202  398904.8
+1203  538708.0
+1204  743147.3
+1205  368463.4
+1206  441998.0
+1207  672777.0
+1208  370498.7
+1209  311548.9
+1210  404910.7
+1211  465956.1
+1212  363063.6
+1213  514923.1
+1214  380334.6
+1215  444110.2
+1216  428591.8
+1217  436755.0
+1218  432354.6
+1219  444568.7
+1220  317972.9
+1221  470117.1
+1222  363955.3
+1223  469633.1
+1224  293592.9
+1225  606240.6
+1226  374678.5
+1227  302031.2
+1228  400460.9
+1229  374464.9
+1230  483464.5
+1231  442998.5
+1232  357506.7
+1233  381154.7
+1234  396912.4
+1235  410738.0
+1236  331731.0
+1237  401026.1
+1238  421335.1
+1239  319449.0
+1240  415151.5
+1241  351639.5
+1242  444129.9
+1243  410765.1
+1244  424809.6
+1245  400666.7
+1246  653059.8
+1247  400291.7
+1248  417421.6
+1249  533948.8
+1250  376761.0
+1251  451229.6
+1252  401136.9
+1253  373345.8
+1254  455920.4
+1255  389419.1
+1256  634527.0
+1257  340897.1
+1258  452839.1
+1259  460776.4
+1260  405525.2
+1261  292800.7
+1262  423683.9
+1263  364681.6
+1264  370161.1
+1265  416412.3
+1266  372579.2
+1267  458348.8
+1268  449241.9
+1269  498364.3
+1270  539476.7
+1271  505987.3
+1272  500322.3
+1273  425432.7
+1274  534198.2
+1275  449370.4
+1276  381224.6
+1277  417914.7
+1278  590210.6
+1279  391964.2
+1280  382652.0
+1281  280067.8
+1282  350776.8
+1283  379031.0
+1284  586479.0
+1285  392132.0
+1286  358081.2
+1287  323677.3
+1288  326856.8
+1289  402392.3
+1290  354938.2
+1291  422109.3
+1292  284945.2
+1293  362357.2
+1294  410563.5
+1295  363786.3
+1296  416419.7
+1297  490182.1
+1298  443300.2
+1299  383973.4
+1300  444884.7
+1301  750958.5
+1302  362237.4
+1303  430257.7
+1304  435432.7
+1305  453881.9
+1306  608625.8
+1307  358847.3
+1308  343479.0
+1309  401510.7
+1310  427007.5
+1311  361989.9
+1312  379730.2
+1313  385017.8
+1314  584672.7
+1315  371563.3
+1316  492342.9
+1317  302156.2
+1318  430227.7
+1319  737854.2
+1320  399468.0
+1321  450948.9
+1322  337623.0
+1323  408494.8
+1324  397080.8
+1325  443391.6
+1326  550155.8
+1327  364493.5
+1328  382921.1
+1329  344507.5
+1330  506146.7
+1331  333576.5
+1332  339553.5
+1333  289564.1
+1334  422973.3
+1335  590025.5
+1336  350849.3
+1337  752943.0
+1338  283807.3
+1339  544912.8
+1340  408107.5
+1341  489798.7
+1342  346432.9
+1343  356101.3
+1344  465377.7
+1345  447398.7
+1346  747750.2
+1347  353517.9
+1348  354698.9
+1349  441943.3
+1350  789727.0
+1351  395431.4
+1352  447955.6
+1353  247666.4
+1354  378135.5
+1355  714915.3
+1356  319542.2
+1357  658179.4
+1358  553490.6
+1359  256256.7
+1360  341525.8
+1361  517180.4
+1362  440383.5
+1363  471474.8
+1364  427253.5
+1365  488022.7
+1366  417989.2
+1367  318142.7
+1368  447457.9
+1369  488812.1
+1370  456805.9
+1371  327441.6
+1372  455233.1
+1373  326499.1
+1374  453591.3
+1375  267150.1
+1376  299718.3
+1377  370829.8
+1378  528311.2
+1379  447736.9
+1380  407133.9
+1381  347837.4
+1382  401275.5
+1383  330545.4
+1384  445155.2
+1385  407854.2
+1386  469272.1
+1387  405916.7
+1388  496540.5
+1389  319308.3
+1390  307931.5
+1391  396509.8
+1392  372515.2
+1393  492044.0
+1394  488806.3
+1395  381276.9
+1396  225914.8
+1397  505541.4
+1398  368082.6
+1399  387204.9
+1400  336748.7</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(HDB_sample)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>coords_train <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(train_data)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>coords_test <span class="ot">&lt;-</span> <span class="fu">st_coordinates</span>(test_data)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>train_data_nogeom <span class="ot">&lt;-</span> train_data <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>rf <span class="ot">&lt;-</span> <span class="fu">ranger</span>(resale_price <span class="sc">~</span> floor_area_sqm <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                            storey_order <span class="sc">+</span> remaining_lease_mths <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                            PROX_CBD <span class="sc">+</span> PROX_ELDERLYCARE <span class="sc">+</span> PROX_HAWKER <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                            PROX_MRT <span class="sc">+</span> PROX_PARK <span class="sc">+</span> PROX_MALL <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                            PROX_SUPERMARKET <span class="sc">+</span> WITHIN_350M_KINDERGARTEN <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                            WITHIN_350M_CHILDCARE <span class="sc">+</span> WITHIN_350M_BUS <span class="sc">+</span> WITHIN_1KM_PRISCH, <span class="at">data=</span>train_data_nogeom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>test_data_nogeom <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  test_data, coords_test) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rf_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf, <span class="at">data =</span> test_data_nogeom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rf_pred_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(rf_pred<span class="sc">$</span>predictions) <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">rf_pred =</span> <span class="st">"rf_pred$predictions"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>grf_ad <span class="ot">&lt;-</span> <span class="fu">grf</span>(resale_price <span class="sc">~</span> floor_area_sqm <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                            storey_order <span class="sc">+</span> remaining_lease_mths <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                            PROX_CBD <span class="sc">+</span> PROX_ELDERLYCARE <span class="sc">+</span> PROX_HAWKER <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                            PROX_MRT <span class="sc">+</span> PROX_PARK <span class="sc">+</span> PROX_MALL <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                            PROX_SUPERMARKET <span class="sc">+</span> WITHIN_350M_KINDERGARTEN <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                            WITHIN_350M_CHILDCARE <span class="sc">+</span> WITHIN_350M_BUS <span class="sc">+</span> WITHIN_1KM_PRISCH, </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">dframe =</span> train_data_nogeom,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">bw=</span><span class="dv">20</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>              <span class="at">kernel=</span><span class="st">"adaptive"</span>,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">coords=</span>coords_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Number of Observations: 100</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Number of Independent Variables: 14</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Kernel: Adaptive
+Neightbours: 20</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+--------------- Global ML Model Summary ---------------</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Ranger result
+
+Call:
+ ranger(resale_price ~ floor_area_sqm + storey_order + remaining_lease_mths +      PROX_CBD + PROX_ELDERLYCARE + PROX_HAWKER + PROX_MRT + PROX_PARK +      PROX_MALL + PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +      WITHIN_350M_CHILDCARE + WITHIN_350M_BUS + WITHIN_1KM_PRISCH,      data = train_data_nogeom, num.trees = 500, mtry = 4, importance = "impurity",      num.threads = NULL) 
+
+Type:                             Regression 
+Number of trees:                  500 
+Sample size:                      100 
+Number of independent variables:  14 
+Mtry:                             4 
+Target node size:                 5 
+Variable importance mode:         impurity 
+Splitrule:                        variance 
+OOB prediction error (MSE):       5703987554 
+R squared (OOB):                  0.6704437 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Importance:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          floor_area_sqm             storey_order     remaining_lease_mths 
+             53679224312             213723102315             174062858247 
+                PROX_CBD         PROX_ELDERLYCARE              PROX_HAWKER 
+            514914396629              75632512631             136039218936 
+                PROX_MRT                PROX_PARK                PROX_MALL 
+             99063109679              71539924464              57379956712 
+        PROX_SUPERMARKET WITHIN_350M_KINDERGARTEN    WITHIN_350M_CHILDCARE 
+             61687768650               9298686427              51767268338 
+         WITHIN_350M_BUS        WITHIN_1KM_PRISCH 
+             33285415499              98948524421 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Mean Square Error (Not OOB): 1132084606.934</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>R-squared (Not OOB) %: 93.393</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>AIC (Not OOB): 2114.733</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>AICc (Not OOB): 2120.447</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+--------------- Local Model Summary ---------------</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Residuals OOB:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-140249  -39087   -4685    3989   30861  248123 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Residuals Predicted (Not OOB):</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-17208.0  -4285.6    132.8    484.2   3981.0  43046.3 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Local Variable Importance:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                Min          Max        Mean         StD
+floor_area_sqm            847412727  16230418149  4146314204  3477653830
+storey_order              159574329  89107070474  8906294387 16109722478
+remaining_lease_mths     2209425807 179525330554 29593214056 46664043089
+PROX_CBD                  792133750  86976346042 10834793518 16154170160
+PROX_ELDERLYCARE          511990816  79597246645  9044763961 17662174659
+PROX_HAWKER               775856714 137601414487 10353818635 18654078606
+PROX_MRT                  552779485 138141280278 12891312696 29818392109
+PROX_PARK                 404865964  56642611001  7482785738  9999250493
+PROX_MALL                 708722856  88866348531  8640117438 17219984770
+PROX_SUPERMARKET         1528631758  75387961835 15097314457 18041243813
+WITHIN_350M_KINDERGARTEN  118256477   6650568458  1280176878  1117048748
+WITHIN_350M_CHILDCARE     282417540 126526455108 11927719605 25299376293
+WITHIN_350M_BUS           294165001  47178965249  5057055547  9281900773
+WITHIN_1KM_PRISCH         302513821  25236605113  3963930713  5156236614</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Mean squared error (OOB): 4853147846.12</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>R-squared (OOB) %: 71.677</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>AIC (OOB): 2260.289</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>AICc (OOB): 2266.004</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Mean squared error Predicted (Not OOB): 77847360.588</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>R-squared Predicted (Not OOB) %: 99.546</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>AIC Predicted (Not OOB): 1847.026</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>AICc Predicted (Not OOB): 1852.74</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Calculation time (in seconds): 2.1172</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>grf_pred <span class="ot">&lt;-</span> <span class="fu">predict.grf</span>(grf_ad,</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>                        test_data_nogeom,</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">x.var.name=</span><span class="st">"X"</span>,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">y.var.name=</span><span class="st">"Y"</span>,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">local.w=</span><span class="dv">1</span>,</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">global.w=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>grf_pred_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(grf_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>test_data_pred <span class="ot">&lt;-</span> test_data <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(resale_price) <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(gwr_pred_df) <span class="sc">%&gt;%</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(rf_pred_df) <span class="sc">%&gt;%</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cbind</span>(grf_pred_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>test_longer <span class="ot">&lt;-</span> test_data_pred <span class="sc">%&gt;%</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">ends_with</span>(<span class="st">"pred"</span>),</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"model"</span>,</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"predicted"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>model_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">gwr_pred =</span> <span class="st">"gwr"</span>,</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">rf_pred =</span> <span class="st">"Random Forest"</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">grf_pred =</span> <span class="st">"gwRF"</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>test_longer <span class="ot">&lt;-</span> test_longer <span class="sc">%&gt;%</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">recode</span>(</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>    model, <span class="sc">!!!</span>model_labels</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>rmse_results <span class="ot">&lt;-</span> test_longer <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(model) <span class="sc">%&gt;%</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rmse</span>(<span class="at">truth =</span> resale_price,</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">estimate =</span> predicted) <span class="sc">%&gt;%</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">rmse =</span> .estimate) <span class="sc">%&gt;%</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(model, rmse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rmse_results,</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(model, rmse),</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> rmse,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"skyblue"</span>)) <span class="sc">+</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"skyblue"</span>,</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">width =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"RMSE Comparison of Mod"</span>,</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"RMSE"</span>,</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Model"</span>) <span class="sc">+</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="In-class_Ex12_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>test_longer <span class="ot">&lt;-</span> test_longer <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(rmse_results,</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"model"</span>)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> test_longer,</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> predicted,</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> resale_price)) <span class="sc">+</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> model) <span class="sc">+</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> test_longer,</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> <span class="cn">Inf</span>, <span class="at">y =</span> <span class="cn">Inf</span>,</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"RMSE:"</span>, <span class="fu">round</span>(rmse, <span class="dv">2</span>))),</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="fl">1.1</span>, <span class="at">vjust =</span> <span class="fl">1.1</span>,</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="In-class_Ex12_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>var_imp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(grf_ad<span class="sc">$</span>Global.Model<span class="sc">$</span>variable.importance),</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Importance =</span> grf_ad<span class="sc">$</span>Global.Model<span class="sc">$</span>variable.importance</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(var_imp, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable,</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>                                Importance),</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> Importance)) <span class="sc">+</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="sc">+</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Variable Importance from Ranger Model"</span>,</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Variables"</span>,</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Importance"</span></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="In-class_Ex12_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
